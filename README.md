@@ -25,6 +25,43 @@ Search Providers (in the order searched)
  - Discogs
  - Cover Art Archive
 
+*How to install:*
+
+for debian & debian-based distros such as Ubuntu & Mint
+
+    sudo apt-get install git gettext python-mako python-mutagen python-requests
+
+for fedora and similar:
+
+    yum install git gettext python-mako python-mutagen python-requests
+
+Then install the plugin:
+
+<pre>
+rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
+git clone https://github.com/fossfreedom/coverart-search-providers.git
+cd coverart-search-providers
+sh ./install.sh
+</pre>
+
+*installation for embedded coverart*
+
+The plugin makes use of the package `python-mutagen`.  For most distros, the default package is v1.20 which was released in 2010.
+
+Since then, lots of bug fixes have been resolved.  If you know that there is coverart embedded, but is not displayed
+in our plugin, then you should install the very latest package:
+
+<pre>
+hg clone https://code.google.com/p/mutagen/
+</pre>
+
+Then following the instructions in the README (slightly modified)
+
+<pre>
+./setup.py build
+sudo su
+./setup.py install 
+</pre>
 
 Note:
 
