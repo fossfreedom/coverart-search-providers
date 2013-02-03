@@ -15,6 +15,16 @@ Enhancements:
 1. Choose which providers that you want to search with
 2. When a search provider finds a cover, stop further searches
 
+Search Providers (in the order searched)
+
+ - embedded coverart
+ - coverart in the track song folder
+ - local cache search (~/.cache/rhythmbox/covers)
+ - LastFM (use the LastFM plugin to login)
+ - MusicBrainz
+ - Discogs
+ - Cover Art Archive
+
 
 Note:
 
