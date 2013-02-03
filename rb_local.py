@@ -66,12 +66,15 @@ class LocalSearch:
         # look for file names containing the artist and album (case-insensitive)
         # (mostly for jamendo downloads)
         album = self.album.lower()
+        print album
         for f_name in results:
             f_root = file_root (f_name).lower()
+            print f_root
             for artist in self.artists:
-                artist = artist.lower()
-                if f_root.find (artist) != -1 and f_root.find (album) != -1:
-                    nkey = RB.ExtDBKey.create_storage("album", album)
+                testartist = artist.lower()
+                print artist
+                if f_root.find (testartist) != -1 and f_root.find (album) != -1:
+                    nkey = RB.ExtDBKey.create_storage("album", self.album)
                     nkey.add_field("artist", artist)
                     uri = parent.resolve_relative_path(f_name).get_uri()
                     print "found album+artist match " + uri
