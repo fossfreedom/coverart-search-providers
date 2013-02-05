@@ -27,6 +27,7 @@
 import xml.dom.minidom as dom
 
 import rb, urllib
+import os
 from gi.repository import RB
 
 # musicbrainz URLs
@@ -44,7 +45,6 @@ MUSICBRAINZ_VARIOUS_ARTISTS = "89ad4ac3-39f7-470e-963a-56509c546377"
 AMAZON_IMAGE_URL = "http://images.amazon.com/images/P/%s.01.LZZZZZZZ.jpg"
 
 class MusicBrainzSearch(object):
-
     def get_release_cb (self, data, args):
         (key, store, callback, cbargs) = args
         if data is None:
@@ -62,14 +62,11 @@ class MusicBrainzSearch(object):
             print artist_tags
             if len(artist_tags) > 0:
                 artist_id = artist_tags[0].attributes['id'].firstChild.data
-                print artist_id
                 if artist_id != MUSICBRAINZ_VARIOUS_ARTISTS:
                     # add the artist name (as album-artist) to the storage key
                     nametags = artist_tags[0].getElementsByTagName('name')
-                    print nametags
                     if len(nametags) > 0:
                         artistname = nametags[0].firstChild.data
-                        print "got musicbrainz artist name %s" % artistname
                         storekey.add_field('artist', artistname)
                 else:
                     storekey.add_field("artist", key.get_field("artist"))
@@ -80,11 +77,21 @@ class MusicBrainzSearch(object):
             if len(asin_tags) > 0:
                 asin = asin_tags[0].firstChild.data
 
-                print "got ASIN %s" % asin
                 image_url = AMAZON_IMAGE_URL % asin
-                print image_url
-                store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
-                continue_search = False
+                print "got url %s" % image_url
+                
+                #now get file size before downloading
+                site = urllib.urlopen(image_url)
+                meta = site.info()
+                size = meta.getheaders("Content-Length")[0]
+
+                if int(size) > 100:
+                    print size
+                    store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
+                else:
+                    print "no search"
+                    print size
+                    continue_search = False
             else:
                 print "no ASIN for this release"
             print callback

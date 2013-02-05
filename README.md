@@ -8,6 +8,7 @@ Fixes made for the default ArtSearch
 1. jamendo local file names correctly found i.e. $artist - $album covers
 2. Pull in RB v2.98 MusicBrainz search patch
 3. Fix cover display for "Various Artists" from MusicBrainz
+4. test the file size before downloading - ignore files that are less than 100 bytes
 
 
 Enhancements:
