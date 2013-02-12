@@ -1,40 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <schema path="/org/gnome/rhythmbox/plugins/coverart_search_providers/" id="org.gnome.rhythmbox.plugins.coverart_search_providers">
-        <key type="b" name="embedded-search">
-            <default>true</default>
-            <summary>Search coverart embedded in files</summary>
-            <description>Search coverart embedded in files.</description>
-        </key>
-        <key type="b" name="discogs-search">
-            <default>false</default>
-            <summary>Search for coverart on DISCOGS</summary>
-            <description>Search coverart on the internet service DISCOGS.</description>
-        </key>
-        <key type="b" name="coverartarchive-search">
-            <default>false</default>
-            <summary>Search for coverart on CoverartArchive.org</summary>
-            <description>Search coverart on the internet service CoverartArchive.</description>
-        </key>
-        <key type="b" name="local-search">
-            <default>true</default>
-            <summary>Search for coverart in the albums local folder</summary>
-            <description>Search coverart in the albums local folder</description>
-        </key>
-        <key type="b" name="cache-search">
-            <default>true</default>
-            <summary>Search for coverart in the local cache</summary>
-            <description>Search coverart in the local cache</description>
-        </key>
-        <key type="b" name="lastfm-search">
-            <default>false</default>
-            <summary>Search for coverart on LastFM</summary>
-            <description>Search coverart on the internet service LastFM.</description>
-        </key>
-        <key type="b" name="musicbrainz-search">
-            <default>false</default>
-            <summary>Search for coverart on MusicBrainz</summary>
-            <description>Search coverart on the internet service MusicBrainz.</description>
+        <key type="s" name="providers">
+            <default>'embedded-search,local-search,cache-search'</default>
+            <summary>list of search providers</summary>
+            <description>list of search providers, by default local disk based search providers.</description>
         </key>
     </schema>
 </schemalist>

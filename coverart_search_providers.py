@@ -94,21 +94,26 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
-        if setting[gs.PluginKey.EMBEDDED_SEARCH]:
-            searches.append(CoverAlbumSearch())
-        if setting[gs.PluginKey.LOCAL_SEARCH]:
-            searches.append(LocalSearch())
-        if setting[gs.PluginKey.CACHE_SEARCH]:
-            searches.append(OldCacheSearch())
-        if setting[gs.PluginKey.LASTFM_SEARCH]:
-            searches.append(LastFMSearch())
-        if setting[gs.PluginKey.MUSICBRAINZ_SEARCH]:
-            searches.append(MusicBrainzSearch())
-        if setting[gs.PluginKey.DISCOGS_SEARCH]:
-            searches.append(DiscogsSearch())
-        if setting[gs.PluginKey.COVERARTARCHIVE_SEARCH]:
-            searches.append(CoverartArchiveSearch())
+        current_providers = setting[gs.PluginKey.PROVIDERS]
 
+        current_list = current_providers.split(',')
+
+        for provider in current_list:
+            if provider == SearchPreferences.EMBEDDED_SEARCH:
+                searches.append(CoverAlbumSearch())
+            if provider == SearchPreferences.LOCAL_SEARCH:
+                searches.append(LocalSearch())
+            if provider == SearchPreferences.CACHE_SEARCH:
+                searches.append(OldCacheSearch())
+            if provider == SearchPreferences.LASTFM_SEARCH:
+                searches.append(LastFMSearch())
+            if provider == SearchPreferences.MUSICBRAINZ_SEARCH:
+                searches.append(MusicBrainzSearch())
+            if provider == SearchPreferences.DISCOGS_SEARCH:
+                searches.append(DiscogsSearch())
+            if provider == SearchPreferences.COVERARTARCHIVE_SEARCH:
+                searches.append(CoverartArchiveSearch())
+        
         s = CoverSearch(store, key, last_time, searches)
 
         return s.next_search(True)

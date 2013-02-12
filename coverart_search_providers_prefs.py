@@ -24,6 +24,8 @@ from gi.repository import RB
 from gi.repository import Peas
 
 import rb
+import copy
+from collections import OrderedDict
 
 class GSetting:
     '''
@@ -45,13 +47,7 @@ class GSetting:
                 PLUGIN='org.gnome.rhythmbox.plugins.coverart_search_providers')
 
             self.PluginKey = self._enum(
-                EMBEDDED_SEARCH='embedded-search',
-                DISCOGS_SEARCH='discogs-search',
-                COVERARTARCHIVE_SEARCH='coverartarchive-search',
-                LOCAL_SEARCH='local-search',
-                CACHE_SEARCH='cache-search',
-                LASTFM_SEARCH='lastfm-search',
-                MUSICBRAINZ_SEARCH='musicbrainz-search')
+                PROVIDERS='providers')
 
             self.setting = {}
 
@@ -111,38 +107,113 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     __gtype_name__ = 'CoverArtSearchProvidersPreferences'
     object = GObject.property(type=GObject.Object)
 
+    EMBEDDED_SEARCH='embedded-search'
+    DISCOGS_SEARCH='discogs-search'
+    COVERARTARCHIVE_SEARCH='coverartarchive-search'
+    LOCAL_SEARCH='local-search'
+    CACHE_SEARCH='cache-search'
+    LASTFM_SEARCH='lastfm-search'
+    MUSICBRAINZ_SEARCH='musicbrainz-search'
+
     def __init__(self):
         '''
         Initialises the preferences, getting an instance of the settings saved
         by Gio.
         '''
         GObject.Object.__init__(self)
-        gs = GSetting()
-        self.settings = gs.get_setting(gs.Path.PLUGIN)
 
     def do_create_configure_widget(self):
         '''
         Creates the plugin's preferences dialog
         '''
+
+        self.gs = GSetting()
+        self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+        
+        self.provider = OrderedDict()
+        
+        self.provider[self.EMBEDDED_SEARCH] = _("Embedded coverart")
+        self.provider[self.LOCAL_SEARCH] = _("Local folder coverart")
+        self.provider[self.CACHE_SEARCH] = _("Cached coverart")
+        self.provider[self.LASTFM_SEARCH] = _("LastFM Internet Provider")
+        self.provider[self.MUSICBRAINZ_SEARCH] = _("MusicBrainz Internet Provider")
+        self.provider[self.DISCOGS_SEARCH] = _("Discogs Internet Provider")
+        self.provider[self.COVERARTARCHIVE_SEARCH] = _("Coverart Archive Internet Provider")
+        
+        
+        current_providers = copy.deepcopy(self.provider)
+
+        current = self.settings[self.gs.PluginKey.PROVIDERS]
+        current_list = current.split(',')
+        
         # create the ui
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(rb.find_plugin_file(self, "ui/coverart_search_providers_prefs.ui"))
-        #self.builder.connect_signals(self)
-        gs = GSetting()
-        # bind the toggles to the settings
-        self.search = {}
-        self._checkboxbind('embedded_checkbox', gs.PluginKey.EMBEDDED_SEARCH)
-        self._checkboxbind('discogs_checkbox', gs.PluginKey.DISCOGS_SEARCH)
-        self._checkboxbind('archive_checkbox', gs.PluginKey.COVERARTARCHIVE_SEARCH)
-        self._checkboxbind('local_checkbox', gs.PluginKey.LOCAL_SEARCH)
-        self._checkboxbind('cache_checkbox', gs.PluginKey.CACHE_SEARCH)
-        self._checkboxbind('lastfm_checkbox', gs.PluginKey.LASTFM_SEARCH)
-        self._checkboxbind('musicbrainz_checkbox', gs.PluginKey.MUSICBRAINZ_SEARCH)
+        builder = Gtk.Builder()
+        builder.add_from_file(rb.find_plugin_file(self, "ui/coverart_search_providers_prefs.ui"))
+        builder.connect_signals(self)
+        self.provider_liststore = builder.get_object('provider_liststore')
+        self.search_liststore = builder.get_object('search_liststore')
+        self.provider_list = builder.get_object('provider_list')
+        self.search_list = builder.get_object('search_list')
 
+        for key in current_list:
+            del current_providers[key]
+            self.search_liststore.append([self.provider[key], key])
+            
+        for key, value in current_providers.items():
+            self.provider_liststore.append( [value, key] )
+        
         # return the dialog
-        return self.builder.get_object('maingrid')
+        return builder.get_object('maingrid')
 
-    def _checkboxbind(self, field, key):
-        self.search[field] = self.builder.get_object(field)
-        self.settings.bind(key,
-            self.search[field], 'active', Gio.SettingsBindFlags.DEFAULT)
+    def back_clicked(self, *args):
+
+        if len(self.search_liststore) == 1:
+            return   # keep at least one search provider
+            
+        model, iterval = self.search_list.get_selection().get_selected()
+
+        if iterval:
+            key = self.search_liststore[iterval][1]
+            self.provider_liststore.append([self.provider[key], key])
+            self.search_liststore.remove(iterval)
+
+            self._store_search_providers()
+
+    def forward_clicked(self, *args):
+        model, iterval = self.provider_list.get_selection().get_selected()
+
+        if iterval:
+            key = self.provider_liststore[iterval][1]
+            self.search_liststore.append([self.provider[key], key])
+            self.provider_liststore.remove(iterval)
+
+            self._store_search_providers()
+
+    def _store_search_providers(self):
+        item = self.search_liststore.get_iter_first ()
+        current_providers = []
+        
+        while ( item != None ):
+            current_providers.append (self.search_liststore.get_value (item, 1))
+            item = self.search_liststore.iter_next(item)
+
+        self.settings[self.gs.PluginKey.PROVIDERS] = ','.join(current_providers)
+
+    def on_up_button_clicked(self, *args):
+        selection = self.search_list.get_selection()
+        sel = selection.get_selected()
+        if not sel[1] == None:
+            previous = self.search_liststore.iter_previous(sel[1])
+            if previous:
+                self.search_liststore.swap(sel[1], previous)
+                self._store_search_providers()
+                
+
+    def on_down_button_clicked(self, *args):
+        selection = self.search_list.get_selection()
+        sel = selection.get_selected()
+        if not sel[1] == None:
+            next = self.search_liststore.iter_next(sel[1])
+            if next:
+                self.search_liststore.swap(sel[1], next)
+                self._store_search_providers()
