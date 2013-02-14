@@ -289,7 +289,7 @@ class DiscogsSearch (object):
             last_url = url
             try:    
                 s = discogs.Search(url)
-                url = s.results()[0].data['images'][0]['uri150']
+                url = s.results()[0].data['images'][0]['uri']
                 current_key = RB.ExtDBKey.create_storage("album", album)
                 print key.get_field("artist")
                 print key.get_field_names()
