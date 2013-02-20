@@ -14,9 +14,10 @@ Fixes made for the default ArtSearch
 Enhancements:
 
 1. Choose which providers that you want to search with
+2. Choose the search provider order
 2. When a search provider finds a cover, stop further searches
 
-Search Providers (in the order searched)
+Recommended order for Search Providers
 
  - embedded coverart
  - coverart in the track song folder
