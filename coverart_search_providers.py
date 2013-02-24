@@ -72,8 +72,34 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         self.art_store = RB.ExtDB(name="album-art")
         self.req_id = self.art_store.connect("request", self.album_art_requested)
 
+        peas = Peas.Engine.get_default()
+        loaded_plugins = peas.get_loaded_plugins()
+
+        self.peas_id = peas.connect_after('load-plugin', self.deactivate_plugin)
+
+        if 'artsearch' in loaded_plugins:
+            artsearch_info = peas.get_plugin_info('artsearch')
+            self._unload_artsearch( peas, artsearch_info )
+
+        self.peas = peas
+        
         print "CoverArtBrowser DEBUG - end do_activate"
 
+    def deactivate_plugin(self, engine, info):
+        if info.get_module_name() == 'artsearch':
+            self._unload_artsearch(engine, info)
+
+    def _unload_artsearch(self, engine, info):
+        engine.unload_plugin(info)
+        dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.WARNING,
+            Gtk.ButtonsType.OK,
+            _("Conflicting plugin found."))
+        dialog.format_secondary_text(
+         _("The ArtSearch plugin has been deactivated"))
+        dialog.run()
+        dialog.destroy()
+
+            
     def do_deactivate(self):
         '''
         Called by Rhythmbox when the plugin is deactivated. It makes sure to
@@ -84,8 +110,11 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         del self.shell
         del self.db
         self.art_store.disconnect(self.req_id)
+        self.peas.disconnect(self.peas_id)
         self.req_id = 0
+        self.peas_id = 0
         self.art_store = None
+        self.peas = None
         
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
