@@ -16,6 +16,7 @@ Enhancements:
 1. Choose which providers that you want to search with
 2. Choose the search provider order
 2. When a search provider finds a cover, stop further searches
+3. find and extract embedded covers in MP3, M4A, FLAC & Ogg files
 
 Recommended order for Search Providers
 
