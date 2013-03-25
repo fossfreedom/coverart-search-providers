@@ -39,9 +39,6 @@ import json
 import rb
 from gi.repository import RB
 
-# coverartarchive URL
-COVERARTARCHIVE_RELEASE_URL = "http://coverartarchive.org/release/%s/"
-
 ITEMS_PER_NOTIFICATION = 10
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 REPEAT_SEARCH_PERIOD = 86400 * 7
@@ -332,6 +329,10 @@ class DiscogsSearch (object):
         
 class CoverartArchiveSearch(object):
 
+    def __init__(self):
+        # coverartarchive URL
+        self.url = "http://coverartarchive.org/release/%s/"
+
 	def get_release_cb (self, data, args):
 		(key, store, callback, cbargs) = args
 		if data is None:
@@ -360,7 +361,7 @@ class CoverartArchiveSearch(object):
 			callback(True)
 			return
 
-		url = COVERARTARCHIVE_RELEASE_URL % (album_id)
+		url = url % (album_id)
         print url
 		loader = rb.Loader()
 		loader.get_url(url, self.get_release_cb, (key, store, callback, args))

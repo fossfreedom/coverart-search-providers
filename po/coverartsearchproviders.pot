@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-25 19:18+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr ""
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr ""
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr ""
+
+#: coverart_album_search.py:311 coverart_album_search.py:312
+msgid "Unknown"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:135
+msgid "Embedded coverart"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:136
+msgid "Local folder coverart"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:137
+msgid "Cached coverart"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:138
+msgid "LastFM Internet Provider"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:139
+msgid "MusicBrainz Internet Provider"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:140
+msgid "Discogs Internet Provider"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:141
+msgid "Coverart Archive Internet Provider"
+msgstr ""
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers.py:65
+msgid "CoverArt Browser Search Providers"
+msgstr ""
+
+#: coverart_search_providers.py:66
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr ""
+
+#: coverart_search_providers.py:96
+msgid "Conflicting plugin found."
+msgstr ""
+
+#: coverart_search_providers.py:98
+msgid "The ArtSearch plugin has been deactivated"
+msgstr ""
