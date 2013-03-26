@@ -29,6 +29,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
 from coverart_search_providers_prefs import GSetting
+from coverart_search_providers_prefs import CoverLocale
 from coverart_album_search import CoverAlbumSearch
 from coverart_album_search import DiscogsSearch
 from coverart_album_search import CoverSearch
@@ -61,6 +62,9 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         preferences.
         '''
 
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        
         #define .plugin text strings used for translation
         plugin = _('CoverArt Browser Search Providers')
         desc = _('Additional coverart search providers for Rhythmbox')
