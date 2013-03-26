@@ -16,7 +16,7 @@ cp -r "${SCRIPT_PATH}"* "$PLUGIN_PATH"
 rm "${PLUGIN_PATH}${SCRIPT_NAME}"
 
 #install translations
-#cd po; sudo ./lang.sh /usr/share/locale/
+cd po; sudo ./lang.sh /usr/share/locale/
 
 #install the glib schema
 echo "Installing the glib schema (password needed)"

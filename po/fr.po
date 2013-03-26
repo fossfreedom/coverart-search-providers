@@ -1,70 +1,71 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# French translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-26 12:11+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2013-03-26 00:35+0000\n"
+"Last-Translator: Hélion du Mas des Bourboux <helion331990@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-03-26 10:32+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
-msgstr ""
+msgstr "Choix du fournisseur de recherche :"
 
 #: tmp/coverart_search_providers_prefs.ui.h:2
 msgid "Provider"
-msgstr ""
+msgstr "Fournisseur"
 
 #: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
-msgstr ""
+msgstr "Rechercher"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: coverart_search_providers_prefs.py:135
 msgid "Embedded coverart"
-msgstr ""
+msgstr "Jaquette intégrée"
 
 #: coverart_search_providers_prefs.py:136
 msgid "Local folder coverart"
-msgstr ""
+msgstr "Jaquette du dossier locale"
 
 #: coverart_search_providers_prefs.py:137
 msgid "Cached coverart"
-msgstr ""
+msgstr "Jaquette du dossier cache"
 
 #: coverart_search_providers_prefs.py:138
 msgid "LastFM Internet Provider"
-msgstr ""
+msgstr "Fournisseur internet LastFM"
 
 #: coverart_search_providers_prefs.py:139
 msgid "MusicBrainz Internet Provider"
-msgstr ""
+msgstr "Fournisseur internet MusicBrainz"
 
 #: coverart_search_providers_prefs.py:140
 msgid "Discogs Internet Provider"
-msgstr ""
+msgstr "Fournisseur internet Discogs"
 
 #: coverart_search_providers_prefs.py:141
 msgid "Coverart Archive Internet Provider"
-msgstr ""
+msgstr "Fournisseur internet Coverart Archive"
 
 #. define .plugin text strings used for translation
 #: coverart_search_providers.py:65
 msgid "CoverArt Browser Search Providers"
-msgstr ""
+msgstr "Fournisseur internet CoverArt Browser"
 
 #: coverart_search_providers.py:66
 msgid "Additional coverart search providers for Rhythmbox"
@@ -72,8 +73,8 @@ msgstr ""
 
 #: coverart_search_providers.py:96
 msgid "Conflicting plugin found."
-msgstr ""
+msgstr "Des greffons sont en conflits"
 
 #: coverart_search_providers.py:98
 msgid "The ArtSearch plugin has been deactivated"
-msgstr ""
+msgstr "Le greffon ArtSearch est désactivé"
