@@ -1,76 +1,80 @@
-#, fuzzy
+# English (United Kingdom) translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-25 19:18+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2013-03-25 19:33+0000\n"
+"Last-Translator: fossfreedom <Unknown>\n"
+"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
 "X-Generator: Launchpad (build 16540)\n"
-"Language: \n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
-msgstr ""
+msgstr "Choose Search Providers:"
 
 #: tmp/coverart_search_providers_prefs.ui.h:2
 msgid "Provider"
-msgstr ""
+msgstr "Provider"
 
 #: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
-msgstr ""
+msgstr "Unknown"
 
 #: coverart_search_providers_prefs.py:135
 msgid "Embedded coverart"
-msgstr ""
+msgstr "Embedded coverart"
 
 #: coverart_search_providers_prefs.py:136
 msgid "Local folder coverart"
-msgstr ""
+msgstr "Local folder coverart"
 
 #: coverart_search_providers_prefs.py:137
 msgid "Cached coverart"
-msgstr ""
+msgstr "Cached coverart"
 
 #: coverart_search_providers_prefs.py:138
 msgid "LastFM Internet Provider"
-msgstr ""
+msgstr "LastFM Internet Provider"
 
 #: coverart_search_providers_prefs.py:139
 msgid "MusicBrainz Internet Provider"
-msgstr ""
+msgstr "MusicBrainz Internet Provider"
 
 #: coverart_search_providers_prefs.py:140
 msgid "Discogs Internet Provider"
-msgstr ""
+msgstr "Discogs Internet Provider"
 
 #: coverart_search_providers_prefs.py:141
 msgid "Coverart Archive Internet Provider"
-msgstr ""
+msgstr "Coverart Archive Internet Provider"
 
 #. define .plugin text strings used for translation
 #: coverart_search_providers.py:65
 msgid "CoverArt Browser Search Providers"
-msgstr ""
+msgstr "CoverArt Browser Search Providers"
 
 #: coverart_search_providers.py:66
 msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""
+msgstr "Additional coverart search providers for Rhythmbox"
 
 #: coverart_search_providers.py:96
 msgid "Conflicting plugin found."
-msgstr ""
+msgstr "Conflicting plugin found."
 
 #: coverart_search_providers.py:98
 msgid "The ArtSearch plugin has been deactivated"
-msgstr ""
+msgstr "The ArtSearch plugin has been deactivated"
