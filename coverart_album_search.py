@@ -361,7 +361,7 @@ class CoverartArchiveSearch(object):
 			callback(True)
 			return
 
-		url = url % (album_id)
+		url = self.url % (album_id)
         print url
 		loader = rb.Loader()
 		loader.get_url(url, self.get_release_cb, (key, store, callback, args))
