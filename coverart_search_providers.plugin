@@ -9,6 +9,7 @@ Name[fr]=Fournisseur internet CoverArt Browser
 Name[fr_CA]=Navigateur de pochettes - Moteurs de recherche
 Description=Additional coverart search providers for Rhythmbox
 Description[en_GB]=Additional coverart search providers for Rhythmbox
+Description[fr]=Fournisseur additionnel de recherche de jaquette pour Rhythmbox
 Description[fr_CA]=Moteurs de recherche de pochettes additionnels pour Rhythmbox
 Authors=fossfreedom <foss.freedom@gmail.com>, Agustín Carrasco <asermax@gmail.com>
 Copyright=© 2012 fossfreedom, Agustín Carrasco
