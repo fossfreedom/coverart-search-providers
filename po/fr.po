@@ -6,17 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-03-25 19:18+0000\n"
-"PO-Revision-Date: 2013-03-26 00:35+0000\n"
+"PO-Revision-Date: 2013-03-30 23:15+0000\n"
 "Last-Translator: Hélion du Mas des Bourboux <helion331990@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-03-31 10:40+0000\n"
+"X-Generator: Launchpad (build 16546)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
@@ -69,7 +68,7 @@ msgstr "Fournisseur internet CoverArt Browser"
 
 #: coverart_search_providers.py:66
 msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""
+msgstr "Fournisseur additionnel de recherche de jaquette pour Rhythmbox"
 
 #: coverart_search_providers.py:96
 msgid "Conflicting plugin found."
