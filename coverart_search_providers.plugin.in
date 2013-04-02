@@ -10,6 +10,3 @@ Copyright=© 2012 fossfreedom, Agustín Carrasco
 Website=http://github.com/fossfreedom/coverart-browser
 Help=http://github.com/fossfreedom/coverart-browser/issues
 Version=0.8
-
-[RB]
-InitiallyEnabled=true
