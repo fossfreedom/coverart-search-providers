@@ -1,4 +1,4 @@
-# French (Canada) translation for coverartbrowser
+# Galician translation for coverartbrowser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the coverartbrowser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-03-25 19:18+0000\n"
-"PO-Revision-Date: 2013-03-27 01:10+0000\n"
-"Last-Translator: Jean-Rene Bastien <Unknown>\n"
-"Language-Team: French (Canada) <fr_CA@li.org>\n"
+"PO-Revision-Date: 2013-04-07 10:10+0000\n"
+"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,61 +19,61 @@ msgstr ""
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
-msgstr "Choisir les moteurs de recherche"
+msgstr "Escoller provedores de buscas"
 
 #: tmp/coverart_search_providers_prefs.ui.h:2
 msgid "Provider"
-msgstr "Moteur"
+msgstr "Provedor"
 
 #: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
-msgstr "Rechercher"
+msgstr "Buscar"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
-msgstr "Inconnu"
+msgstr "Descoñecido"
 
 #: coverart_search_providers_prefs.py:135
 msgid "Embedded coverart"
-msgstr "Pochette imbriquée"
+msgstr "Portada encaixada"
 
 #: coverart_search_providers_prefs.py:136
 msgid "Local folder coverart"
-msgstr "Pochette dans le dossier local"
+msgstr "Portada no cartafol local"
 
 #: coverart_search_providers_prefs.py:137
 msgid "Cached coverart"
-msgstr "Pochette en cache"
+msgstr "Portada na caché"
 
 #: coverart_search_providers_prefs.py:138
 msgid "LastFM Internet Provider"
-msgstr "Fournisseur internet LastFM"
+msgstr "Provedor da Internet LastFM"
 
 #: coverart_search_providers_prefs.py:139
 msgid "MusicBrainz Internet Provider"
-msgstr "Fournisseur internet MusicBrainz"
+msgstr "Provedor da Internet MusicBrainz"
 
 #: coverart_search_providers_prefs.py:140
 msgid "Discogs Internet Provider"
-msgstr "Fournisseur internet Discogs"
+msgstr "Porvedor da Internet Discogs"
 
 #: coverart_search_providers_prefs.py:141
 msgid "Coverart Archive Internet Provider"
-msgstr "Fournisseur internet Coverart Archive"
+msgstr "Provedor da Internet de arquivos de portadas"
 
 #. define .plugin text strings used for translation
 #: coverart_search_providers.py:65
 msgid "CoverArt Browser Search Providers"
-msgstr "Navigateur de pochettes - Moteurs de recherche"
+msgstr "Provedor da Internet de navegadores de portadas"
 
 #: coverart_search_providers.py:66
 msgid "Additional coverart search providers for Rhythmbox"
-msgstr "Moteurs de recherche de pochettes additionnels pour Rhythmbox"
+msgstr "Busca  de provedores adicionais de portadas para Rhythmbox"
 
 #: coverart_search_providers.py:96
 msgid "Conflicting plugin found."
-msgstr "Un greffon conflictuel a été trouvé."
+msgstr "Atopouse un conflito de engadidos"
 
 #: coverart_search_providers.py:98
 msgid "The ArtSearch plugin has been deactivated"
-msgstr "Le greffon Recherche de pochette est désactivé"
+msgstr "O engadido ArtSearch está desactivado"
