@@ -3,6 +3,18 @@ coverart-search-providers
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
 
+##Authors
+
+ - asermax <asermax@gmail.com>, website - https://github.com/asermax
+
+[![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1262052/asermax-on-GitHub "asermax")
+
+ - fossfreedom <foss.freedom@gmail.com>, website - https://github.com/fossfreedom
+
+[![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](https://flattr.com/thing/1238849/fossfreedom-at-Flattr "fossfreedom")  [![paypaldonate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBV682WJ3BDGL)
+
+-------------
+
 Fixes made for the default ArtSearch
 
 1. jamendo local file names correctly found i.e. $artist - $album covers
