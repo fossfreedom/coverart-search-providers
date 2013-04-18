@@ -6,17 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:18+0000\n"
-"PO-Revision-Date: 2013-04-14 14:48+0000\n"
-"Last-Translator: João Santana <joaosantana@outlook.com>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"PO-Revision-Date: 2013-04-18 20:21+0000\n"
+"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-16 08:32+0000\n"
-"X-Generator: Launchpad (build 16564)\n"
+"X-Launchpad-Export-Date: 2013-04-18 20:56+0000\n"
+"X-Generator: Launchpad (build 16567)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
@@ -34,47 +33,54 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: coverart_search_providers_prefs.py:135
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:199
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  João Santana https://launchpad.net/~joaosantana"
+
+#: coverart_search_providers_prefs.py:203
 msgid "Embedded coverart"
 msgstr ""
 
-#: coverart_search_providers_prefs.py:136
+#: coverart_search_providers_prefs.py:204
 msgid "Local folder coverart"
 msgstr ""
 
-#: coverart_search_providers_prefs.py:137
+#: coverart_search_providers_prefs.py:205
 msgid "Cached coverart"
 msgstr ""
 
-#: coverart_search_providers_prefs.py:138
+#: coverart_search_providers_prefs.py:206
 msgid "LastFM Internet Provider"
 msgstr ""
 
-#: coverart_search_providers_prefs.py:139
+#: coverart_search_providers_prefs.py:207
 msgid "MusicBrainz Internet Provider"
 msgstr ""
 
-#: coverart_search_providers_prefs.py:140
+#: coverart_search_providers_prefs.py:208
 msgid "Discogs Internet Provider"
 msgstr ""
 
-#: coverart_search_providers_prefs.py:141
+#: coverart_search_providers_prefs.py:209
 msgid "Coverart Archive Internet Provider"
 msgstr ""
 
 #. define .plugin text strings used for translation
-#: coverart_search_providers.py:65
+#: coverart_search_providers.py:69
 msgid "CoverArt Browser Search Providers"
 msgstr "Provedores de Busca do Navegador CoverArt"
 
-#: coverart_search_providers.py:66
+#: coverart_search_providers.py:70
 msgid "Additional coverart search providers for Rhythmbox"
 msgstr ""
 
-#: coverart_search_providers.py:96
+#: coverart_search_providers.py:100
 msgid "Conflicting plugin found."
 msgstr ""
 
-#: coverart_search_providers.py:98
+#: coverart_search_providers.py:102
 msgid "The ArtSearch plugin has been deactivated"
 msgstr ""

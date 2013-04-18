@@ -194,6 +194,9 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         self.gs = GSetting()
         self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+
+        #. TRANSLATORS: Do not translate this string.  
+        translators = _("translator-credits")
         
         self.provider = OrderedDict()
         
@@ -216,6 +219,11 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         builder.add_from_file(rb.find_plugin_file(self, "ui/coverart_search_providers_prefs.ui"))
         builder.connect_signals(self)
+
+        if translators != "translator-credits":
+            launchpad_label = builder.get_object('launchpad_label')
+            launchpad_label.set_text(translators)
+        
         self.provider_liststore = builder.get_object('provider_liststore')
         self.search_liststore = builder.get_object('search_liststore')
         self.provider_list = builder.get_object('provider_list')
