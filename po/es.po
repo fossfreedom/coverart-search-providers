@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-18 21:10+0100\n"
-"PO-Revision-Date: 2013-04-18 20:21+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-04-21 05:09+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-20 22:04+0000\n"
+"X-Launchpad-Export-Date: 2013-04-21 17:24+0000\n"
 "X-Generator: Launchpad (build 16567)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
@@ -32,56 +32,57 @@ msgstr "Búsqueda"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
-msgstr "Dispositivo desconocido"
+msgstr "Desconocido"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_search_providers_prefs.py:199
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Aaron Farias https://launchpad.net/~timido"
+"  Aaron Farias https://launchpad.net/~timido\n"
+"  Adolfo Jayme Barrientos https://launchpad.net/~fitoschido"
 
 #: coverart_search_providers_prefs.py:203
 msgid "Embedded coverart"
-msgstr "Cubreobjetos del arte"
+msgstr "Carátula incrustada"
 
 #: coverart_search_providers_prefs.py:204
 msgid "Local folder coverart"
-msgstr "Carpeta local portada"
+msgstr "Carátula de carpeta local"
 
 #: coverart_search_providers_prefs.py:205
 msgid "Cached coverart"
-msgstr "Portada almacenada en caché"
+msgstr "Carátula almacenada en caché"
 
 #: coverart_search_providers_prefs.py:206
 msgid "LastFM Internet Provider"
-msgstr "LastFM proveedor de Internet"
+msgstr "Proveedor en Internet Last.fm"
 
 #: coverart_search_providers_prefs.py:207
 msgid "MusicBrainz Internet Provider"
-msgstr "MusicBrainz Proveedor de Internet"
+msgstr "Proveedor en Internet MusicBrainz"
 
 #: coverart_search_providers_prefs.py:208
 msgid "Discogs Internet Provider"
-msgstr "Discogs proveedor de Internet"
+msgstr "Proveedor en Internet Discogs"
 
 #: coverart_search_providers_prefs.py:209
 msgid "Coverart Archive Internet Provider"
-msgstr "coverart Archivo del proveedor de Internet"
+msgstr "Proveedor en Internet Coverart Archive"
 
 #. define .plugin text strings used for translation
 #: coverart_search_providers.py:69
 msgid "CoverArt Browser Search Providers"
-msgstr "CoverArt proveedores de búsqueda del navegador"
+msgstr "Proveedores de búsquedas del navegador de carátulas"
 
 #: coverart_search_providers.py:70
 msgid "Additional coverart search providers for Rhythmbox"
-msgstr "Otros proveedores de coverart búsqueda para Rhythmbox"
+msgstr "Proveedores de carátulas adicionales para Rhythmbox"
 
 #: coverart_search_providers.py:100
 msgid "Conflicting plugin found."
-msgstr "API conflictiva encontrado."
+msgstr "Se encontró un complemento conflictivo."
 
 #: coverart_search_providers.py:102
 msgid "The ArtSearch plugin has been deactivated"
-msgstr "El plugin se encuentra desactivado ArtSearch"
+msgstr "Se ha desactivado el complemento ArtSearch"
