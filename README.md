@@ -29,6 +29,7 @@ Enhancements:
 2. Choose the search provider order
 2. When a search provider finds a cover, stop further searches
 3. find and extract embedded covers in MP3, M4A, FLAC & Ogg files
+4. API to embed coverart in MP3, M4A, FLAC & Ogg files
 
 Recommended order for Search Providers
 
