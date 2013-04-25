@@ -60,6 +60,14 @@ cd coverart-search-providers
 sh ./install.sh
 </pre>
 
+*For Ubuntu 12.04 & 12.10:* 
+
+This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
+
+http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
+
+Note - install the package `rhythmbox-plugin-coverart-search`
+
 *installation for embedded coverart*
 
 The plugin makes use of the package `python-mutagen`.  For most distros, the default package is v1.20 which was released in 2010.
