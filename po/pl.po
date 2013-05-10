@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-18 21:10+0100\n"
-"PO-Revision-Date: 2013-04-22 08:06+0000\n"
-"Last-Translator: Szymon Nieznański <isamu715@gmail.com>\n"
+"PO-Revision-Date: 2013-04-30 22:29+0000\n"
+"Last-Translator: Mike08 <micou8@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-22 19:00+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
+"X-Generator: Launchpad (build 16598)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
@@ -32,13 +32,14 @@ msgstr "Wyszukiwanie"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
-msgstr ""
+msgstr "Nieznane"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_search_providers_prefs.py:199
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Mike08 https://launchpad.net/~micou8\n"
 "  Szymon Nieznański https://launchpad.net/~isamu715"
 
 #: coverart_search_providers_prefs.py:203
