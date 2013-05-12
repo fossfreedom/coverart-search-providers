@@ -27,6 +27,16 @@ else:
     import urllib
     from urlparse import urlparse as rb2urlparse
 
+if PYVER >= 3:
+    import http.client
+else:
+    import httplib
+    
+def responses():
+    if PYVER >=3:
+        return http.client.responses
+    else:
+        return httplib.responses
 
 def unicodestr(param, charset):
     if PYVER >=3:
@@ -46,6 +56,12 @@ def url2pathname(url):
     else:
         return urllib.url2pathname(url)
 
+def urlopen(filename):
+    if PYVER >=3:
+        return urllib.request.urlopen(filename)
+    else:
+        return urllib.urlopen(filename)
+        
 def pathname2url(filename):
     if PYVER >=3:
         return urllib.request.pathname2url(filename)
@@ -57,6 +73,25 @@ def unquote(uri):
         return urllib.parse.unquote(uri)
     else:
         return urllib.unquote(uri)
+        
+def quote(uri):
+    if PYVER >=3:
+        return urllib.parse.quote(uri)
+    else:
+        return urllib.quote(uri)
+        
+def quote(uri, safe):
+    if PYVER >=3:
+        return urllib.parse.quote(uri,safe=safe)
+    else:
+        return urllib.quote(uri, safe=safe)
+        
+def quote_plus(uri):
+    if PYVER >=3:
+        return urllib.parse.quote_plus(uri)
+    else:
+        return urllib.quote_plus(uri)
+
         
 def is_rb3(shell):
 	if hasattr( shell.props.window, 'add_action' ):

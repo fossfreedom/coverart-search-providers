@@ -24,10 +24,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-import urllib.request, urllib.parse, urllib.error
 import xml.dom.minidom as dom
 import re
-import configparser
+import rb3compat
+
+if rb3compat.PYVER >= 3:
+    import configparser
+else:
+    import ConfigParser as configparser
+    
 import os
 import time
 
@@ -88,11 +93,11 @@ class LastFMSearch (object):
         print("searching for (%s, %s, %s)" % (artist, album, album_mbid))
         url = API_URL + "?method=album.getinfo&"
         if artist != None:
-            url = url + "artist=%s&" % (urllib.parse.quote_plus(artist))
+            url = url + "artist=%s&" % (rb3compat.quote_plus(artist))
         if album != None:
-            url = url + "album=%s&" % (urllib.parse.quote_plus(album))
+            url = url + "album=%s&" % (rb3compat.quote_plus(album))
         if album_mbid != None:
-            url = url + "mbid=%s&" % (urllib.parse.quote_plus(album_mbid))
+            url = url + "mbid=%s&" % (rb3compat.quote_plus(album_mbid))
 
         url = url + "api_key=%s" % API_KEY
         print("last.fm query url = %s" % url)

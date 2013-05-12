@@ -26,7 +26,8 @@
 
 import xml.dom.minidom as dom
 
-import rb, urllib.request, urllib.parse, urllib.error
+import rb
+import rb3compat
 import os
 from gi.repository import RB
 
@@ -81,7 +82,7 @@ class MusicBrainzSearch(object):
                 print("got url %s" % image_url)
                 
                 #now get file size before downloading
-                site = urllib.request.urlopen(image_url)
+                site = rb3compat.urlopen(image_url)
                 meta = site.info()
                 size = meta.getheaders("Content-Length")[0]
 
@@ -110,7 +111,7 @@ class MusicBrainzSearch(object):
             return
 
         query = MUSICBRAINZ_SEARCH_QUERY % (artist.lower(), album.lower())
-        url = MUSICBRAINZ_SEARCH_URL % (urllib.parse.quote(query, safe=':'),)
+        url = MUSICBRAINZ_SEARCH_URL % (rb3compat.quote(query, safe=':'),)
 
         loader = rb.Loader()
         loader.get_url(url, self.get_release_cb, (key, store, callback, args))

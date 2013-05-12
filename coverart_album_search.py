@@ -30,7 +30,8 @@ from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import Gio
 
-import os, time,re, urllib.request, urllib.parse, urllib.error
+import os, time,re
+
 import threading
 import discogs_client as discogs
 

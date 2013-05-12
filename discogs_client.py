@@ -3,8 +3,8 @@ __version__ = '1.1.1'
 
 import requests
 import json
-import urllib.request, urllib.parse, urllib.error
-import http.client
+import rb3compat
+
 from collections import defaultdict
 
 api_uri = 'http://api.discogs.com'
@@ -61,7 +61,7 @@ class APIBase(object):
 
     @property
     def _uri(self):
-        return '%s/%s/%s' % (api_uri, self._uri_name, urllib.parse.quote(str(self._id).encode('utf-8')))
+        return '%s/%s/%s' % (api_uri, self._uri_name, rb3compat.quote(rb3compat.unicodestr(self._id).encode('utf-8')))
 
     @property
     def data(self):
@@ -70,7 +70,7 @@ class APIBase(object):
             return release_json.get('resp').get(self._uri_name)
         else:
             status_code = self._response.status_code
-            raise DiscogsAPIError('%s %s' % (status_code, http.client.responses[status_code]))
+            raise DiscogsAPIError('%s %s' % (status_code, rb3compat.responses[status_code]))
 
 class DiscogsAPIError(BaseException):
     pass
