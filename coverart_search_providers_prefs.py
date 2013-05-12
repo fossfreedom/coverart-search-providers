@@ -236,7 +236,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
             del current_providers[key]
             self.search_liststore.append([self.provider[key], key])
             
-        for key, value in current_providers.items():
+        for key, value in list(current_providers.items()):
             self.provider_liststore.append( [value, key] )
         
         # return the dialog

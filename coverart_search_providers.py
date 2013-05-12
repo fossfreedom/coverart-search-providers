@@ -69,7 +69,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         plugin = _('CoverArt Browser Search Providers')
         desc = _('Additional coverart search providers for Rhythmbox')
 
-        print "CoverArtBrowser DEBUG - do_activate"
+        print("CoverArtBrowser DEBUG - do_activate")
         self.shell = self.object
         self.db = self.shell.props.db
 
@@ -87,7 +87,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
 
         self.peas = peas
         
-        print "CoverArtBrowser DEBUG - end do_activate"
+        print("CoverArtBrowser DEBUG - end do_activate")
 
     def deactivate_plugin(self, engine, info):
         if info.get_module_name() == 'artsearch':
@@ -109,7 +109,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         Called by Rhythmbox when the plugin is deactivated. It makes sure to
         free all the resources used by the plugin.
         '''
-        print "CoverArtBrowser DEBUG - do_deactivate"
+        print("CoverArtBrowser DEBUG - do_deactivate")
         
         del self.shell
         del self.db
@@ -120,7 +120,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         self.art_store = None
         self.peas = None
         
-        print "CoverArtBrowser DEBUG - end do_deactivate"
+        print("CoverArtBrowser DEBUG - end do_deactivate")
 
     def album_art_requested(self, store, key, last_time):
         searches = []
