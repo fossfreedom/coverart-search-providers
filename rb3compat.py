@@ -43,7 +43,13 @@ def unicodestr(param, charset):
         return str(param, charset)
     else:
         return unicode(param, charset)
-    
+        
+def unicodeencode(param, charset):
+    if PYVER >=3:
+        return str(param).encode(charset)
+    else:
+        return unicode(param).encode(charset)
+
 def urlparse(uri):
     if PYVER >=3:
         return urllib.parse.urlparse(uri)
@@ -73,18 +79,18 @@ def unquote(uri):
         return urllib.parse.unquote(uri)
     else:
         return urllib.unquote(uri)
-        
-def quote(uri):
+                
+def quote(uri, safe=None):
     if PYVER >=3:
-        return urllib.parse.quote(uri)
+        if safe:
+            return urllib.parse.quote(uri,safe=safe)
+        else:
+            return urllib.parse.quote(uri)
     else:
-        return urllib.quote(uri)
-        
-def quote(uri, safe):
-    if PYVER >=3:
-        return urllib.parse.quote(uri,safe=safe)
-    else:
-        return urllib.quote(uri, safe=safe)
+        if safe:
+            return urllib.quote(uri, safe=safe)
+        else:
+            return urllib.quote(uri)
         
 def quote_plus(uri):
     if PYVER >=3:
