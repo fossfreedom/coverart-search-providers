@@ -43,13 +43,17 @@ Recommended order for Search Providers
 
 *How to install:*
 
-for debian & debian-based distros such as Ubuntu & Mint
+for debian & debian-based distros such as Ubuntu & Mint:
 
     sudo apt-get install git gettext python-mako python-mutagen python-requests
 
 for fedora and similar:
 
     yum install git gettext python-mako python-mutagen python-requests
+    
+for opensuse:
+ 
+    sudo zypper in git gettext-runtime python-mako python-mutagen python-requests
 
 Then install the plugin:
 
