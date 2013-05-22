@@ -1,0 +1,87 @@
+# Asturian translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"PO-Revision-Date: 2013-05-20 13:41+0000\n"
+"Last-Translator: Xuacu Saturio <xuacusk8@gmail.com>\n"
+"Language-Team: Asturian <ast@li.org>\n"
+"Language: ast\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-05-22 08:41+0000\n"
+"X-Generator: Launchpad (build 16626)\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr "Escoyer fornidores  de pa la gueta"
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr "Fornidor"
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr "Guetar"
+
+#: coverart_album_search.py:311 coverart_album_search.py:312
+msgid "Unknown"
+msgstr "Desconocíu"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:199
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Xuacu Saturio https://launchpad.net/~xuacusk8"
+
+#: coverart_search_providers_prefs.py:203
+msgid "Embedded coverart"
+msgstr "Portaes incrustaes"
+
+#: coverart_search_providers_prefs.py:204
+msgid "Local folder coverart"
+msgstr "Carpeta llocal de portaes"
+
+#: coverart_search_providers_prefs.py:205
+msgid "Cached coverart"
+msgstr "Portaes na caché"
+
+#: coverart_search_providers_prefs.py:206
+msgid "LastFM Internet Provider"
+msgstr "Fornidor d'Internet LastFM"
+
+#: coverart_search_providers_prefs.py:207
+msgid "MusicBrainz Internet Provider"
+msgstr "Fornidor d'Internet MusicBrainz"
+
+#: coverart_search_providers_prefs.py:208
+msgid "Discogs Internet Provider"
+msgstr "Fornidor d'Internet Discogs"
+
+#: coverart_search_providers_prefs.py:209
+msgid "Coverart Archive Internet Provider"
+msgstr "Fornidor d'Internet Coverart Archive"
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers.py:69
+msgid "CoverArt Browser Search Providers"
+msgstr "Fornidores de gueta del Navegador de portaes"
+
+#: coverart_search_providers.py:70
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr "Más fornidores de gueta de portaes pa Rhythmbox"
+
+#: coverart_search_providers.py:100
+msgid "Conflicting plugin found."
+msgstr "Alcontróse un complementu conflictivu."
+
+#: coverart_search_providers.py:102
+msgid "The ArtSearch plugin has been deactivated"
+msgstr "Desactivóse'l complementu ArtSearch"
