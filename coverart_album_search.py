@@ -30,7 +30,8 @@ from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import Gio
 
-import os, time,re, urllib
+import os, time,re
+
 import threading
 import discogs_client as discogs
 
@@ -73,22 +74,22 @@ class CoverSearch(object):
                - False means a search routine recommends no more searching
         '''
         
-        print "next search"
-        print continue_search
+        print("next search")
+        print(continue_search)
         if len(self.searches) == 0:
-            print "no more searches"
+            print("no more searches")
             key = RB.ExtDBKey.create_storage("album", self.key.get_field("album"))
             key.add_field("artist", self.key.get_field("artist"))
             self.store.store(key, RB.ExtDBSourceType.NONE, None)
-            print "end of next_search False"
+            print("end of next_search False")
             return False
 
         if continue_search:
             search = self.searches.pop(0)
-            print "calling search"
-            print search
+            print("calling search")
+            print(search)
             search.search(self.key, self.last_time, self.store, self.search_done, None)
-            print "end of next_search TRUE"
+            print("end of next_search TRUE")
             return True
         else:
             return False
@@ -136,8 +137,8 @@ class CoverAlbumSearch:
                     results.append(f.get_name())
 
             fileenum.next_files_async(ITEMS_PER_NOTIFICATION, GLib.PRIORITY_DEFAULT, None, self._enum_dir_cb, results)
-        except Exception, e:
-            print "okay, probably done: %s" % e
+        except Exception as e:
+            print("okay, probably done: %s" % e)
             import sys
             sys.excepthook(*sys.exc_info())
             self.finished(results)
@@ -147,8 +148,8 @@ class CoverAlbumSearch:
         try:
             enumfiles = parent.enumerate_children_finish(result)
             enumfiles.next_files_async(ITEMS_PER_NOTIFICATION, GLib.PRIORITY_DEFAULT, None, self._enum_dir_cb, [])
-        except Exception, e:
-            print "okay, probably done: %s" % e
+        except Exception as e:
+            print("okay, probably done: %s" % e)
             import sys
             sys.excepthook(*sys.exc_info())
             self.callback(True)
@@ -156,16 +157,16 @@ class CoverAlbumSearch:
 
     def search (self, key, last_time, store, callback, args):
         # ignore last_time
-        print "calling search"
+        print("calling search")
         location = key.get_info("location")
         if location is None:
-            print "not searching, we don't have a location"
+            print("not searching, we don't have a location")
             callback(True)
             return
 
         self.file = Gio.file_new_for_uri(location)
         if self.file.get_uri_scheme() in IGNORED_SCHEMES:
-            print 'not searching for local art for %s' % (self.file.get_uri())
+            print('not searching for local art for %s' % (self.file.get_uri()))
             callback(True)
             return
 
@@ -174,21 +175,21 @@ class CoverAlbumSearch:
         self.store = store
         self.callback = callback
 
-        print 'searching for local art for %s' % (self.file.get_uri())
+        print('searching for local art for %s' % (self.file.get_uri()))
         parent = self.file.get_parent()
         enumfiles = parent.enumerate_children_async("standard::content-type,access::can-read,standard::name",
             0, 0, None, self._enum_children_cb, None)
 
     def get_embedded_image(self, search):
-        print "get_embedded_image"
+        print("get_embedded_image")
         import tempfile
         imagefilename = tempfile.NamedTemporaryFile(delete=False)
         
         key = RB.ExtDBKey.create_storage("album", self.album)
         key.add_field("artist", self.artists[0])
         parent = self.file.get_parent()
-        print parent
-        print "possible mp4"
+        print(parent)
+        print("possible mp4")
         try:
             from mutagen.mp4 import MP4
             mp = MP4(search)
@@ -202,7 +203,7 @@ class CoverAlbumSearch:
         except:
             pass
 
-        print "possible flac"
+        print("possible flac")
         try:
             #flac 
             from mutagen import File
@@ -216,7 +217,7 @@ class CoverAlbumSearch:
         except:
             pass
 
-        print "possible ogg"
+        print("possible ogg")
         try:
             from mutagen.oggvorbis import OggVorbis
 
@@ -236,7 +237,7 @@ class CoverAlbumSearch:
         except:
             pass
 
-        print "possible mp3"
+        print("possible mp3")
         try:
             from mutagen.id3 import ID3
             i = ID3(search)
@@ -250,7 +251,7 @@ class CoverAlbumSearch:
         except:
             pass
 
-        print "dont know"
+        print("dont know")
         imagefilename.delete=True
         imagefilename.close()
         
@@ -269,7 +270,7 @@ class DiscogsSearch (object):
 
         album.strip()
         url = "%s/%s" % (artist,album)
-        print "discogs url = %s" % url
+        print("discogs url = %s" % url)
         return url
 
     def get_release_cb(self, store, key, searches, cbargs, callback):
@@ -279,7 +280,7 @@ class DiscogsSearch (object):
             album = search[1]
             artist = search[0]
             url = self.search_url(album, artist)
-            print "album %s artist %s url %s" % (album, artist, url)
+            print("album %s artist %s url %s" % (album, artist, url))
 
             if url == last_url:
                 continue
@@ -288,11 +289,11 @@ class DiscogsSearch (object):
                 s = discogs.Search(url)
                 url = s.results()[0].data['images'][0]['uri']
                 current_key = RB.ExtDBKey.create_storage("album", album)
-                print key.get_field("artist")
-                print key.get_field_names()
+                print(key.get_field("artist"))
+                print(key.get_field_names())
                 current_key.add_field("artist", key.get_field("artist"))
                 store.store_uri(current_key, RB.ExtDBSourceType.SEARCH, url)
-                print "found picture %s " % url
+                print("found picture %s " % url)
                 continue_search = False
                 break
             except:
@@ -308,7 +309,7 @@ class DiscogsSearch (object):
 
         album = key.get_field("album")
         artists = key.get_field_values("artist")
-        artists = filter(lambda x: x not in (None, "", _("Unknown")), artists)
+        artists = [x for x in artists if x not in (None, "", _("Unknown"))]
         if album in ("", _("Unknown")):
             album = None
 
@@ -333,35 +334,35 @@ class CoverartArchiveSearch(object):
         # coverartarchive URL
         self.url = "http://coverartarchive.org/release/%s/"
 
-	def get_release_cb (self, data, args):
-		(key, store, callback, cbargs) = args
-		if data is None:
-			print "coverartarchive release request returned nothing"
-			callback(True)
-			return
-		try:
+    def get_release_cb (self, data, args):
+        (key, store, callback, cbargs) = args
+        if data is None:
+            print("coverartarchive release request returned nothing")
+            callback(True)
+            return
+        try:
             resp = json.loads(data)
             image_url = resp['images'][0]['image']
-            print image_url
+            print(image_url)
             
-			storekey = RB.ExtDBKey.create_storage('album', key.get_field('album'))
+            storekey = RB.ExtDBKey.create_storage('album', key.get_field('album'))
             storekey.add_field("artist", key.get_field("artist"))
             store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
             
-			callback(False)
-		except Exception, e:
-			print "exception parsing coverartarchive response: %s" % e
-			callback(True)
+            callback(False)
+        except Exception as e:
+            print("exception parsing coverartarchive response: %s" % e)
+            callback(True)
 
-	def search(self, key, last_time, store, callback, *args):
-		key = key.copy()	# ugh
-		album_id = key.get_info("musicbrainz-albumid")
-		if album_id is None:
-			print "no musicbrainz release ID for this track"
-			callback(True)
-			return
+    def search(self, key, last_time, store, callback, *args):
+        key = key.copy()    # ugh
+        album_id = key.get_info("musicbrainz-albumid")
+        if album_id is None:
+            print("no musicbrainz release ID for this track")
+            callback(True)
+            return
 
-		url = self.url % (album_id)
-        print url
-		loader = rb.Loader()
-		loader.get_url(url, self.get_release_cb, (key, store, callback, args))
+        url = self.url % (album_id)
+        print(url)
+        loader = rb.Loader()
+        loader.get_url(url, self.get_release_cb, (key, store, callback, args))

@@ -38,7 +38,7 @@ def anyTrue(pred,seq):
     '''Returns True if a True predicate is found, False
     otherwise. Quits as soon as the first True is found
     '''
-    return True in itertools.imap(pred,seq)
+    return True in map(pred,seq)
 
 class CoverArtTracks(object):
     def __init__(self):
@@ -63,7 +63,7 @@ class CoverArtTracks(object):
             # old pictures
             
             tags = {}
-            for orig, values in o.tags.items():
+            for orig, values in list(o.tags.items()):
                 if orig.lower() != 'coverart' and \
                    orig.lower() != 'metadata_block_picture':
                     tags[orig]=values
@@ -72,8 +72,8 @@ class CoverArtTracks(object):
             image.type = 3 # Cover image
             image.data = open(art_location).read()
             image.mime = mimetypestr
-            image.desc = u'cover description'
-            tags.setdefault(u"METADATA_BLOCK_PICTURE",
+            image.desc = 'cover description'
+            tags.setdefault("METADATA_BLOCK_PICTURE",
                 []).append(base64.standard_b64encode(image.write()))
             
             o.tags.update(tags)
@@ -96,7 +96,7 @@ class CoverArtTracks(object):
             image.type = 3 # Cover image
             image.data = open(art_location).read()
             image.mime = mimetypestr
-            image.desc = u'cover description'
+            image.desc = 'cover description'
             music.add_picture(image)
             music.save()
         except:
@@ -157,11 +157,11 @@ class CoverArtTracks(object):
         art_location = RB.ExtDB(name='album-art').lookup(key)
 
         #print key
-        print art_location
+        print(art_location)
         
         search = Gio.file_new_for_uri(track_uri)
         if search.get_uri_scheme() in IGNORED_SCHEMES:
-            print 'not a valid scheme %s' % (search.get_uri())
+            print('not a valid scheme %s' % (search.get_uri()))
             return False
  
         if search.get_path().lower().endswith('.ogg'):

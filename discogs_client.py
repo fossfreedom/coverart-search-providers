@@ -3,8 +3,8 @@ __version__ = '1.1.1'
 
 import requests
 import json
-import urllib
-import httplib
+import rb3compat
+
 from collections import defaultdict
 
 api_uri = 'http://api.discogs.com'
@@ -34,7 +34,7 @@ class APIBase(object):
     def _response(self):
         if not self._cached_response:
             if not self._check_user_agent():
-                raise DiscogsAPIError, 'Invalid or no User-Agent set'
+                raise DiscogsAPIError('Invalid or no User-Agent set')
             try:
                 #gs = GSetting()
                 #setting = gs.get_setting(gs.Path.PLUGIN)
@@ -51,7 +51,7 @@ class APIBase(object):
                 #proxydict[type_name] = proxy_name
                 self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers, proxies=proxydict)
             except:
-                raise DiscogsAPIError, 'bad response'
+                raise DiscogsAPIError('bad response')
 
         return self._cached_response
 
@@ -61,8 +61,10 @@ class APIBase(object):
 
     @property
     def _uri(self):
-        return '%s/%s/%s' % (api_uri, self._uri_name, urllib.quote(unicode(self._id).encode('utf-8')))
-
+        import urllib
+        return '%s/%s/%s' % (api_uri, self._uri_name, rb3compat.quote(rb3compat.unicodeencode(self._id, 'utf-8')))
+        #return '%s/%s/%s' % (api_uri, self._uri_name, urllib.quote(unicode(self._id).encode('utf-8')))
+        
     @property
     def data(self):
         if self._response.content and self._response.status_code == 200:
@@ -70,7 +72,7 @@ class APIBase(object):
             return release_json.get('resp').get(self._uri_name)
         else:
             status_code = self._response.status_code
-            raise DiscogsAPIError, '%s %s' % (status_code, httplib.responses[status_code])
+            raise DiscogsAPIError('%s %s' % (status_code, rb3compat.responses[status_code]))
 
 class DiscogsAPIError(BaseException):
     pass
@@ -301,7 +303,7 @@ class Search(APIBase):
 
         if page != self._page:
             if page > self.pages:
-                raise DiscogsAPIError, 'Page number exceeds maximum number of pages returned'
+                raise DiscogsAPIError('Page number exceeds maximum number of pages returned')
             self._params['page'] = page
             self._clear_cache()
 

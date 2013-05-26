@@ -25,8 +25,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import os.path
-import urllib
-
+import rb3compat
 import rb
 from gi.repository import RB
 
@@ -46,9 +45,9 @@ class OldCacheSearch(object):
         return os.path.join(ART_FOLDER, '%s - %s.%s' % (artist, album, extension))
 
     def search(self, key, last_time, store, callback, *args):
-        print "OldCacheSearch"
-        print ART_FOLDER
-        print USEFUL
+        print("OldCacheSearch")
+        print(ART_FOLDER)
+        print(USEFUL)
 
         if not USEFUL:
             callback(True)
@@ -57,13 +56,13 @@ class OldCacheSearch(object):
         album = key.get_field("album")
         artists = key.get_field_values("artist") or []
 
-        print "looking for %s by %s" % (album, str(artists))
+        print("looking for %s by %s" % (album, str(artists)))
         for artist in artists:
             for ext in ('jpg', 'png'):
                 path = self.filename(album, artist, ext)
                 if os.path.exists(path):
-                    print "found %s" % path
-                    uri = "file://" + urllib.pathname2url(path)
+                    print("found %s" % path)
+                    uri = "file://" + rb3compat.pathname2url(path)
                     storekey = RB.ExtDBKey.create_storage('album', album)
                     storekey.add_field("artist", artist)
                     store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, uri)

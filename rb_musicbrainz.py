@@ -26,7 +26,8 @@
 
 import xml.dom.minidom as dom
 
-import rb, urllib
+import rb
+import rb3compat
 import os
 from gi.repository import RB
 
@@ -48,7 +49,7 @@ class MusicBrainzSearch(object):
     def get_release_cb (self, data, args):
         (key, store, callback, cbargs) = args
         if data is None:
-            print "musicbrainz release request returned nothing"
+            print("musicbrainz release request returned nothing")
             callback(True)
             return
 
@@ -59,7 +60,7 @@ class MusicBrainzSearch(object):
 
             # check that there's an artist that isn't 'various artists'
             artist_tags = parsed.getElementsByTagName('artist')
-            print artist_tags
+            print(artist_tags)
             if len(artist_tags) > 0:
                 artist_id = artist_tags[0].attributes['id'].firstChild.data
                 if artist_id != MUSICBRAINZ_VARIOUS_ARTISTS:
@@ -78,26 +79,26 @@ class MusicBrainzSearch(object):
                 asin = asin_tags[0].firstChild.data
 
                 image_url = AMAZON_IMAGE_URL % asin
-                print "got url %s" % image_url
+                print("got url %s" % image_url)
                 
                 #now get file size before downloading
-                site = urllib.urlopen(image_url)
+                site = rb3compat.urlopen(image_url)
                 meta = site.info()
                 size = meta.getheaders("Content-Length")[0]
 
                 if int(size) > 100:
-                    print size
+                    print(size)
                     store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
                 else:
-                    print "no search"
-                    print size
+                    print("no search")
+                    print(size)
                     continue_search = False
             else:
-                print "no ASIN for this release"
-            print callback
+                print("no ASIN for this release")
+            print(callback)
             callback(continue_search)
-        except Exception, e:
-            print "exception parsing musicbrainz response: %s" % e
+        except Exception as e:
+            print("exception parsing musicbrainz response: %s" % e)
             callback(True)
 
     def try_search_artist_album (self, key, store, callback, *args):
@@ -105,12 +106,12 @@ class MusicBrainzSearch(object):
         artist = key.get_field("artist")
 
         if not album or not artist:
-            print "artist or album information missing"
+            print("artist or album information missing")
             callback(True)
             return
 
         query = MUSICBRAINZ_SEARCH_QUERY % (artist.lower(), album.lower())
-        url = MUSICBRAINZ_SEARCH_URL % (urllib.quote(query, safe=':'),)
+        url = MUSICBRAINZ_SEARCH_URL % (rb3compat.quote(query, safe=':'),)
 
         loader = rb.Loader()
         loader.get_url(url, self.get_release_cb, (key, store, callback, args))
@@ -119,7 +120,7 @@ class MusicBrainzSearch(object):
         key = key.copy()    # ugh
         album_id = key.get_info("musicbrainz-albumid")
         if album_id is None:
-            print "no musicbrainz release ID for this track"
+            print("no musicbrainz release ID for this track")
             self.try_search_artist_album(key, store, callback, args)
             return
 
@@ -129,7 +130,7 @@ class MusicBrainzSearch(object):
         if album_id.endswith(MUSICBRAINZ_RELEASE_SUFFIX):
             album_id = album_id[:-len(MUSICBRAINZ_RELEASE_SUFFIX)]
 
-        print "stripped release ID: %s" % album_id
+        print("stripped release ID: %s" % album_id)
 
         url = MUSICBRAINZ_RELEASE_URL % (album_id)
         loader = rb.Loader()
