@@ -43,9 +43,14 @@ Recommended order for Search Providers
 
 *How to install:*
 
-for debian & debian-based distros such as Ubuntu & Mint:
+for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
     sudo apt-get install git gettext python-mako python-mutagen python-requests
+    
+for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
+
+    sudo apt-get install git gettext python-mako python-mutagen python3-requests
+
 
 for fedora and similar:
 
@@ -63,6 +68,12 @@ git clone https://github.com/fossfreedom/coverart-search-providers.git
 cd coverart-search-providers
 sh ./install.sh
 </pre>
+
+For rhythmbox 3.0 or compiled from git:
+
+Change the line in `~/.local/share/rhythmbox/plugins/coverart_search_providers/coverart_search_providers.plugin`:
+
+> "Loader=python" to "Loader=python3"
 
 *For Ubuntu 12.04 & 12.10:* 
 
