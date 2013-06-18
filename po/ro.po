@@ -1,0 +1,87 @@
+# Romanian translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"PO-Revision-Date: 2013-06-17 21:54+0000\n"
+"Last-Translator: Radu Rădeanu <radu.radeanu@gmail.com>\n"
+"Language-Team: Romanian <ro@li.org>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-06-18 07:32+0000\n"
+"X-Generator: Launchpad (build 16667)\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr "Alege furnizori de căutare:"
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr "Furnizor"
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr "Căutare"
+
+#: coverart_album_search.py:311 coverart_album_search.py:312
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:199
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Radu Rădeanu https://launchpad.net/~radu-radeanu"
+
+#: coverart_search_providers_prefs.py:203
+msgid "Embedded coverart"
+msgstr "Coperta încorporată"
+
+#: coverart_search_providers_prefs.py:204
+msgid "Local folder coverart"
+msgstr "Folder local copertă"
+
+#: coverart_search_providers_prefs.py:205
+msgid "Cached coverart"
+msgstr "Coperta memorată în cache"
+
+#: coverart_search_providers_prefs.py:206
+msgid "LastFM Internet Provider"
+msgstr "Furnizor de internet LastFM"
+
+#: coverart_search_providers_prefs.py:207
+msgid "MusicBrainz Internet Provider"
+msgstr "Furnizor de internet MusicBrainz"
+
+#: coverart_search_providers_prefs.py:208
+msgid "Discogs Internet Provider"
+msgstr "Furnizor de internet Discogs"
+
+#: coverart_search_providers_prefs.py:209
+msgid "Coverart Archive Internet Provider"
+msgstr "Furnizor de internet arahivă copertă"
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers.py:69
+msgid "CoverArt Browser Search Providers"
+msgstr "Funizori de căutare navigator CoverArt"
+
+#: coverart_search_providers.py:70
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr "Furnizori de căutare coperta adiționali pentru Rhythmbox"
+
+#: coverart_search_providers.py:100
+msgid "Conflicting plugin found."
+msgstr "S-a găsit modul aflat în conflict."
+
+#: coverart_search_providers.py:102
+msgid "The ArtSearch plugin has been deactivated"
+msgstr "Modulul ArtSearch a fost dezactivat"
