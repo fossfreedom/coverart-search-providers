@@ -1,0 +1,87 @@
+# Bosnian translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"PO-Revision-Date: 2013-06-20 13:24+0000\n"
+"Last-Translator: Kenan Dervišević <kenan3008@gmail.com>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
+"Language: bs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-06-20 20:41+0000\n"
+"X-Generator: Launchpad (build 16673)\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr "Odaberite pretraživače:"
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr "Pretraživač"
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr "Pretraga"
+
+#: coverart_album_search.py:311 coverart_album_search.py:312
+msgid "Unknown"
+msgstr "Nepoznato"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:199
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Kenan Dervišević https://launchpad.net/~kenan3008"
+
+#: coverart_search_providers_prefs.py:203
+msgid "Embedded coverart"
+msgstr "Ugrađeni omot"
+
+#: coverart_search_providers_prefs.py:204
+msgid "Local folder coverart"
+msgstr "Lokalni folder omota"
+
+#: coverart_search_providers_prefs.py:205
+msgid "Cached coverart"
+msgstr "Keširani omot"
+
+#: coverart_search_providers_prefs.py:206
+msgid "LastFM Internet Provider"
+msgstr "LastFM internet provajder"
+
+#: coverart_search_providers_prefs.py:207
+msgid "MusicBrainz Internet Provider"
+msgstr "MusicBrainz internet provajder"
+
+#: coverart_search_providers_prefs.py:208
+msgid "Discogs Internet Provider"
+msgstr "Discogs internet provajder"
+
+#: coverart_search_providers_prefs.py:209
+msgid "Coverart Archive Internet Provider"
+msgstr "Coverart Archive internet provajder"
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers.py:69
+msgid "CoverArt Browser Search Providers"
+msgstr "CoverArt Browser pretraživači"
+
+#: coverart_search_providers.py:70
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr "Dodatni pretraživači omota za Rhytmbox"
+
+#: coverart_search_providers.py:100
+msgid "Conflicting plugin found."
+msgstr "Problem sa drugim pluginom."
+
+#: coverart_search_providers.py:102
+msgid "The ArtSearch plugin has been deactivated"
+msgstr "ArtSearch plugin je deaktiviran"
