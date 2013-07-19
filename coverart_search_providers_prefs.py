@@ -185,11 +185,29 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         by Gio.
         '''
         GObject.Object.__init__(self)
+        self._first_run = True
 
     def do_create_configure_widget(self):
         '''
         Creates the plugin's preferences dialog
         '''
+        return self._create_display_contents(self)
+
+    def display_preferences_dialog(self, plugin):
+        if self._first_run:
+            self._first_run = False
+            self._dialog = Gtk.Dialog(_('Search Preferences'), None,
+                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
+                
+            content_area = self._dialog.get_content_area()
+            content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
+            
+        self._dialog.show_all()
+        response = self._dialog.run()
+        
+        self._dialog.hide()
+        
+    def _create_display_contents(self, plugin):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         self.gs = GSetting()
@@ -217,7 +235,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         # create the ui
         builder = Gtk.Builder()
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-        builder.add_from_file(rb.find_plugin_file(self, "ui/coverart_search_providers_prefs.ui"))
+        builder.add_from_file(rb.find_plugin_file(plugin, "ui/coverart_search_providers_prefs.ui"))
         self.launchpad_button = builder.get_object('show_launchpad')
         self.launchpad_label = builder.get_object('launchpad_label')
         builder.connect_signals(self)
