@@ -39,6 +39,7 @@ from rb_local import LocalSearch
 from rb_lastfm import LastFMSearch
 from rb_musicbrainz import MusicBrainzSearch
 from coverart_search_providers_prefs import SearchPreferences
+import rb3compat
 
 class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
     '''
@@ -53,8 +54,9 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         Initialises the plugin object.
         '''
         GObject.Object.__init__(self)
-        GObject.threads_init()
-
+        if rb3compat.pygobject_version() < 3.9:
+             GObject.threads_init()
+             
     def do_activate(self):
         '''
         Called by Rhythmbox when the plugin is activated. It creates the

@@ -25,9 +25,21 @@
 from gi.repository import Gtk
 from gi.repository import Gio
 from gi.repository import GLib
+from gi.repository import GObject
 import sys
 import rb
 import lxml.etree as ET
+
+def pygobject_version():
+    ''' 
+    returns float of the major and minor parts of a pygobject version 
+    e.g. version (3, 9, 5) return float(3.9)
+    '''
+    to_number = lambda t: ".".join(str(v) for v in t)
+    
+    str_version = to_number(GObject.pygobject_version)
+    
+    return float(str_version.rsplit('.',1)[0])
 
 PYVER = sys.version_info[0]
 
@@ -50,15 +62,21 @@ def responses():
 
 def unicodestr(param, charset):
     if PYVER >=3:
-        return str(param, charset)
+        return param#str(param, charset)
     else:
         return unicode(param, charset)
         
 def unicodeencode(param, charset):
     if PYVER >=3:
-        return str(param).encode(charset)
+        return param#str(param).encode(charset)
     else:
         return unicode(param).encode(charset)
+        
+def unicodedecode(param, charset):
+    if PYVER >=3:
+        return param
+    else:
+        return param.decode(charset)
 
 def urlparse(uri):
     if PYVER >=3:
