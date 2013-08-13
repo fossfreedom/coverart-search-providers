@@ -27,6 +27,7 @@ import rb
 import copy
 import gettext
 import locale
+import webbrowser
 from collections import OrderedDict
 
 class CoverLocale:
@@ -202,10 +203,24 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
             content_area = self._dialog.get_content_area()
             content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
             
+        helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
+        helpbutton.connect('clicked', self._display_help)
+            
         self._dialog.show_all()
-        response = self._dialog.run()
+        
+        while True:
+            response = self._dialog.run()
+            
+            if response != Gtk.ResponseType.HELP:
+                break
         
         self._dialog.hide()
+        
+    def _display_help(self, *args):
+        peas = Peas.Engine.get_default()
+        uri = peas.get_plugin_info('coverart_search_providers').get_help_uri()
+        
+        webbrowser.open(uri)
         
     def _create_display_contents(self, plugin):
         cl = CoverLocale()
