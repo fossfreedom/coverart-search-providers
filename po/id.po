@@ -1,4 +1,4 @@
-# Malay translation for coverartbrowser
+# Indonesian translation for coverartbrowser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the coverartbrowser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-18 21:10+0100\n"
-"PO-Revision-Date: 2013-04-18 20:21+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
-"Language-Team: Malay <ms@li.org>\n"
-"Language: ms\n"
+"PO-Revision-Date: 2013-08-19 03:06+0000\n"
+"Last-Translator: Trisno Pamuji <tri.snowman@gmail.com>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
-msgstr "Pilih Penyedia Gelintar:"
+msgstr "Pilih Penyedia Pencarian"
 
 #: tmp/coverart_search_providers_prefs.ui.h:2
 msgid "Provider"
@@ -28,60 +28,60 @@ msgstr "Penyedia"
 
 #: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
-msgstr "Gelintar"
+msgstr "Telusuri"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
-msgstr "Tidak diketahui"
+msgstr "Tak Dikenal"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_search_providers_prefs.py:199
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  abuyop https://launchpad.net/~abuyop"
+"  Trisno Pamuji https://launchpad.net/~tri.snowman"
 
 #: coverart_search_providers_prefs.py:203
 msgid "Embedded coverart"
-msgstr "Senu kulit album terbenam"
+msgstr "Coverart terlampir"
 
 #: coverart_search_providers_prefs.py:204
 msgid "Local folder coverart"
-msgstr "Folder setempat seni kulit album"
+msgstr "Coverart folder lokal"
 
 #: coverart_search_providers_prefs.py:205
 msgid "Cached coverart"
-msgstr "Seni kulit album tercache"
+msgstr "Coverart tercache"
 
 #: coverart_search_providers_prefs.py:206
 msgid "LastFM Internet Provider"
-msgstr "Penyedia Internet LastFM"
+msgstr "Penyedia Layanan Internet LastFM"
 
 #: coverart_search_providers_prefs.py:207
 msgid "MusicBrainz Internet Provider"
-msgstr "Penyedia Internet MusicBrainz"
+msgstr "Penyedia Layanan Internet MusicBrainz"
 
 #: coverart_search_providers_prefs.py:208
 msgid "Discogs Internet Provider"
-msgstr "Penyedia Internet Discogs"
+msgstr "Penyedia Layanan Internet Discogs"
 
 #: coverart_search_providers_prefs.py:209
 msgid "Coverart Archive Internet Provider"
-msgstr "Penyedia Internet Arkib Seni Kulit Album"
+msgstr "Penyedia Layanan Internet Coverart Archive"
 
 #. define .plugin text strings used for translation
 #: coverart_search_providers.py:69
 msgid "CoverArt Browser Search Providers"
-msgstr "Penyedia Gelintar Pelayar Seni Kulit Album"
+msgstr "Penyedia Layanan Pencarian CoverArt Browser"
 
 #: coverart_search_providers.py:70
 msgid "Additional coverart search providers for Rhythmbox"
-msgstr "Penyedia gelintar seni kulit album tambahan untuk Rhythmbox"
+msgstr "Penyedia layanan pencarian coverart tambahan untuk Rythmbox"
 
 #: coverart_search_providers.py:100
 msgid "Conflicting plugin found."
-msgstr "Pemalam berkonflik ditemui."
+msgstr "Plugin berkonflik ditemukan."
 
 #: coverart_search_providers.py:102
 msgid "The ArtSearch plugin has been deactivated"
-msgstr "Pemalam ArtSearch telah dinyahaktifkan"
+msgstr "Plugin Artsearch telah dinonaktifkan"
