@@ -30,7 +30,10 @@ from mutagen.id3 import APIC
 
 import base64
 from mimetypes import MimeTypes
-import os,itertools
+import os
+import itertools
+import Image
+import tempfile
 
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 
@@ -111,7 +114,7 @@ class CoverArtTracks(object):
         try:
             music = MP4(search)
 
-            covr = []
+            covr = [] 
             data = open(art_location).read()
             if mimetypestr == "image/jpeg":
                 covr.append(MP4Cover(data, MP4Cover.FORMAT_JPEG))
@@ -142,12 +145,13 @@ class CoverArtTracks(object):
         except:
             pass
 
-    def embed(self, track_uri, key):
+    def embed(self, track_uri, key, resize=-1):
         '''
         embed tracks with the coverart
 
         :track_uri: nominally RB.RhythmDBPropType.LOCATION
         :key: RB.ExtDBKey containing the lookup for the cover to apply
+        :resize: int this is the size of the embedded image to resize to
 
         returns True or False depending if the routine completed successfully
         '''
@@ -156,8 +160,15 @@ class CoverArtTracks(object):
 
         art_location = RB.ExtDB(name='album-art').lookup(key)
 
-        #print key
-        print(art_location)
+        image = Image.open(art_location)
+        f, art_location = tempfile.mkstemp(suffix=".jpg")
+            
+        if resize > 0:
+            tosave = image.resize((resize,resize), Image.ANTIALIAS)
+        else:
+            tosave = image
+            
+        tosave.save(art_location)
         
         search = Gio.file_new_for_uri(track_uri)
         if search.get_uri_scheme() in IGNORED_SCHEMES:
@@ -176,4 +187,6 @@ class CoverArtTracks(object):
         if the(search.get_path().lower().endswith,(".m4a", ".m4b", ".m4p", ".mp4")):
             self.embed_mp4(art_location, search.get_path(), 'image/jpeg')
 
+        os.remove(art_location)
+        
         return True
