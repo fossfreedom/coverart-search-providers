@@ -9,3 +9,4 @@ done
 echo "update plugin file"
 
 intltool-merge -d . ../coverart_search_providers.plugin.in ../coverart_search_providers.plugin
+intltool-merge -d . ../coverart_search_providers.plugin3.in ../coverart_search_providers.plugin3

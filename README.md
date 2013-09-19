@@ -66,16 +66,22 @@ Then install the plugin:
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
 git clone https://github.com/fossfreedom/coverart-search-providers.git
 cd coverart-search-providers
-sh ./install.sh
+</pre>
+
+For rhythmbox 2.96 to 2.99:
+
+<pre>
+./install.sh
 </pre>
 
 For rhythmbox 3.0 or compiled from git:
 
-Change the line in `~/.local/share/rhythmbox/plugins/coverart_search_providers/coverart_search_providers.plugin`:
+<pre>
+./install.sh --rb3
+</pre>
 
-> "Loader=python" to "Loader=python3"
 
-*For Ubuntu 12.04 & 12.10:* 
+*For Ubuntu 12.04, 12.10, 13.04 & 13.10:* 
 
 This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 

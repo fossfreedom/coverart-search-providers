@@ -1,5 +1,5 @@
 [Plugin]
-Loader=python
+Loader=python2
 Module=coverart_search_providers
 IAge=2
 Depends=rb
