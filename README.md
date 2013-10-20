@@ -49,8 +49,7 @@ for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
     
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
 
-    sudo apt-get install git gettext python3-mako python-mutagen python3-requests
-
+    sudo apt-get install git gettext python3-mako python3-requests
 
 for fedora and similar:
 
@@ -87,7 +86,7 @@ This is now available in my rhythmbox PPA - installation instructions in this As
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
-Note - install the package `rhythmbox-plugin-coverart-search`
+Note 1 - install the package `rhythmbox-plugin-coverart-search`
 
 *installation for embedded coverart*
 
@@ -108,6 +107,14 @@ sudo su
 ./setup.py install 
 </pre>
 
-Note:
+Note 2:
+
+**PYTHON3 Support IMPORTANT**
+
+Please read this issue for embedded artwork issues with python3
+
+ - https://github.com/fossfreedom/coverart-browser/issues/227
+
+Note 3:
 
 LastFM API usage is as per LastFM licensing.  Do not copy rb_lastfm.py for your own purposes without obtaining your own API key.
