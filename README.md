@@ -43,6 +43,8 @@ Recommended order for Search Providers
 
 *How to install:*
 
+ N.B. - if installing Rhythmbox 3.0 please see the important note 2 below.
+
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
     sudo apt-get install git gettext python-mako python-mutagen python-requests
@@ -50,6 +52,7 @@ for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
 
     sudo apt-get install git gettext python3-mako python3-requests
+    
 
 for fedora and similar:
 
