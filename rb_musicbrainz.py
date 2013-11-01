@@ -30,6 +30,7 @@ import rb
 import rb3compat
 import os
 from gi.repository import RB
+import time
 
 # musicbrainz URLs
 MUSICBRAINZ_RELEASE_URL = "http://musicbrainz.org/ws/2/release/%s?inc=artists"
@@ -46,6 +47,10 @@ MUSICBRAINZ_VARIOUS_ARTISTS = "89ad4ac3-39f7-470e-963a-56509c546377"
 AMAZON_IMAGE_URL = "http://images.amazon.com/images/P/%s.01.LZZZZZZZ.jpg"
 
 class MusicBrainzSearch(object):
+    
+    def __init__(self):
+        self.current_time = time.time()
+
     def get_release_cb (self, data, args):
         (key, store, callback, cbargs) = args
         if data is None:
@@ -84,9 +89,13 @@ class MusicBrainzSearch(object):
                 #now get file size before downloading
                 site = rb3compat.urlopen(image_url)
                 meta = site.info()
-                size = meta.getheaders("Content-Length")[0]
-
-                if int(size) > 100:
+                
+                if rb3compat.PYVER >= 3:
+                    size = meta.get_all('Content-Length')[0]
+                else:
+                    size = meta.getheaders("Content-Length")[0]
+                
+                if int(size) > 1000:
                     print(size)
                     store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
                 else:
@@ -117,6 +126,12 @@ class MusicBrainzSearch(object):
         loader.get_url(url, self.get_release_cb, (key, store, callback, args))
 
     def search(self, key, last_time, store, callback, *args):
+        if time.time() - self.current_time < 1:
+            #enforce 1 second delay between requests otherwise musicbrainz will reject calls
+            time.sleep(1)
+            
+        self.current_time = time.time()
+            
         key = key.copy()    # ugh
         album_id = key.get_info("musicbrainz-albumid")
         if album_id is None:

@@ -31,13 +31,12 @@ from gi.repository import Gdk
 from gi.repository import Gio
 
 import os, time,re
-
 import threading
 import discogs_client as discogs
-
 import json
-
 import rb
+import time
+
 from gi.repository import RB
 
 ITEMS_PER_NOTIFICATION = 10
@@ -99,7 +98,7 @@ class CoverSearch(object):
 
 class CoverAlbumSearch:
     def __init__ (self):
-        pass
+        self.current_time = time.time()
 
     def finished(self, results):
         parent = self.file.get_parent()
@@ -156,6 +155,12 @@ class CoverAlbumSearch:
 
 
     def search (self, key, last_time, store, callback, args):
+        if time.time() - self.current_time < 1:
+            #enforce 1 second delay between requests otherwise musicbrainz will reject calls
+            time.sleep(1)
+            
+        self.current_time = time.time()
+        
         # ignore last_time
         print("calling search")
         location = key.get_info("location")
@@ -341,7 +346,7 @@ class CoverartArchiveSearch(object):
             callback(True)
             return
         try:
-            resp = json.loads(data)
+            resp = json.loads(data.decode('utf-8'))
             image_url = resp['images'][0]['image']
             print(image_url)
             
