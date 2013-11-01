@@ -138,11 +138,12 @@ class LastFMSearch (object):
         if len(self.searches) == 0:
             self.callback(True)
             return
-
+        print ("search_next")
+        print (self.searches)
         (artist, album, album_mbid) = self.searches.pop(0)
         self.current_key = RB.ExtDBKey.create_storage("album", album)
-        artist = self.key.get_field("artist")
-        if artist is not None:
+        key_artist = self.key.get_field("artist")
+        if key_artist is not None:
             self.current_key.add_field("artist", artist)
 
         print("####artist")
