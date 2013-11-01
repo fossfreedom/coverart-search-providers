@@ -68,11 +68,11 @@ class APIBase(object):
     @property
     def data(self):
         if self._response.content and self._response.status_code == 200:
-            release_json = json.loads(self._response.content)
+            release_json = json.loads(self._response.content.decode("utf-8"))
             return release_json.get('resp').get(self._uri_name)
         else:
             status_code = self._response.status_code
-            raise DiscogsAPIError('%s %s' % (status_code, rb3compat.responses[status_code]))
+            raise DiscogsAPIError('%s %s' % (status_code, rb3compat.responses()[status_code]))
 
 class DiscogsAPIError(BaseException):
     pass

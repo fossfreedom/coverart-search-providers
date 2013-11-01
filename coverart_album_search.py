@@ -279,7 +279,7 @@ class DiscogsSearch (object):
         for search in searches:
             album = search[1]
             artist = search[0]
-            url = self.search_url(album, artist)
+            url = self.search_url(artist, album)
             print("album %s artist %s url %s" % (album, artist, url))
 
             if url == last_url:
@@ -303,9 +303,9 @@ class DiscogsSearch (object):
         return False
     
     def search(self, key, last_time, store, callback, args):
-        if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
-            callback (True)
-            return
+        #if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
+        #    callback (True)
+        #    return
 
         album = key.get_field("album")
         artists = key.get_field_values("artist")
