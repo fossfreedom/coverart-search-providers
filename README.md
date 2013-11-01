@@ -1,4 +1,4 @@
-coverart-search-providers
+coverart-search-providers v0.9.1
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
@@ -30,6 +30,13 @@ Enhancements:
 2. When a search provider finds a cover, stop further searches
 3. find and extract embedded covers in MP3, M4A, FLAC & Ogg files
 4. API to embed coverart in MP3, M4A, FLAC & Ogg files
+
+v0.9.1 Bug-Fixes
+
+ - rate limit musicbrainz and coverart-archive to ensure results are returned
+ - various python3 fixups
+ - fix discogs searching to ensure artist/album is used to search
+ - fix lastfm various-artists albums
 
 Recommended order for Search Providers
 
