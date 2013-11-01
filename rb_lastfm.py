@@ -128,11 +128,25 @@ class LastFMSearch (object):
         if len(image_urls) > 0:
             # images tags appear in order of increasing size, and we want the largest.  probably.
             url = image_urls.pop()
-            self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
-            self.callback(False)
+            
+            #last check - ensure the size is relatively large to hide false positives
+            site = rb3compat.urlopen(url)
+            meta = site.info()
+                
+            if rb3compat.PYVER >= 3:
+                size = meta.get_all('Content-Length')[0]
+            else:
+                size = meta.getheaders("Content-Length")[0]
+                
+            if int(size) > 1000:
+                print(size)
+                    
+                self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
+                self.callback(False)
+            else:
+                self.search_next()
         else:
             self.search_next()
-
 
     def search_next (self):
         if len(self.searches) == 0:
