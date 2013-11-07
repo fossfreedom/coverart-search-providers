@@ -1,0 +1,87 @@
+# Korean translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"PO-Revision-Date: 2013-11-07 11:53+0000\n"
+"Last-Translator: Kim Boram <boramism@gmail.com>\n"
+"Language-Team: Korean <ko@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-11-07 18:36+0000\n"
+"X-Generator: Launchpad (build 16820)\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr "검색 공급처 선택:"
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr "공급처"
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr "검색"
+
+#: coverart_album_search.py:311 coverart_album_search.py:312
+msgid "Unknown"
+msgstr "알 수 없음"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:199
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Kim Boram https://launchpad.net/~boramism"
+
+#: coverart_search_providers_prefs.py:203
+msgid "Embedded coverart"
+msgstr "파일에 넣은 앨범 표지"
+
+#: coverart_search_providers_prefs.py:204
+msgid "Local folder coverart"
+msgstr "로컬 폴더의 앨범 표지"
+
+#: coverart_search_providers_prefs.py:205
+msgid "Cached coverart"
+msgstr "미리 저장한 앨범 표지"
+
+#: coverart_search_providers_prefs.py:206
+msgid "LastFM Internet Provider"
+msgstr "LastFM 인터넷 공급자"
+
+#: coverart_search_providers_prefs.py:207
+msgid "MusicBrainz Internet Provider"
+msgstr "뮤직 브레인즈 인터넷 공급자"
+
+#: coverart_search_providers_prefs.py:208
+msgid "Discogs Internet Provider"
+msgstr "Discogs 인터넷 공급처"
+
+#: coverart_search_providers_prefs.py:209
+msgid "Coverart Archive Internet Provider"
+msgstr "Coverart Archive 인터넷 공급처"
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers.py:69
+msgid "CoverArt Browser Search Providers"
+msgstr "앨범 표지 검색 공급처"
+
+#: coverart_search_providers.py:70
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr "리듬박스에서 사용할 추가 앨범 표지 검색 공급처"
+
+#: coverart_search_providers.py:100
+msgid "Conflicting plugin found."
+msgstr "충돌하는 플러그인을 찾았습니다."
+
+#: coverart_search_providers.py:102
+msgid "The ArtSearch plugin has been deactivated"
+msgstr "표지 검색 플러그인을 사용하지 않습니다."
