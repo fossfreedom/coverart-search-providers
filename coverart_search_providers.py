@@ -34,6 +34,8 @@ from coverart_album_search import CoverAlbumSearch
 from coverart_album_search import DiscogsSearch
 from coverart_album_search import CoverSearch
 from coverart_album_search import CoverartArchiveSearch
+from coverart_artist_search import ArtistCoverSearch
+from coverart_artist_search import LastFMArtistSearch
 from rb_oldcache import OldCacheSearch
 from rb_local import LocalSearch
 from rb_lastfm import LastFMSearch
@@ -77,6 +79,10 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
 
         self.art_store = RB.ExtDB(name="album-art")
         self.req_id = self.art_store.connect("request", self.album_art_requested)
+        
+        self.artist_store = RB.ExtDB(name="artist-art")
+        self.artist_req_id = self.artist_store.connect("request", self.artist_art_requested)
+        
 
         peas = Peas.Engine.get_default()
         loaded_plugins = peas.get_loaded_plugins()
@@ -116,10 +122,12 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         del self.shell
         del self.db
         self.art_store.disconnect(self.req_id)
+        self.artist_store.disconnect(self.artist_req_id)
         self.peas.disconnect(self.peas_id)
         self.req_id = 0
         self.peas_id = 0
         self.art_store = None
+        self.artist_store = None
         self.peas = None
         
         print("CoverArtBrowser DEBUG - end do_deactivate")
@@ -150,5 +158,15 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
                 searches.append(CoverartArchiveSearch())
         
         s = CoverSearch(store, key, last_time, searches)
+
+        return s.next_search(True)
+
+    def artist_art_requested(self, store, key, last_time):
+        searches = []
+        
+        searches.append(LastFMArtistSearch())
+        #searches.append(DiscogsSearch())
+        
+        s = ArtistCoverSearch(store, key, last_time, searches)
 
         return s.next_search(True)
