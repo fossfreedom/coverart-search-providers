@@ -74,15 +74,27 @@ class CoverArtExtDB:
             
             filename = self.cachedir + "/store.db"
             self.db = gdbm.open(filename, 'c')
+        
+        def _encode(self, param):
+            if rb3compat.PYVER >=3:
+                return param.encode('utf-8')
+            else:
+                return param
+                
+        def _decode(self, param):
+            if rb3compat.PYVER >=3:
+                return param.decode('utf-8')
+            else:
+                return param
             
         def _get_next_file(self):
-            if CoverArtExtDB.NEXT_FILE.encode('utf-8') not in self.db:
+            if self._encode(CoverArtExtDB.NEXT_FILE) not in self.db:
                 next_file = str(0).zfill(8)
             else:
-                next_file = self.db[CoverArtExtDB.NEXT_FILE.encode('utf-8')].decode('utf-8')
+                next_file = self._decode(self.db[self._encode(CoverArtExtDB.NEXT_FILE)])
                 next_file = str(int(next_file)+1).zfill(8)
             
-            self.db[CoverArtExtDB.NEXT_FILE.encode('utf-8')] = next_file
+            self.db[self._encode(CoverArtExtDB.NEXT_FILE)] = next_file
             return next_file
             
         def _get_field_key(self, key):
@@ -98,7 +110,7 @@ class CoverArtExtDB:
             keyval = self._get_field_key(key) + 'values' + \
                 self._get_field_values(key)
                 
-            keyval = keyval.encode('utf-8')
+            keyval = self._encode(keyval)
             return keyval    
         
         def store(self, key, source_type, data):
@@ -108,9 +120,6 @@ class CoverArtExtDB:
             :param data: `GdkPixbuf.Pixbuf`
             '''
             print ("store")
-            from coverart_utils import dumpstack
-            dumpstack("store")
-            
             storeval = {}
             storeval['last-time'] = time.time()
             if data and source_type != RB.ExtDBSourceType.NONE:
@@ -122,8 +131,6 @@ class CoverArtExtDB:
             else:
                 storeval['filename']=''
             
-            print (self._construct_key(key))
-            print (storeval)
             self.db[self._construct_key(key)] = json.dumps(storeval)
             
         def store_uri(self, key, source_type, data):
@@ -153,8 +160,6 @@ class CoverArtExtDB:
             else:
                 storeval['filename']=''
             
-            print (self._construct_key(key))
-            print (storeval)
             self.db[self._construct_key(key)] = json.dumps(storeval)
                 
                 
@@ -163,14 +168,13 @@ class CoverArtExtDB:
             :param key: `ExtDBKey`
             '''
             lookup = self._construct_key(key)
-            print (lookup)
             filename = ''
             if lookup in self.db:
-                storeval = json.loads(self.db[lookup].decode('utf-8'))
+                storeval = json.loads(self._decode(self.db[lookup]))
                 if storeval['filename'] != '':
                     filename = self.cachedir + "/" + storeval['filename']
                 
-            return filename
+            return str(filename)
             
                 
         def request(self, key, callback, user_data):
@@ -188,19 +192,19 @@ class CoverArtExtDB:
             filename = ''
             timeval = time.time()
             if lookup in self.db:
-                storeval = json.loads(self.db[lookup].decode('utf-8'))
+                storeval = json.loads(self._decode(self.db[lookup]))
                 if storeval['filename'] != '':
                     filename = self.cachedir + "/" + storeval['filename']
                 timeval = storeval['last-time']
                 
+            result = False
             if filename != '':
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
                 callback(key, filename, pixbuf, user_data)
-                return False
             else:
-                self.emit('request', key, timeval)
+                result = self.emit('request', key, timeval)
                 
-            return True
+            return result
 
     def __init__(self, name):
         """ Create a semi-singleton instance """

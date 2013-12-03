@@ -1,4 +1,4 @@
-coverart-search-providers v0.9.1
+coverart-search-providers v1.0
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
@@ -30,6 +30,7 @@ Enhancements:
 2. When a search provider finds a cover, stop further searches
 3. find and extract embedded covers in MP3, M4A, FLAC & Ogg files
 4. API to embed coverart in MP3, M4A, FLAC & Ogg files
+5. External interface to find covers for artists
 
 v0.9.1 Bug-Fixes
 
@@ -37,6 +38,10 @@ v0.9.1 Bug-Fixes
  - various python3 fixups
  - fix discogs searching to ensure artist/album is used to search
  - fix lastfm various-artists albums
+ 
+v1.0
+
+ - external API to retrieve artists
 
 Recommended order for Search Providers
 
@@ -54,20 +59,20 @@ Recommended order for Search Providers
 
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
-    sudo apt-get install git gettext python-mako python-mutagen python-requests
+    sudo apt-get install git gettext python-mako python-mutagen python-requests python-gdbm
     
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
 
-    sudo apt-get install git gettext python3-mako python3-requests
+    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm
     
 
 for fedora and similar:
 
-    yum install git gettext python-mako python-mutagen python-requests
+    yum install git gettext python-mako python-mutagen python-requests python-gdbm
     
 for opensuse:
  
-    sudo zypper in git gettext-runtime python-mako python-mutagen python-requests
+    sudo zypper in git gettext-runtime python-mako python-mutagen python-requests python-gdbm
 
 Then install the plugin:
 

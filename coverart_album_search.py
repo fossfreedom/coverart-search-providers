@@ -75,7 +75,7 @@ class CoverSearch(object):
         
         print("next search")
         print(continue_search)
-        if len(self.searches) == 0:
+        if len(self.searches) == 0 and continue_search:
             print("no more searches")
             key = RB.ExtDBKey.create_storage("album", self.key.get_field("album"))
             key.add_field("artist", self.key.get_field("artist"))

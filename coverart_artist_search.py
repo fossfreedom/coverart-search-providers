@@ -91,21 +91,14 @@ class ArtistCoverSearch(object):
                - False means a search routine recommends no more searching
         '''
         
-        print("next search")
-        print(continue_search)
-        if len(self.searches) == 0:
-            print("no more searches")
+        if len(self.searches) == 0 and continue_search:
             key = RB.ExtDBKey.create_storage("artist", self.key.get_field("artist"))
             self.store.store(key, RB.ExtDBSourceType.NONE, None)
-            print("end of next_search False")
             return False
 
         if continue_search:
             search = self.searches.pop(0)
-            print("calling search")
-            print(search)
             search.search(self.key, self.last_time, self.store, self.search_done, None)
-            print("end of next_search TRUE")
             return True
         else:
             return False
@@ -129,7 +122,6 @@ class LastFMArtistSearch (object):
         return url
 
     def artist_info_cb (self, data):
-        print ("artist_info_cb")
         if data is None:
             print("last.fm query returned nothing")
             self.callback (True)
@@ -156,42 +148,12 @@ class LastFMArtistSearch (object):
             return
             
         for key in artist['image']:
-            print (key)
             for url in list(key.values()):
-                print (url)
                 url.strip()
                 if url.endswith('.png') or url.endswith('.jpg'):
-                    print(("found image url: %s" % url))
                     image_urls.append(url)
                     
-        # assume is a remote uri and we have to retrieve the data
-        def cover_update(data):
-            # save the cover on a temp file 
-            import tempfile, shutil, os
-            with tempfile.NamedTemporaryFile(mode='wb') as tmp:
-                #try:
-                #encoding = chardet.detect(data)['encoding']
-                #encoded = data.decode(encoding)
-                tmp.write(data)
-                tmp.flush()
-                # set the new cover
-                
-                temp_dir = tempfile.gettempdir()
-                filename = tempfile.mktemp()
-                temp_path = os.path.join(temp_dir, filename)
-                new_temp_file = shutil.copy2(tmp.name, temp_path)
-                print ("zzzzzzzzzzzzzzzzz")
-                print (new_temp_file)
-                self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, 
-                    "file://"+new_temp_file)
-                self.callback(True)
-                #except:
-                #    print("The URI doesn't point to an image or " + \
-                #        "the image couldn't be opened.")
-                #    self.callback(False)
-        
         if len(image_urls) > 0:
-            print (image_urls)
             # images tags appear in order of increasing size, and we want the largest.  probably.
             url = image_urls.pop()
             
@@ -205,26 +167,16 @@ class LastFMArtistSearch (object):
                 size = meta.getheaders("Content-Length")[0]
                 
             if int(size) > 1000:
-                print(size)
-                print (url)
-                #self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, str(url))
-                async = rb.Loader()
-                async.get_url(url, cover_update)
-
-                print ("callback")
-                #self.callback(True)
-                print ("before return")
+                self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, str(url))
+                self.callback(False)
                 return
                 
-        print ("finished artist_info_cb")
         self.callback (True)
                 
     def search_next (self, artist):
         print ("search_next")
         artist = str(artist)
         self.current_key = RB.ExtDBKey.create_storage("artist", artist)
-        print("####artist")
-        print(artist)
 
         url = self.search_url(artist)
 
