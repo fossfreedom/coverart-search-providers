@@ -176,15 +176,9 @@ class CoverArtExtDB:
                 param = self._construct_key(key)
                 self.db[param] = json.dumps(storeval)
                 
-                print (self._callback)
-                print (param)
                 if param in self._callback:
                     callback, user_data = self._callback[param]
-                    print (callback)
-                    print (user_data)
                     callback(key, filename, data, user_data)
-                else:
-                    print ("not in _callback")
                     
             return False
             
@@ -246,7 +240,7 @@ class CoverArtExtDB:
                 callback(key, filename, pixbuf, user_data)
             else:
                 self._callback[lookup] = (callback, user_data)
-                result = self.emit('request', key, timeval)
+                self.emit('request', key, timeval)
                 result = True
                 
             return result
