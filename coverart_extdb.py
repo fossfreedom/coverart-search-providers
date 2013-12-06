@@ -21,6 +21,7 @@ from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 from gi.repository import Gio
+from gi.repository import GLib
 
 import rb3compat
 import time
@@ -33,6 +34,21 @@ else:
 import os
 import json
 
+class Queue:
+    def __init__(self):
+        self.items = []
+    def isEmpty(self):
+        return self.items == []
+
+    def enqueue(self, item):
+        self.items.insert(0,item)
+
+    def dequeue(self):
+        return self.items.pop()
+
+    def size(self):
+        return len(self.items)
+
 class CoverArtExtDB:
     '''
     This is a simplified version of the RB.ExtDB capability.  This
@@ -44,7 +60,7 @@ class CoverArtExtDB:
     this causes unusual and unstable behaviour
     
     Rather than using trivial-database format which has not yet been 
-    ported to python3 - this uses the analogour gdbm format.
+    ported to python3 - this uses the analagous gdbm format.
 
     :param name: `str` name of the external database.
     '''
@@ -66,6 +82,8 @@ class CoverArtExtDB:
         #added (ExtDB self, ExtDBKey object, String path, Value pixbuf)    
         #request (ExtDB self, ExtDBKey object, guint64 last_time)
         
+        _callback = {}
+        
         def __init__(self, name):
             super(CoverArtExtDB._impl, self).__init__()
             self.cachedir = RB.user_cache_dir() + "/" + name
@@ -74,6 +92,7 @@ class CoverArtExtDB:
             
             filename = self.cachedir + "/store.db"
             self.db = gdbm.open(filename, 'c')
+            self.queue = Queue()
         
         def _encode(self, param):
             if rb3compat.PYVER >=3:
@@ -120,18 +139,54 @@ class CoverArtExtDB:
             :param data: `GdkPixbuf.Pixbuf`
             '''
             print ("store")
-            storeval = {}
-            storeval['last-time'] = time.time()
-            if data and source_type != RB.ExtDBSourceType.NONE:
-                filename = self._get_next_file()                    
-                storeval['filename'] = filename
-                # we also need to store the time
-                data.savev(self.cachedir + "/" + filename, 'png', [], [])
-                self.emit('added', key, self.cachedir + "/" + filename, data)
-            else:
-                storeval['filename']=''
             
-            self.db[self._construct_key(key)] = json.dumps(storeval)
+            self.store_uri(key, source_type, data)
+            
+        def do_store_request(self, *args):
+            
+            while not self.queue.isEmpty():
+                    
+                key, source_type, data = self.queue.dequeue()
+                storeval = {}
+                storeval['last-time'] = time.time()
+                filename = ''
+                
+                if data and source_type != RB.ExtDBSourceType.NONE:
+                    filename = self._get_next_file()                    
+                    storeval['filename'] = filename
+                    
+                    if isinstance(data, GdkPixbuf.Pixbuf):
+                        data.savev(self.cachedir + "/" + filename, 'png', [], [])
+                    else:
+                        gfile = Gio.File.new_for_uri(data)
+                        try:
+                            found, contents, error = gfile.load_contents(None)
+                        except:
+                            print ("failed to load uri %s", data)
+                            return
+                            
+                        filename = self.cachedir + "/" + filename
+                        new = Gio.File.new_for_path(filename)
+                        new.replace_contents(contents, '', '', False, None)
+                    
+                    self.emit('added', key, filename, data)
+                else:
+                    storeval['filename']=''
+                
+                param = self._construct_key(key)
+                self.db[param] = json.dumps(storeval)
+                
+                print (self._callback)
+                print (param)
+                if param in self._callback:
+                    callback, user_data = self._callback[param]
+                    print (callback)
+                    print (user_data)
+                    callback(key, filename, data, user_data)
+                else:
+                    print ("not in _callback")
+                    
+            return False
             
         def store_uri(self, key, source_type, data):
             '''
@@ -141,28 +196,16 @@ class CoverArtExtDB:
             '''
             print ("store_uri")
             
-            storeval = {}
-            storeval['last-time'] = time.time()
-            if data and source_type != RB.ExtDBSourceType.NONE:
-                filename = self._get_next_file()                    
-                storeval['filename'] = filename
-                gfile = Gio.File.new_for_uri(data)
-                try:
-                    found, contents, error = gfile.load_contents(None)
-                except:
-                    print ("failed to load uri %s", data)
-                    return
-                    
-                new = Gio.File.new_for_path(self.cachedir + "/" + filename)
-                new.replace_contents(contents, '', '', False, None)
+            kick = False
+            if self.queue.isEmpty():
+                kick = True
                 
-                self.emit('added', key, self.cachedir + "/" + filename, None)
-            else:
-                storeval['filename']=''
+            self.queue.enqueue((key, source_type, data))
             
-            self.db[self._construct_key(key)] = json.dumps(storeval)
-                
-                
+            if kick:
+                Gio.io_scheduler_push_job(self.do_store_request, None, 
+                    GLib.PRIORITY_DEFAULT, None)
+                    
         def lookup(self, key):
             '''
             :param key: `ExtDBKey`
@@ -202,7 +245,9 @@ class CoverArtExtDB:
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
                 callback(key, filename, pixbuf, user_data)
             else:
+                self._callback[lookup] = (callback, user_data)
                 result = self.emit('request', key, timeval)
+                result = True
                 
             return result
 
