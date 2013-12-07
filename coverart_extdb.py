@@ -22,6 +22,7 @@ from gi.repository import GObject
 from gi.repository import GdkPixbuf
 from gi.repository import Gio
 from gi.repository import GLib
+from gi.repository import Gdk
 
 import rb3compat
 import time
@@ -93,6 +94,7 @@ class CoverArtExtDB:
             filename = self.cachedir + "/store.db"
             self.db = gdbm.open(filename, 'c')
             self.queue = Queue()
+            self._store_request_in_progress = False
         
         def _encode(self, param):
             if rb3compat.PYVER >=3:
@@ -143,6 +145,11 @@ class CoverArtExtDB:
             self.store_uri(key, source_type, data)
             
         def do_store_request(self, *args):
+            if self._store_request_in_progress:
+                return False
+                
+            print ("do_store_request")
+            self._store_request_in_progress = True
             
             while not self.queue.isEmpty():
                     
@@ -152,23 +159,29 @@ class CoverArtExtDB:
                 filename = ''
                 
                 if data and source_type != RB.ExtDBSourceType.NONE:
-                    filename = self._get_next_file()                    
+                    filename = self._get_next_file()
                     storeval['filename'] = filename
                     
+                    filename = self.cachedir + "/" + filename
+                    
                     if isinstance(data, GdkPixbuf.Pixbuf):
-                        data.savev(self.cachedir + "/" + filename, 'png', [], [])
+                        data.savev(filename, 'png', [], [])
                     else:
                         gfile = Gio.File.new_for_uri(data)
+                
                         try:
                             found, contents, error = gfile.load_contents(None)
+                            if not found:
+                                print ("not found")
+                                continue
                         except:
                             print ("failed to load uri %s", data)
+                            self._store_request_in_progress = False
                             return
                             
-                        filename = self.cachedir + "/" + filename
                         new = Gio.File.new_for_path(filename)
                         new.replace_contents(contents, '', '', False, None)
-                    
+                        
                     self.emit('added', key, filename, data)
                 else:
                     storeval['filename']=''
@@ -179,7 +192,9 @@ class CoverArtExtDB:
                 if param in self._callback:
                     callback, user_data = self._callback[param]
                     callback(key, filename, data, user_data)
-                    
+            
+            self._store_request_in_progress = False
+            print ("finish store request")        
             return False
             
         def store_uri(self, key, source_type, data):
@@ -190,15 +205,11 @@ class CoverArtExtDB:
             '''
             print ("store_uri")
             
-            kick = False
-            if self.queue.isEmpty():
-                kick = True
-                
             self.queue.enqueue((key, source_type, data))
             
-            if kick:
-                Gio.io_scheduler_push_job(self.do_store_request, None, 
-                    GLib.PRIORITY_DEFAULT, None)
+            #Gio.io_scheduler_push_job(self.do_store_request, None, 
+            #        GLib.PRIORITY_DEFAULT, None)
+            self.do_store_request()
                     
         def lookup(self, key):
             '''
