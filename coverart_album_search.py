@@ -39,6 +39,8 @@ import time
 
 from gi.repository import RB
 
+from coverart_search_tracks import mutagen_library
+
 ITEMS_PER_NOTIFICATION = 10
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 REPEAT_SEARCH_PERIOD = 86400 * 7
@@ -196,8 +198,8 @@ class CoverAlbumSearch:
         print(parent)
         print("possible mp4")
         try:
-            from mutagen.mp4 import MP4
-            mp = MP4(search)
+            module = mutagen_library('mp4')
+            mp = module.MP4(search)
         
             if len(mp['covr']) >= 1:
                 imagefilename.write(mp['covr'][0])
@@ -211,9 +213,8 @@ class CoverAlbumSearch:
         print("possible flac")
         try:
             #flac 
-            from mutagen import File
-
-            music = File(search)
+            module = mutagen_library('')
+            music = module.File(search)
             imagefilename.write(music.pictures[0].data)
             imagefilename.close()
             uri = parent.resolve_relative_path(imagefilename.name).get_uri()
@@ -224,9 +225,8 @@ class CoverAlbumSearch:
 
         print("possible ogg")
         try:
-            from mutagen.oggvorbis import OggVorbis
-
-            o = OggVorbis(search)
+            module = mutagen_library('oggvorbis')
+            o = module.OggVorbis(search)
             
             try:
                 pic=o['COVERART'][0]
@@ -244,8 +244,8 @@ class CoverAlbumSearch:
 
         print("possible mp3")
         try:
-            from mutagen.id3 import ID3
-            i = ID3(search)
+            module = mutagen_library('id3')
+            i = module.ID3(search)
 
             apic = i.getall('APIC')[0]
             imagefilename.write(apic.data)
