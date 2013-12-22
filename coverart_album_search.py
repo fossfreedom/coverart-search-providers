@@ -36,8 +36,7 @@ import discogs_client as discogs
 import json
 import rb
 import time
-
-from gi.repository import RB
+import base64
 
 from coverart_search_tracks import mutagen_library
 
@@ -201,8 +200,8 @@ class CoverAlbumSearch:
             module = mutagen_library('mp4')
             mp = module.MP4(search)
         
-            if len(mp['covr']) >= 1:
-                imagefilename.write(mp['covr'][0])
+            if len(mp[b'covr']) >= 1:
+                imagefilename.write(mp[b'covr'][0])
                 uri = parent.resolve_relative_path(imagefilename.name).get_uri()
                 imagefilename.close()
                 self.store.store_uri(key, RB.ExtDBSourceType.USER, uri)
@@ -233,7 +232,7 @@ class CoverAlbumSearch:
             except:
                 pic=o['METADATA_BLOCK_PICTURE'][0]
                 
-            y=pic.decode('base64','strict')
+            y=base64.b64decode(pic)
             imagefilename.write(y)
             imagefilename.close()
             uri = parent.resolve_relative_path(imagefilename.name).get_uri()
