@@ -127,7 +127,7 @@ sudo su
 
 Please read this issue for embedded artwork issues with python3
 
- - https://github.com/fossfreedom/coverart-browser/issues/227
+- https://github.com/fossfreedom/coverart-search-providers/issues/2
 
 *Note 3:*
 
