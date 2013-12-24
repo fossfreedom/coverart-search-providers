@@ -26,15 +26,6 @@ import os
 import itertools
 from PIL import Image
 import tempfile
-
-#from mutagen.oggvorbis import OggVorbis
-#import mutagen.flac
-#from mutagen import File
-#from mutagen.id3 import ID3
-#from mutagen.mp4 import MP4
-#from mutagen.mp4 import MP4Cover
-#from mutagen.id3 import APIC
-
 import importlib
 
 def mutagen_library(module_name):
@@ -93,16 +84,16 @@ class CoverArtTracks(object):
             module = mutagen_library('flac')
             image = module.Picture()
             image.type = 3 # Cover image
-            image.data = open(art_location).read()
+            image.data = str(open(art_location, "rb").read())
             image.mime = mimetypestr
             image.desc = 'cover description'
             tags.setdefault("METADATA_BLOCK_PICTURE",
-                []).append(base64.standard_b64encode(image.write()))
+                []).append(base64.b64encode(image.write()))
             
             o.tags.update(tags)
             o.save()
         except:
-            pass
+           pass
 
     def embed_flac(self, art_location, search, mimetypestr):
         '''
@@ -119,7 +110,7 @@ class CoverArtTracks(object):
             module = mutagen_library('flac')
             image = module.Picture()
             image.type = 3 # Cover image
-            image.data = open(art_location).read()
+            image.data = open(art_location, "rb").read()
             image.mime = mimetypestr
             image.desc = 'cover description'
             music.add_picture(image)
@@ -138,14 +129,14 @@ class CoverArtTracks(object):
             music = module.MP4(search)
 
             covr = [] 
-            data = open(art_location).read()
+            data = open(art_location, "rb").read()
             
             if mimetypestr == "image/jpeg":
                 covr.append(module.MP4Cover(data, module.MP4Cover.FORMAT_JPEG))
             elif mimetypestr == "image/png":
                 covr.append(module.MP4Cover(data, module.MP4Cover.FORMAT_PNG))
             if covr:
-                music.tags["covr"] = covr
+                music.tags[b"covr"] = covr
                 music.save()
         except:
             pass
@@ -163,8 +154,9 @@ class CoverArtTracks(object):
             # lets remove any old pictures
             music.delall('APIC')
             
+            
             music.add(module.APIC(encoding=0, mime=mimetypestr, type=3,
-               desc='', data=open(art_location).read()))
+               desc='', data=open(art_location, "rb").read()))
 
             music.save()
         except:
@@ -192,11 +184,14 @@ class CoverArtTracks(object):
         image = Image.open(art_location)
         f, art_location = tempfile.mkstemp(suffix=".jpg")
             
+        print ("resizing?")
+        print (resize)
         if resize > 0:
             tosave = image.resize((resize,resize), Image.ANTIALIAS)
         else:
             tosave = image
             
+        print (art_location)
         tosave.save(art_location)
         
         search = Gio.file_new_for_uri(track_uri)
