@@ -84,7 +84,7 @@ class CoverArtTracks(object):
             module = mutagen_library('flac')
             image = module.Picture()
             image.type = 3 # Cover image
-            image.data = str(open(art_location, "rb").read())
+            image.data = open(art_location, "rb").read()
             image.mime = mimetypestr
             image.desc = 'cover description'
             tags.setdefault("METADATA_BLOCK_PICTURE",
