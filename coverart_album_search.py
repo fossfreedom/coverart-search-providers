@@ -264,7 +264,7 @@ class CoverAlbumSearch:
 
 class DiscogsSearch (object):
     def __init__(self):
-        discogs.user_agent = 'CoverartBrowserSearch/0.9.1 +https://github.com/fossfreedom/coverart-browser'
+        discogs.user_agent = 'CoverartBrowserSearch/1.0 +https://github.com/fossfreedom/coverart-browser'
 
     def search_url (self, artist, album):
         # Remove variants of Disc/CD [1-9] from album title before search
