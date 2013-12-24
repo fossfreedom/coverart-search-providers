@@ -42,7 +42,7 @@ v0.9.1 Bug-Fixes
 v1.0
 
  - external API to retrieve artists
- - support for embedded artwork for RB3 and later
+ - support for embedded artwork for RB3 and later (Note 2)
 
 Recommended order for Search Providers
 
@@ -128,6 +128,18 @@ sudo su
 Please read this issue for embedded artwork issues with python3
 
 - https://github.com/fossfreedom/coverart-search-providers/issues/2
+
+In summary - the plugin requires mutagenx which is available from PyPi
+
+ - https://pypi.python.org/pypi/mutagenx
+ 
+Alternatively, from GitHub
+
+ - https://github.com/LordSputnik/mutagen
+ 
+Or debian packaged from my PPA:
+
+ - https://launchpad.net/~fossfreedom/+archive/rhythmbox-plugins
 
 *Note 3:*
 
