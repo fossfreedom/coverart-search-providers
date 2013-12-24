@@ -20,21 +20,30 @@
 from gi.repository import RB
 from gi.repository import Gio
 
-from mutagen.oggvorbis import OggVorbis
-import mutagen.flac
-from mutagen import File
-from mutagen.id3 import ID3
-from mutagen.mp4 import MP4
-from mutagen.mp4 import MP4Cover
-from mutagen.id3 import APIC
-
 import base64
 from mimetypes import MimeTypes
 import os
 import itertools
-import Image
+from PIL import Image
 import tempfile
+import importlib
 
+def mutagen_library(module_name):
+    module = None
+
+    def lookfor(library):
+        if module_name == "":
+            return library
+        else:
+            return library + "." + module_name
+        
+    try:
+        module = importlib.import_module(lookfor('mutagen'))
+    except ImportError:
+        module = importlib.import_module(lookfor('mutagenx'))
+        
+    return module
+  
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 
 def anyTrue(pred,seq):
@@ -59,7 +68,8 @@ class CoverArtTracks(object):
         :mimetypestr: mimetype of the picture to embed
         '''
         try:
-            o = OggVorbis(search)
+            module = mutagen_library('oggvorbis')
+            o = module.OggVorbis(search)
             
             # lets get all tags into a dict
             # lets also remove the deprecated coverart tag and any
@@ -71,18 +81,19 @@ class CoverArtTracks(object):
                    orig.lower() != 'metadata_block_picture':
                     tags[orig]=values
 
-            image = mutagen.flac.Picture()
+            module = mutagen_library('flac')
+            image = module.Picture()
             image.type = 3 # Cover image
-            image.data = open(art_location).read()
+            image.data = open(art_location, "rb").read()
             image.mime = mimetypestr
             image.desc = 'cover description'
             tags.setdefault("METADATA_BLOCK_PICTURE",
-                []).append(base64.standard_b64encode(image.write()))
+                []).append(base64.b64encode(image.write()))
             
             o.tags.update(tags)
             o.save()
         except:
-            pass
+           pass
 
     def embed_flac(self, art_location, search, mimetypestr):
         '''
@@ -91,13 +102,15 @@ class CoverArtTracks(object):
         :mimetypestr: mimetype of the picture to embed
         '''
         try:
-            music = File(search)
+            module = mutagen_library('')
+            music = module.File(search)
             
             # lets remove any old pictures
             music.clear_pictures()
-            image = mutagen.flac.Picture()
+            module = mutagen_library('flac')
+            image = module.Picture()
             image.type = 3 # Cover image
-            image.data = open(art_location).read()
+            image.data = open(art_location, "rb").read()
             image.mime = mimetypestr
             image.desc = 'cover description'
             music.add_picture(image)
@@ -112,16 +125,18 @@ class CoverArtTracks(object):
         :mimetypestr: mimetype of the picture to embed
         '''
         try:
-            music = MP4(search)
+            module = mutagen_library('mp4')
+            music = module.MP4(search)
 
             covr = [] 
-            data = open(art_location).read()
+            data = open(art_location, "rb").read()
+            
             if mimetypestr == "image/jpeg":
-                covr.append(MP4Cover(data, MP4Cover.FORMAT_JPEG))
+                covr.append(module.MP4Cover(data, module.MP4Cover.FORMAT_JPEG))
             elif mimetypestr == "image/png":
-                covr.append(MP4Cover(data, MP4Cover.FORMAT_PNG))
+                covr.append(module.MP4Cover(data, module.MP4Cover.FORMAT_PNG))
             if covr:
-                music.tags["covr"] = covr
+                music.tags[b"covr"] = covr
                 music.save()
         except:
             pass
@@ -133,13 +148,15 @@ class CoverArtTracks(object):
         :mimetypestr: mimetype of the picture to embed
         '''
         try:
-            music = ID3(search)
+            module = mutagen_library('id3')
+            music = module.ID3(search)
 
             # lets remove any old pictures
             music.delall('APIC')
             
-            music.add(APIC(encoding=0, mime=mimetypestr, type=3,
-               desc='', data=open(art_location).read()))
+            
+            music.add(module.APIC(encoding=0, mime=mimetypestr, type=3,
+               desc='', data=open(art_location, "rb").read()))
 
             music.save()
         except:
@@ -160,14 +177,21 @@ class CoverArtTracks(object):
 
         art_location = RB.ExtDB(name='album-art').lookup(key)
 
+        if not art_location:
+            print ("not a valid key to a file containing art")
+            return False
+            
         image = Image.open(art_location)
         f, art_location = tempfile.mkstemp(suffix=".jpg")
             
+        print ("resizing?")
+        print (resize)
         if resize > 0:
             tosave = image.resize((resize,resize), Image.ANTIALIAS)
         else:
             tosave = image
             
+        print (art_location)
         tosave.save(art_location)
         
         search = Gio.file_new_for_uri(track_uri)

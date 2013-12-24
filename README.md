@@ -1,4 +1,4 @@
-coverart-search-providers v0.9.1
+coverart-search-providers v1.0
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
@@ -30,6 +30,7 @@ Enhancements:
 2. When a search provider finds a cover, stop further searches
 3. find and extract embedded covers in MP3, M4A, FLAC & Ogg files
 4. API to embed coverart in MP3, M4A, FLAC & Ogg files
+5. External interface to find covers for artists
 
 v0.9.1 Bug-Fixes
 
@@ -37,6 +38,11 @@ v0.9.1 Bug-Fixes
  - various python3 fixups
  - fix discogs searching to ensure artist/album is used to search
  - fix lastfm various-artists albums
+ 
+v1.0
+
+ - external API to retrieve artists
+ - support for embedded artwork for RB3 and later (Note 2)
 
 Recommended order for Search Providers
 
@@ -48,26 +54,19 @@ Recommended order for Search Providers
  - Discogs
  - Cover Art Archive
 
-*How to install:*
-
- N.B. - if installing Rhythmbox 3.0 please see the important note 2 below.
+*How to install - Rhythmbox 2.96 to 2.99.1:*
 
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
-    sudo apt-get install git gettext python-mako python-mutagen python-requests
-    
-for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
-
-    sudo apt-get install git gettext python3-mako python3-requests
-    
+    sudo apt-get install git gettext python-mako python-mutagen python-requests python-gdbm
 
 for fedora and similar:
 
-    yum install git gettext python-mako python-mutagen python-requests
+    yum install git gettext python-mako python-mutagen python-requests python-gdbm
     
 for opensuse:
  
-    sudo zypper in git gettext-runtime python-mako python-mutagen python-requests
+    sudo zypper in git gettext-runtime python-mako python-mutagen python-requests python-gdbm
 
 Then install the plugin:
 
@@ -75,30 +74,35 @@ Then install the plugin:
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
 git clone https://github.com/fossfreedom/coverart-search-providers.git
 cd coverart-search-providers
-</pre>
-
-For rhythmbox 2.96 to 2.99:
-
-<pre>
 ./install.sh
 </pre>
 
-For rhythmbox 3.0 or compiled from git:
+*How to install - Rhythmbox 3.0 and later:*
+
+for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
+
+    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm
 
 <pre>
+rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
+git clone https://github.com/fossfreedom/coverart-search-providers.git
+cd coverart-search-providers
 ./install.sh --rb3
 </pre>
 
+*IMPORTANT NOTE FOR OTHER DISTRO's - Please read Note 2 and the requirement for the installation of mutagenx*
 
-*For Ubuntu 12.04, 12.10, 13.04 & 13.10:* 
+*For Ubuntu 12.04 to 14.04:* 
 
 This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
-Note 1 - install the package `rhythmbox-plugin-coverart-search`
+install the package `rhythmbox-plugin-coverart-search`
 
-*installation for embedded coverart*
+*Note 1:*
+
+*support for embedded coverart - rhythmbox 2.96 to 2.99.1*
 
 The plugin makes use of the package `python-mutagen`.  For most distros, the default package is v1.20 which was released in 2010.
 
@@ -117,14 +121,26 @@ sudo su
 ./setup.py install 
 </pre>
 
-Note 2:
+*Note 2:*
 
-**PYTHON3 Support IMPORTANT**
+*support for embedded coverart - rhythmbox 3.0 and later*
 
 Please read this issue for embedded artwork issues with python3
 
- - https://github.com/fossfreedom/coverart-browser/issues/227
+- https://github.com/fossfreedom/coverart-search-providers/issues/2
 
-Note 3:
+In summary - the plugin requires mutagenx which is available from PyPi
+
+ - https://pypi.python.org/pypi/mutagenx
+ 
+Alternatively, from GitHub
+
+ - https://github.com/LordSputnik/mutagen
+ 
+Or debian packaged from my PPA:
+
+ - https://launchpad.net/~fossfreedom/+archive/rhythmbox-plugins
+
+*Note 3:*
 
 LastFM API usage is as per LastFM licensing.  Do not copy rb_lastfm.py for your own purposes without obtaining your own API key.

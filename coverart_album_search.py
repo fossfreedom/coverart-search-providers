@@ -36,8 +36,9 @@ import discogs_client as discogs
 import json
 import rb
 import time
+import base64
 
-from gi.repository import RB
+from coverart_search_tracks import mutagen_library
 
 ITEMS_PER_NOTIFICATION = 10
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
@@ -75,7 +76,7 @@ class CoverSearch(object):
         
         print("next search")
         print(continue_search)
-        if len(self.searches) == 0:
+        if len(self.searches) == 0 and continue_search:
             print("no more searches")
             key = RB.ExtDBKey.create_storage("album", self.key.get_field("album"))
             key.add_field("artist", self.key.get_field("artist"))
@@ -196,11 +197,11 @@ class CoverAlbumSearch:
         print(parent)
         print("possible mp4")
         try:
-            from mutagen.mp4 import MP4
-            mp = MP4(search)
+            module = mutagen_library('mp4')
+            mp = module.MP4(search)
         
-            if len(mp['covr']) >= 1:
-                imagefilename.write(mp['covr'][0])
+            if len(mp[b'covr']) >= 1:
+                imagefilename.write(mp[b'covr'][0])
                 uri = parent.resolve_relative_path(imagefilename.name).get_uri()
                 imagefilename.close()
                 self.store.store_uri(key, RB.ExtDBSourceType.USER, uri)
@@ -211,9 +212,8 @@ class CoverAlbumSearch:
         print("possible flac")
         try:
             #flac 
-            from mutagen import File
-
-            music = File(search)
+            module = mutagen_library('')
+            music = module.File(search)
             imagefilename.write(music.pictures[0].data)
             imagefilename.close()
             uri = parent.resolve_relative_path(imagefilename.name).get_uri()
@@ -224,16 +224,15 @@ class CoverAlbumSearch:
 
         print("possible ogg")
         try:
-            from mutagen.oggvorbis import OggVorbis
-
-            o = OggVorbis(search)
+            module = mutagen_library('oggvorbis')
+            o = module.OggVorbis(search)
             
             try:
                 pic=o['COVERART'][0]
             except:
                 pic=o['METADATA_BLOCK_PICTURE'][0]
                 
-            y=pic.decode('base64','strict')
+            y=base64.b64decode(pic)
             imagefilename.write(y)
             imagefilename.close()
             uri = parent.resolve_relative_path(imagefilename.name).get_uri()
@@ -244,8 +243,8 @@ class CoverAlbumSearch:
 
         print("possible mp3")
         try:
-            from mutagen.id3 import ID3
-            i = ID3(search)
+            module = mutagen_library('id3')
+            i = module.ID3(search)
 
             apic = i.getall('APIC')[0]
             imagefilename.write(apic.data)
@@ -265,7 +264,7 @@ class CoverAlbumSearch:
 
 class DiscogsSearch (object):
     def __init__(self):
-        discogs.user_agent = 'CoverartBrowserSearch/0.9.1 +https://github.com/fossfreedom/coverart-browser'
+        discogs.user_agent = 'CoverartBrowserSearch/1.0 +https://github.com/fossfreedom/coverart-browser'
 
     def search_url (self, artist, album):
         # Remove variants of Disc/CD [1-9] from album title before search
