@@ -90,7 +90,7 @@ cd coverart-search-providers
 ./install.sh --rb3
 </pre>
 
-*IMPORTANT NOTE FOR OTHER DISTRO's - Please read Note 2 and the requirement for the installation of mutagenx*
+*IMPORTANT NOTE FOR ALL DISTRO's - Please read Note 2 and the requirement for the installation of mutagenx*
 
 *For Ubuntu 12.04 to 14.04:* 
 
@@ -129,7 +129,7 @@ Please read this issue for embedded artwork issues with python3
 
 - https://github.com/fossfreedom/coverart-search-providers/issues/2
 
-In summary - the plugin requires mutagenx which is available from PyPi
+In summary - the plugin requires mutagenx which is available from PyPi (use a version later than Nov '13)
 
  - https://pypi.python.org/pypi/mutagenx
  
