@@ -62,11 +62,15 @@ for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
 for fedora and similar:
 
-    yum install git gettext python-mako python-mutagen python-requests python-gdbm
+    yum install git gettext python-mako python-mutagen python-requests
+    
+what is fedora's equivalent to debian's python-gdbm package?
     
 for opensuse:
  
-    sudo zypper in git gettext-runtime python-mako python-mutagen python-requests python-gdbm
+    sudo zypper in git gettext-runtime python-mako python-mutagen python-requests
+
+what is opensuse's equivalent to debian's python-gdbm package?
 
 Then install the plugin:
 
@@ -82,6 +86,8 @@ cd coverart-search-providers
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
 
     sudo apt-get install git gettext python3-mako python3-requests python3-gdbm
+
+python3 based package instructions for OpenSuse and Fedora not known
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
