@@ -1,4 +1,4 @@
-coverart-search-providers v1.0
+coverart-search-providers v1.0 beta 1
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
@@ -58,19 +58,19 @@ Recommended order for Search Providers
 
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
-    sudo apt-get install git gettext python-mako python-mutagen python-requests python-gdbm
+    sudo apt-get install git gettext python-mako python-mutagen python-requests python-gdbm python-imaging
 
 for fedora and similar:
 
     yum install git gettext python-mako python-mutagen python-requests
     
-what is fedora's equivalent to debian's python-gdbm package?
+what is fedora's equivalent to debian's python-gdbm & python-imaging packages?
     
 for opensuse:
  
     sudo zypper in git gettext-runtime python-mako python-mutagen python-requests
 
-what is opensuse's equivalent to debian's python-gdbm package?
+what is opensuse's equivalent to debian's python-gdbm & python-imaging packages ?
 
 Then install the plugin:
 
@@ -85,7 +85,7 @@ cd coverart-search-providers
 
 for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
 
-    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm
+    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-imaging
 
 python3 based package instructions for OpenSuse and Fedora not known
 
