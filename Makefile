@@ -15,7 +15,7 @@ install:
 	install -m 644 *.py $(DESTDIR)$(SUBDIR)
 	install -d $(DESTDIR)$(DATADIR)ui
 	install -m 644 ui/*.ui $(DESTDIR)$(DATADIR)ui/
-	install -m 644 coverart_search_providers.plugin $(DESTDIR)$(SUBDIR)
+	install -m 644 coverart_search_providers.plugin* $(DESTDIR)$(SUBDIR)
 	install -d $(DESTDIR)$(GLIB_DIR)
 	install -m 644 schema/$(GLIB_SCHEME) $(DESTDIR)$(GLIB_DIR) 
 	cd po;./lang.sh $(DESTDIR)$(LOCALEDIR)
