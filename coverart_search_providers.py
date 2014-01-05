@@ -36,6 +36,7 @@ from coverart_album_search import CoverSearch
 from coverart_album_search import CoverartArchiveSearch
 from coverart_artist_search import ArtistCoverSearch
 from coverart_artist_search import LastFMArtistSearch
+from coverart_artist_search import user_has_account
 from coverart_extdb import CoverArtExtDB
 from rb_oldcache import OldCacheSearch
 from rb_local import LocalSearch
@@ -43,6 +44,22 @@ from rb_lastfm import LastFMSearch
 from rb_musicbrainz import MusicBrainzSearch
 from coverart_search_providers_prefs import SearchPreferences
 import rb3compat
+
+def lastfm_connected():
+    '''
+    returns True/False if connected to lastfm
+    '''
+    return user_has_account()
+    
+def get_search_providers():
+    '''
+    returns an array of search providers
+    '''
+    gs = GSetting()
+    setting = gs.get_setting(gs.Path.PLUGIN)
+    current_providers = setting[gs.PluginKey.PROVIDERS]
+
+    return current_providers.split(',')
 
 class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
     '''
@@ -136,11 +153,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
     def album_art_requested(self, store, key, last_time):
         searches = []
         
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-        current_providers = setting[gs.PluginKey.PROVIDERS]
-
-        current_list = current_providers.split(',')
+        current_list = get_search_providers()
 
         for provider in current_list:
             if provider == SearchPreferences.EMBEDDED_SEARCH:
