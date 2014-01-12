@@ -1,0 +1,87 @@
+# Czech translation for coverartbrowser
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"PO-Revision-Date: 2014-01-12 11:38+0000\n"
+"Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-01-12 12:32+0000\n"
+"X-Generator: Launchpad (build 16890)\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr "Vybrat poskytovatle vyhledávání:"
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr "Poskytovatel"
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr "Vyhledat"
+
+#: coverart_album_search.py:311 coverart_album_search.py:312
+msgid "Unknown"
+msgstr "Neznámý"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:199
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Tadeáš Pařík https://launchpad.net/~pariktadeas"
+
+#: coverart_search_providers_prefs.py:203
+msgid "Embedded coverart"
+msgstr "Vložené coverart"
+
+#: coverart_search_providers_prefs.py:204
+msgid "Local folder coverart"
+msgstr "Lokální adresář coverart"
+
+#: coverart_search_providers_prefs.py:205
+msgid "Cached coverart"
+msgstr "Coverart ve vyrovnávací paměti"
+
+#: coverart_search_providers_prefs.py:206
+msgid "LastFM Internet Provider"
+msgstr "Poskytovatel LastFM"
+
+#: coverart_search_providers_prefs.py:207
+msgid "MusicBrainz Internet Provider"
+msgstr "Poskytovatel MusicBrainz"
+
+#: coverart_search_providers_prefs.py:208
+msgid "Discogs Internet Provider"
+msgstr "Poskytovatel Discogs"
+
+#: coverart_search_providers_prefs.py:209
+msgid "Coverart Archive Internet Provider"
+msgstr "Poskytovatel Coverart Archiv"
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers.py:69
+msgid "CoverArt Browser Search Providers"
+msgstr "Prohlížeč vyhledávacích poskytovatelů CoverArt"
+
+#: coverart_search_providers.py:70
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr "Další poskytovatelé zásuvného modulu coverart pro Rhythmbox"
+
+#: coverart_search_providers.py:100
+msgid "Conflicting plugin found."
+msgstr "Nalezen konfliktní zásuvný modul."
+
+#: coverart_search_providers.py:102
+msgid "The ArtSearch plugin has been deactivated"
+msgstr "Zásuvný modul ArtSearch byl deaktivován"
