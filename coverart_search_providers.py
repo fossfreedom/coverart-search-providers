@@ -74,7 +74,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         Initialises the plugin object.
         '''
         GObject.Object.__init__(self)
-        if rb3compat.pygobject_version() < 3.9:
+        if not rb3compat.compare_pygobject_version('3.9'):
              GObject.threads_init()
              
     def do_activate(self):
