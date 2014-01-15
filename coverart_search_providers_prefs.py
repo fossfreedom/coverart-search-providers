@@ -197,9 +197,13 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     def display_preferences_dialog(self, plugin):
         if self._first_run:
             self._first_run = False
-            self._dialog = Gtk.Dialog(_('Search Preferences'), None,
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
-                
+            #self._dialog = Gtk.Dialog(_('Search Preferences'), None,
+            #    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
+              
+            self._dialog = Gtk.Dialog(modal=True, destroy_with_parent=True)
+            self._dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
+            self._dialog.set_title(_('Search Preferences')) 
+              
             content_area = self._dialog.get_content_area()
             content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
             
