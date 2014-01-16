@@ -123,7 +123,7 @@ class GSetting:
             try:
                 setting = self.setting[path]
             except:
-                self.setting[path] = Gio.Settings(path)
+                self.setting[path] = Gio.Settings.new(path)
                 setting = self.setting[path]
 
             return setting
