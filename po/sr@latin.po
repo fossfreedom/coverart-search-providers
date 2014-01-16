@@ -1,67 +1,65 @@
-# German translation for coverartbrowser
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Serbian Latin translation for coverartbrowser
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the coverartbrowser package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-18 21:10+0100\n"
-"PO-Revision-Date: 2013-12-02 18:28+0000\n"
-"Last-Translator: Tobias Bannert <Unknown>\n"
-"Language-Team: German <de@li.org>\n"
-"Language: de\n"
+"PO-Revision-Date: 2014-01-13 23:22+0000\n"
+"Last-Translator: Moki Ding <moki.forum@gmail.com>\n"
+"Language-Team: Serbian Latin <sr@latin@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-03 13:16+0000\n"
-"X-Generator: Launchpad (build 16861)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
-msgstr "Einen Suchanbieter wählen:"
+msgstr "Izaberite dostavljače pretrage:"
 
 #: tmp/coverart_search_providers_prefs.ui.h:2
 msgid "Provider"
-msgstr "Anbieter"
+msgstr "Dostavljač"
 
 #: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
-msgstr "Suche"
+msgstr "Pretraga"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
-msgstr "Unbekannt"
+msgstr "Nepoznat"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_search_providers_prefs.py:199
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Simon Schütte https://launchpad.net/~simonschuette\n"
-"  Spencer Young https://launchpad.net/~spenceryoung\n"
-"  Tobias Bannert https://launchpad.net/~toba"
+"  Moki Ding https://launchpad.net/~moki-forum"
 
 #: coverart_search_providers_prefs.py:203
 msgid "Embedded coverart"
-msgstr ""
+msgstr "Ugrađene korice"
 
 #: coverart_search_providers_prefs.py:204
 msgid "Local folder coverart"
-msgstr ""
+msgstr "Lokalni folder sa koricama"
 
 #: coverart_search_providers_prefs.py:205
 msgid "Cached coverart"
-msgstr ""
+msgstr "Keširane korice"
 
 #: coverart_search_providers_prefs.py:206
 msgid "LastFM Internet Provider"
-msgstr "LastFM Internet Anbieter"
+msgstr "LastFM Internet Dostavljač"
 
 #: coverart_search_providers_prefs.py:207
 msgid "MusicBrainz Internet Provider"
-msgstr "MusicBrainz Internetanbieter"
+msgstr "MusicBrainz Internet Dostavljač"
 
 #: coverart_search_providers_prefs.py:208
 msgid "Discogs Internet Provider"
