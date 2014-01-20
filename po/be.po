@@ -1,0 +1,87 @@
+# Belarusian translation for coverartbrowser
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"PO-Revision-Date: 2014-01-19 22:59+0000\n"
+"Last-Translator: Vitaly Danilovich <Unknown>\n"
+"Language-Team: Belarusian <be@li.org>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-01-20 10:04+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr "Выберыце пошукавую сістэму:"
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr "Правайдэр"
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr "Пошук"
+
+#: coverart_album_search.py:311 coverart_album_search.py:312
+msgid "Unknown"
+msgstr "Невядома"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:199
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Vitaly Danilovich https://launchpad.net/~danvyr"
+
+#: coverart_search_providers_prefs.py:203
+msgid "Embedded coverart"
+msgstr "Убудаваны малюнак"
+
+#: coverart_search_providers_prefs.py:204
+msgid "Local folder coverart"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:205
+msgid "Cached coverart"
+msgstr "Кэшаваныя вокладкі"
+
+#: coverart_search_providers_prefs.py:206
+msgid "LastFM Internet Provider"
+msgstr "Пошук у  LastFM"
+
+#: coverart_search_providers_prefs.py:207
+msgid "MusicBrainz Internet Provider"
+msgstr "Пошук у  MusicBrainz"
+
+#: coverart_search_providers_prefs.py:208
+msgid "Discogs Internet Provider"
+msgstr "Пошук у  Discogs"
+
+#: coverart_search_providers_prefs.py:209
+msgid "Coverart Archive Internet Provider"
+msgstr "Інтэрнэт правайдэр архіва CoverArt"
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers.py:69
+msgid "CoverArt Browser Search Providers"
+msgstr "модуль падтрымкі пошуку праз браўзэр"
+
+#: coverart_search_providers.py:70
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr "Дадатковыя пошукавыя сістэмы для"
+
+#: coverart_search_providers.py:100
+msgid "Conflicting plugin found."
+msgstr "Канфлікт паміж модулямі."
+
+#: coverart_search_providers.py:102
+msgid "The ArtSearch plugin has been deactivated"
+msgstr "Модуль ArtSearch дэактываваны"
