@@ -1,13 +1,9 @@
-coverart-search-providers v1.0 beta 3
+coverart-search-providers v1.0
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
 
-##Authors
-
- - asermax <asermax@gmail.com>, website - https://github.com/asermax
-
-[![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1262052/asermax-on-GitHub "asermax")
+##Author
 
  - fossfreedom <foss.freedom@gmail.com>, website - https://github.com/fossfreedom
 
