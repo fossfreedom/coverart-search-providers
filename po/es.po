@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-18 21:10+0100\n"
-"PO-Revision-Date: 2013-04-21 05:09+0000\n"
+"PO-Revision-Date: 2014-02-21 03:57+0000\n"
 "Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"X-Launchpad-Export-Date: 2014-02-21 13:12+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
@@ -28,7 +28,7 @@ msgstr "Proveedor"
 
 #: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
-msgstr "Búsqueda"
+msgstr "Buscar"
 
 #: coverart_album_search.py:311 coverart_album_search.py:312
 msgid "Unknown"
