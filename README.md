@@ -79,9 +79,14 @@ cd coverart-search-providers
 
 *How to install - Rhythmbox 3.0 and later:*
 
-for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 3.0 or compiled from git):
+for ubuntu & ubuntu-based distros such as Mint:
 
     sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-imaging
+    
+for debian and other debian derived distros (not ubuntu & Mint):
+
+    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-pil
+   
 
 python3 based package instructions for OpenSuse and Fedora not known
 
