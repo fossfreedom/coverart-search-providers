@@ -87,8 +87,13 @@ for debian and other debian derived distros (such as ubuntu 14.04 & Mint based o
 
     sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-pil
    
+for fedora and similar:
 
-python3 based package instructions for OpenSuse and Fedora not known
+    yum install git gettext python3-mako python3-requests python3-imaging
+
+NOTE: unknown what the equivalent of python3-gdbm is on fedora
+
+python3 based package instructions for OpenSuse not known - please let me know how to install on OpenSuse
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
