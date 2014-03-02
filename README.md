@@ -58,7 +58,7 @@ for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
 for fedora and similar:
 
-    yum install git gettext python-mako python-mutagen python-requests
+    sudo yum install git gettext python-mako python-mutagen python-requests
     
 what is fedora's equivalent to debian's python-gdbm & python-imaging packages?
     
@@ -89,7 +89,7 @@ for debian and other debian derived distros (such as ubuntu 14.04 & Mint based o
    
 for fedora and similar:
 
-    yum install git gettext python3-mako python3-requests python3-pillow python3-lxml
+    sudo yum install git gettext python3-mako python3-requests python3-pillow python3-lxml
 
 NOTE: unknown what the equivalent of python3-gdbm is on fedora but appears to be installed anyway by default with gnome-shell
 
