@@ -81,17 +81,17 @@ cd coverart-search-providers
 
 for ubuntu 13.10 & ubuntu-based distros such as Mint based on 13.10:
 
-    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-imaging
+    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-imaging python3-lxml
     
 for debian and other debian derived distros (such as ubuntu 14.04 & Mint based on 14.04):
 
-    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-pil
+    sudo apt-get install git gettext python3-mako python3-requests python3-gdbm python3-pil python3-lxml
    
 for fedora and similar:
 
-    yum install git gettext python3-mako python3-requests python3-imaging
+    yum install git gettext python3-mako python3-requests python3-pillow python3-lxml
 
-NOTE: unknown what the equivalent of python3-gdbm is on fedora
+NOTE: unknown what the equivalent of python3-gdbm is on fedora but appears to be installed anyway by default with gnome-shell
 
 python3 based package instructions for OpenSuse not known - please let me know how to install on OpenSuse
 
