@@ -102,6 +102,13 @@ cd coverart-search-providers
 ./install.sh --rb3
 </pre>
 
+*To Uninstall:*
+
+<pre>
+cd coverart-search-providers
+./install.sh --uninstall
+</pre>
+
 *IMPORTANT NOTE FOR ALL DISTRO's - Please read Note 2 and the requirement for the installation of mutagenx*
 
 *For Ubuntu 12.04 to 14.04:* 

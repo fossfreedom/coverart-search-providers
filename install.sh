@@ -1,5 +1,21 @@
 #!/bin/bash
 
+SCRIPT_NAME=`basename "$0"`
+SCRIPT_PATH=${0%`basename "$0"`}
+PLUGIN_PATH="/home/${USER}/.local/share/rhythmbox/plugins/coverart_search_providers/"
+GLIB_SCHEME="org.gnome.rhythmbox.plugins.coverart_search_providers.gschema.xml"
+SCHEMA_FOLDER="schema/"
+GLIB_DIR="/usr/share/glib-2.0/schemas/"
+
+function uninstall {
+    sudo sh -c "cd /usr/share/locale && find . -name coverart_browser*.mo -delete"
+    rm -rf "${PLUGIN_PATH}"
+    sudo rm "${GLIB_DIR}${GLIB_SCHEME}"
+    sudo glib-compile-schemas "${GLIB_DIR}"
+    echo "plugin uninstalled"
+    exit
+}
+
 ################################ USAGE #######################################
 
 usage=$(
@@ -9,6 +25,7 @@ $0 [OPTION]
 -h, --help      show this message.
 -2, --rb2     install the plugin for rhythmbox version 2.96 to 2.99 (default).
 -3, --rb3       install the plugin for rhythmbox 3
+-u, --uninstall uninstall the plugin
 
 EOF
 )
@@ -16,7 +33,7 @@ EOF
 ########################### OPTIONS PARSING #################################
 
 #parse options
-TMP=`getopt --name=$0 -a --longoptions=rb2,rb3,help -o 2,3,h -- $@`
+TMP=`getopt --name=$0 -a --longoptions=rb2,rb3,help,uninstall -o 2,3,h,u -- $@`
 
 if [[ $? == 1 ]]
 then
@@ -39,6 +56,10 @@ until [[ $1 == -- ]]; do
             echo "$usage"
             exit
             ;;
+        -u|--uninstall)
+            uninstall
+            exit
+            ;;
     esac
     shift # move the arg list to the next option or '--'
 done
@@ -48,13 +69,6 @@ shift # remove the '--', now $1 positioned at first argument if any
 RB=${RB:=true}
 
 ########################## START INSTALLATION ################################
-
-SCRIPT_NAME=`basename "$0"`
-SCRIPT_PATH=${0%`basename "$0"`}
-PLUGIN_PATH="/home/${USER}/.local/share/rhythmbox/plugins/coverart_search_providers/"
-GLIB_SCHEME="org.gnome.rhythmbox.plugins.coverart_search_providers.gschema.xml"
-SCHEMA_FOLDER="schema/"
-GLIB_DIR="/usr/share/glib-2.0/schemas/"
 
 #build the dirs
 mkdir -p $PLUGIN_PATH
