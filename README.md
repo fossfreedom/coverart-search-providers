@@ -1,4 +1,4 @@
-coverart-search-providers v1.0
+coverart-search-providers v1.1 beta
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
@@ -39,6 +39,14 @@ v1.0
 
  - external API to retrieve artists
  - support for embedded artwork for RB3 and later (Note 2)
+ 
+v1.1
+
+ - made installation default to RB3
+ - install only locale specific to the environment rather than all locales
+ - added uninstall routine
+ - tidied preferences window
+ - fix crash for RB2.99
 
 Recommended order for Search Providers
 
@@ -74,7 +82,7 @@ Then install the plugin:
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
 git clone https://github.com/fossfreedom/coverart-search-providers.git
 cd coverart-search-providers
-./install.sh
+./install.sh --rb2
 </pre>
 
 *How to install - Rhythmbox 3.0 and later:*
@@ -99,7 +107,7 @@ python3 based package instructions for OpenSuse not known - please let me know h
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
 git clone https://github.com/fossfreedom/coverart-search-providers.git
 cd coverart-search-providers
-./install.sh --rb3
+./install.sh
 </pre>
 
 *To Uninstall:*

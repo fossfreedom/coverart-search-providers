@@ -23,8 +23,8 @@ cat <<EOF
 Usage:
 $0 [OPTION]
 -h, --help      show this message.
--2, --rb2     install the plugin for rhythmbox version 2.96 to 2.99 (default).
--3, --rb3       install the plugin for rhythmbox 3
+-2, --rb2     install the plugin for rhythmbox version 2.96 to 2.99.
+-3, --rb3       install the plugin for rhythmbox 3 (default)
 -u, --uninstall uninstall the plugin
 
 EOF
@@ -66,7 +66,7 @@ done
 shift # remove the '--', now $1 positioned at first argument if any
 
 #default values
-RB=${RB:=true}
+RB=${RB:=false}
 
 ########################## START INSTALLATION ################################
 
