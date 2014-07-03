@@ -8,7 +8,7 @@ SCHEMA_FOLDER="schema/"
 GLIB_DIR="/usr/share/glib-2.0/schemas/"
 
 function uninstall {
-    sudo sh -c "cd /usr/share/locale && find . -name coverart_browser*.mo -delete"
+    sudo sh -c "cd /usr/share/locale && find . -name coverart_search_providers*.mo -delete"
     rm -rf "${PLUGIN_PATH}"
     sudo rm "${GLIB_DIR}${GLIB_SCHEME}"
     sudo glib-compile-schemas "${GLIB_DIR}"
