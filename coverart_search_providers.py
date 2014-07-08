@@ -36,6 +36,7 @@ from coverart_album_search import CoverSearch
 from coverart_album_search import CoverartArchiveSearch
 from coverart_artist_search import ArtistCoverSearch
 from coverart_artist_search import LastFMArtistSearch
+from coverart_album_search import SpotifySearch
 from coverart_artist_search import user_has_account
 from coverart_extdb import CoverArtExtDB
 from rb_oldcache import OldCacheSearch
@@ -166,6 +167,8 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
                 searches.append(LastFMSearch())
             if provider == SearchPreferences.MUSICBRAINZ_SEARCH:
                 searches.append(MusicBrainzSearch())
+            if provider == SearchPreferences.SPOTIFY_SEARCH:
+                searches.append(SpotifySearch())
             #if provider == SearchPreferences.DISCOGS_SEARCH:
             #    searches.append(DiscogsSearch())
             if provider == SearchPreferences.COVERARTARCHIVE_SEARCH:

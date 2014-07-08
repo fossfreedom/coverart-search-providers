@@ -29,11 +29,13 @@ from gi.repository import RB
 from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import Gio
+import rb3compat
 
 import os, time,re
 import threading
 import discogs_client as discogs
 import json
+import chardet
 import rb
 import time
 import base64
@@ -52,7 +54,11 @@ DISC_NUMBER_REGEXS = (
     " - disc *[0-9]+$",
     " - cd *[0-9]+$",
     " disc *[0-9]+$",
-    " cd *[0-9]+$")
+    " cd *[0-9]+$",
+    " volume *[0-9]")
+    
+SPOTIFY_API_URL = "https://api.spotify.com/v1/"
+
 
 def file_root (f_name):
     return os.path.splitext (f_name)[0].lower ()
@@ -370,3 +376,113 @@ class CoverartArchiveSearch(object):
         print(url)
         loader = rb.Loader()
         loader.get_url(url, self.get_release_cb, (key, store, callback, args))
+        
+class SpotifySearch (object):
+    def __init__(self):
+        self.current_time = time.time()
+
+    def search_url (self, artist, album):
+        # Remove variants of Disc/CD [1-9] from album title before search
+        orig_album = album
+        for exp in DISC_NUMBER_REGEXS:
+            p = re.compile (exp, re.IGNORECASE)
+            album = p.sub ('', album)
+
+        album.strip()
+
+        print("searching for (%s, %s)" % (artist, album))
+        url = SPOTIFY_API_URL + "search?query="
+        url = url + "album:%s" % (rb3compat.quote_plus(album))
+        if artist:
+            url = url + " artist:%s" % (rb3compat.quote_plus(artist))
+        url = url + "&offset=0&limit=10&type=album"
+        print("spotify query url = %s" % url)
+        return url
+
+
+    def album_info_cb (self, data, album_name):
+        if data is None:
+            print("spotify query returned nothing")
+            self.search_next()
+            return
+
+        encoding = chardet.detect(data)['encoding']
+        encoded = data.decode(encoding)
+        json_data = json.loads(encoded)
+        
+        print (json_data['albums'])
+        print (json_data['albums']['items'])
+        
+        albums = json_data['albums']['items']
+        
+        print (albums)
+        for album in albums:
+            print (album)
+            print (album['name'])
+            print (album_name)
+            if album['name'] in album_name or \
+               album_name in album['name']:
+                print ('matching album  names')
+                print (album['images'])
+                print (album['images'][0])
+                url = album['images'][0]['url']
+                print (url)
+                self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
+                self.callback(False)
+                print ('exited')
+                return
+        
+        print ('getting next search')
+        self.search_next()
+
+    def search_next (self):
+        if len(self.searches) == 0:
+            self.callback(True)
+            print ('no more searches')
+            return
+        print ("search_next")
+        print (self.searches)
+        (artist, album) = self.searches.pop(0)
+        self.current_key = RB.ExtDBKey.create_storage("album", album)
+        key_artist = self.key.get_field("artist")
+        if key_artist is not None:
+            self.current_key.add_field("artist", artist)
+
+        print("####artist")
+        print(artist)
+
+        url = self.search_url(artist, album)
+
+        l = rb.Loader()
+        l.get_url(url, self.album_info_cb, album)
+
+
+    def search(self, key, last_time, store, callback, args):
+        if time.time() - self.current_time < 1:
+            #enforce 0.5 second delay between requests otherwise spotify will reject calls
+            time.sleep(0.5)
+            
+        self.current_time = time.time()
+        
+        album = key.get_field("album")
+        artists = key.get_field_values("artist")
+        self.key = key
+
+        artists = [x for x in artists if x not in (None, "", _("Unknown"))]
+        if album in ("", _("Unknown")):
+            album = None
+
+        if album == None or len(artists) == 0:
+            print("can't search: no useful details")
+            callback (True)
+            return
+
+        self.searches = []
+        for a in artists:
+            self.searches.append([a, album])
+        self.searches.append(["Various Artists", album])
+
+        self.store = store
+        self.callback = callback
+        self.callback_args = args
+        self.search_next()

@@ -178,6 +178,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     LOCAL_SEARCH='local-search'
     CACHE_SEARCH='cache-search'
     LASTFM_SEARCH='lastfm-search'
+    SPOTIFY_SEARCH='spotify-search'
     MUSICBRAINZ_SEARCH='musicbrainz-search'
 
     def __init__(self):
@@ -243,6 +244,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         self.provider[self.CACHE_SEARCH] = _("Cached coverart")
         self.provider[self.LASTFM_SEARCH] = _("LastFM Internet Provider")
         self.provider[self.MUSICBRAINZ_SEARCH] = _("MusicBrainz Internet Provider")
+        self.provider[self.SPOTIFY_SEARCH] = _("Spotify Internet Provider")
         #self.provider[self.DISCOGS_SEARCH] = _("Discogs Internet Provider")
         self.provider[self.COVERARTARCHIVE_SEARCH] = _("Coverart Archive Internet Provider")
         
