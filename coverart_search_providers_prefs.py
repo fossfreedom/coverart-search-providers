@@ -243,7 +243,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         self.provider[self.CACHE_SEARCH] = _("Cached coverart")
         self.provider[self.LASTFM_SEARCH] = _("LastFM Internet Provider")
         self.provider[self.MUSICBRAINZ_SEARCH] = _("MusicBrainz Internet Provider")
-        self.provider[self.DISCOGS_SEARCH] = _("Discogs Internet Provider")
+        #self.provider[self.DISCOGS_SEARCH] = _("Discogs Internet Provider")
         self.provider[self.COVERARTARCHIVE_SEARCH] = _("Coverart Archive Internet Provider")
         
         
@@ -271,11 +271,15 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         self.search_list = builder.get_object('search_list')
 
         for key in current_list:
-            del current_providers[key]
-            self.search_liststore.append([self.provider[key], key])
+            if key in current_providers:
+                del current_providers[key]
+                self.search_liststore.append([self.provider[key], key])
             
         for key, value in list(current_providers.items()):
             self.provider_liststore.append( [value, key] )
+            
+        if len(self.provider_liststore) == 0:
+            self.provider_liststore.append( [self.provider[self.EMBEDDED_SEARCH], self.EMBEDDED_SEARCH] )
         
         # return the dialog
         return builder.get_object('maingrid')

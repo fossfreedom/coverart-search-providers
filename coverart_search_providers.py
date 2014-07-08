@@ -166,8 +166,8 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
                 searches.append(LastFMSearch())
             if provider == SearchPreferences.MUSICBRAINZ_SEARCH:
                 searches.append(MusicBrainzSearch())
-            if provider == SearchPreferences.DISCOGS_SEARCH:
-                searches.append(DiscogsSearch())
+            #if provider == SearchPreferences.DISCOGS_SEARCH:
+            #    searches.append(DiscogsSearch())
             if provider == SearchPreferences.COVERARTARCHIVE_SEARCH:
                 searches.append(CoverartArchiveSearch())
         
