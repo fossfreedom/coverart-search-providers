@@ -47,6 +47,8 @@ v1.1
  - added uninstall routine
  - tidied preferences window
  - fix crash for RB2.99
+ - removed Discogs since they now require oauth2 support
+ - fix bug to carry on search after binning poor MusicBrainz image download
 
 Recommended order for Search Providers
 
@@ -55,7 +57,6 @@ Recommended order for Search Providers
  - local cache search (~/.cache/rhythmbox/covers)
  - LastFM (use the LastFM plugin to login)
  - MusicBrainz
- - Discogs
  - Cover Art Archive
 
 *How to install - Rhythmbox 2.96 to 2.99.1:*
