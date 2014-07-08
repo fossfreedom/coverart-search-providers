@@ -98,10 +98,10 @@ class MusicBrainzSearch(object):
                 if int(size) > 1000:
                     print(size)
                     store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
+                    continue_search = False
                 else:
                     print("no search")
                     print(size)
-                    continue_search = False
             else:
                 print("no ASIN for this release")
             print(callback)
