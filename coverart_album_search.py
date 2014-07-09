@@ -346,9 +346,10 @@ class DiscogsSearch (object):
 
         threading.Thread( target=self.get_release_cb, args=(store, key, self.searches, args, callback)).start()
         
-class CoverartArchiveSearch(object):
+class CoverartArchiveSearch(BaseSearch):
 
     def __init__(self):
+        super(CoverartArchiveSearch, self).__init__()
         # coverartarchive URL
         self.url = "http://coverartarchive.org/release/%s/"
 
@@ -383,7 +384,7 @@ class CoverartArchiveSearch(object):
         url = self.url % (album_id)
         print(url)
         loader = rb.Loader()
-        loader.get_url(url, self.get_release_cb, (key, store, callback, args))
+        self.rate_limit( loader.get_url, (url, self.get_release_cb, (key, store, callback, args)), 1)
         
 class SpotifySearch (BaseSearch):
     def __init__(self):

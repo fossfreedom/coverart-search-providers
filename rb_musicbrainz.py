@@ -31,6 +31,7 @@ import rb3compat
 import os
 from gi.repository import RB
 import time
+from coverart_album_search import BaseSearch
 
 # musicbrainz URLs
 MUSICBRAINZ_RELEASE_URL = "http://musicbrainz.org/ws/2/release/%s?inc=artists"
@@ -46,10 +47,10 @@ MUSICBRAINZ_VARIOUS_ARTISTS = "89ad4ac3-39f7-470e-963a-56509c546377"
 # Amazon URL bits
 AMAZON_IMAGE_URL = "http://images.amazon.com/images/P/%s.01.LZZZZZZZ.jpg"
 
-class MusicBrainzSearch(object):
+class MusicBrainzSearch(BaseSearch):
     
     def __init__(self):
-        self.current_time = time.time()
+        super(MusicBrainzSearch, self).__init__()
 
     def get_release_cb (self, data, args):
         (key, store, callback, cbargs) = args
@@ -123,7 +124,7 @@ class MusicBrainzSearch(object):
         url = MUSICBRAINZ_SEARCH_URL % (rb3compat.quote(query, safe=':'),)
 
         loader = rb.Loader()
-        loader.get_url(url, self.get_release_cb, (key, store, callback, args))
+        self.rate_limit( loader.get_url, (url, self.get_release_cb, (key, store, callback, args)), 1)
 
     def search(self, key, last_time, store, callback, *args):
         
@@ -146,4 +147,4 @@ class MusicBrainzSearch(object):
 
         url = MUSICBRAINZ_RELEASE_URL % (album_id)
         loader = rb.Loader()
-        loader.get_url(url, self.get_release_cb, (key, store, callback, args))
+        self.rate_limit( loader.get_url, (url, self.get_release_cb, (key, store, callback, args)), 1)

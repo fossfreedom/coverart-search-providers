@@ -166,7 +166,7 @@ class LastFMSearch (BaseSearch):
         url = self.search_url(artist, album, album_mbid)
 
         l = rb.Loader()
-        l.get_url(url, self.album_info_cb)
+        self.rate_limit( l.get_url, (url, self.album_info_cb), 5 )
 
 
     def search(self, key, last_time, store, callback, args):

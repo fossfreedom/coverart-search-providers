@@ -57,10 +57,10 @@ Recommended order for Search Providers
  - embedded coverart
  - coverart in the track song folder
  - local cache search (~/.cache/rhythmbox/covers)
- - Cover Art Archive
- - MusicBrainz
- - LastFM (use the LastFM plugin to login)
- - Spotify
+ - LastFM (rate-limit: 5 requests per second) N.B. use the LastFM plugin to login
+ - Spotify (rate-limit: 2 requests per second)
+ - Cover Art Internet Archive (rate-limit: 1 request per second)
+ - MusicBrainz (rate-limit: 1 request per second)
 
 *How to install - Rhythmbox 2.96 to 2.99.1:*
 
