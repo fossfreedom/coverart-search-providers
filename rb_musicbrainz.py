@@ -126,10 +126,7 @@ class MusicBrainzSearch(object):
         loader.get_url(url, self.get_release_cb, (key, store, callback, args))
 
     def search(self, key, last_time, store, callback, *args):
-        if time.time() - self.current_time < 1:
-            #enforce 1 second delay between requests otherwise musicbrainz will reject calls
-            time.sleep(1)
-            
+        
         self.current_time = time.time()
             
         key = key.copy()    # ugh

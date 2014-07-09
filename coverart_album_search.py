@@ -62,7 +62,24 @@ SPOTIFY_API_URL = "https://api.spotify.com/v1/"
 
 def file_root (f_name):
     return os.path.splitext (f_name)[0].lower ()
+    
+class BaseSearch(object):
+    def __init__(self):
+        self.current_time = time.time()
 
+    def rate_limit(self, callback_func, args, per_second_rate):
+        print ("rate_limit")
+        diff = time.time() - self.current_time
+        if diff < (1.0 / per_second_rate):
+            #Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 
+            #    int((1.0 / per_second_rate) *100), delay, None)
+            time.sleep( (1.0 / per_second_rate) - diff)
+            print ("sleeping")
+        
+        callback_func( *args )
+            
+        self.current_time = time.time()
+        
 class CoverSearch(object):
     def __init__(self, store, key, last_time, searches):
         self.store = store
@@ -105,7 +122,7 @@ class CoverSearch(object):
 
 class CoverAlbumSearch:
     def __init__ (self):
-        self.current_time = time.time()
+        pass
 
     def finished(self, results):
         parent = self.file.get_parent()
@@ -162,12 +179,6 @@ class CoverAlbumSearch:
 
 
     def search (self, key, last_time, store, callback, args):
-        if time.time() - self.current_time < 1:
-            #enforce 1 second delay between requests otherwise musicbrainz will reject calls
-            time.sleep(1)
-            
-        self.current_time = time.time()
-        
         # ignore last_time
         print("calling search")
         location = key.get_info("location")
@@ -313,9 +324,6 @@ class DiscogsSearch (object):
         return False
     
     def search(self, key, last_time, store, callback, args):
-        #if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
-        #    callback (True)
-        #    return
 
         album = key.get_field("album")
         artists = key.get_field_values("artist")
@@ -377,10 +385,10 @@ class CoverartArchiveSearch(object):
         loader = rb.Loader()
         loader.get_url(url, self.get_release_cb, (key, store, callback, args))
         
-class SpotifySearch (object):
+class SpotifySearch (BaseSearch):
     def __init__(self):
-        self.current_time = time.time()
-
+        super(SpotifySearch, self).__init__()
+        
     def search_url (self, artist, album):
         # Remove variants of Disc/CD [1-9] from album title before search
         orig_album = album
@@ -410,29 +418,17 @@ class SpotifySearch (object):
         encoded = data.decode(encoding)
         json_data = json.loads(encoded)
         
-        print (json_data['albums'])
-        print (json_data['albums']['items'])
-        
         albums = json_data['albums']['items']
         
-        print (albums)
         for album in albums:
-            print (album)
-            print (album['name'])
-            print (album_name)
             if album['name'] in album_name or \
                album_name in album['name']:
-                print ('matching album  names')
-                print (album['images'])
-                print (album['images'][0])
                 url = album['images'][0]['url']
                 print (url)
                 self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
                 self.callback(False)
-                print ('exited')
                 return
         
-        print ('getting next search')
         self.search_next()
 
     def search_next (self):
@@ -440,30 +436,22 @@ class SpotifySearch (object):
             self.callback(True)
             print ('no more searches')
             return
-        print ("search_next")
-        print (self.searches)
         (artist, album) = self.searches.pop(0)
         self.current_key = RB.ExtDBKey.create_storage("album", album)
         key_artist = self.key.get_field("artist")
-        if key_artist is not None:
+        if key_artist is None:
             self.current_key.add_field("artist", artist)
-
-        print("####artist")
-        print(artist)
+        else:
+            self.current_key.add_field("artist", key_artist)
+            
 
         url = self.search_url(artist, album)
 
         l = rb.Loader()
-        l.get_url(url, self.album_info_cb, album)
-
+        
+        self.rate_limit( l.get_url, (url, self.album_info_cb, album), 2 )
 
     def search(self, key, last_time, store, callback, args):
-        if time.time() - self.current_time < 1:
-            #enforce 0.5 second delay between requests otherwise spotify will reject calls
-            time.sleep(0.5)
-            
-        self.current_time = time.time()
-        
         album = key.get_field("album")
         artists = key.get_field_values("artist")
         self.key = key

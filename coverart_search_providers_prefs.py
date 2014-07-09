@@ -242,11 +242,11 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         self.provider[self.EMBEDDED_SEARCH] = _("Embedded coverart")
         self.provider[self.LOCAL_SEARCH] = _("Local folder coverart")
         self.provider[self.CACHE_SEARCH] = _("Cached coverart")
-        self.provider[self.LASTFM_SEARCH] = _("LastFM Internet Provider")
+        self.provider[self.COVERARTARCHIVE_SEARCH] = _("Coverart Archive Internet Provider")
         self.provider[self.MUSICBRAINZ_SEARCH] = _("MusicBrainz Internet Provider")
+        self.provider[self.LASTFM_SEARCH] = _("LastFM Internet Provider")
         self.provider[self.SPOTIFY_SEARCH] = _("Spotify Internet Provider")
         #self.provider[self.DISCOGS_SEARCH] = _("Discogs Internet Provider")
-        self.provider[self.COVERARTARCHIVE_SEARCH] = _("Coverart Archive Internet Provider")
         
         
         current_providers = copy.deepcopy(self.provider)

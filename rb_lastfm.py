@@ -27,6 +27,7 @@
 import xml.dom.minidom as dom
 import re
 import rb3compat
+from coverart_album_search import BaseSearch
 
 if rb3compat.PYVER >= 3:
     import configparser
@@ -77,9 +78,9 @@ def user_has_account():
     except:
         return False
 
-class LastFMSearch (object):
+class LastFMSearch (BaseSearch):
     def __init__(self):
-        pass
+        super(LastFMSearch, self).__init__()
 
     def search_url (self, artist, album, album_mbid):
         # Remove variants of Disc/CD [1-9] from album title before search
@@ -157,11 +158,10 @@ class LastFMSearch (object):
         (artist, album, album_mbid) = self.searches.pop(0)
         self.current_key = RB.ExtDBKey.create_storage("album", album)
         key_artist = self.key.get_field("artist")
-        if key_artist is not None:
+        if key_artist is None:
             self.current_key.add_field("artist", artist)
-
-        print("####artist")
-        print(artist)
+        else:
+            self.current_key.add_field("artist", key_artist)
 
         url = self.search_url(artist, album, album_mbid)
 
@@ -170,10 +170,6 @@ class LastFMSearch (object):
 
 
     def search(self, key, last_time, store, callback, args):
-        if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
-            print("we already tried this one")
-            callback (True)
-            return
 
         if user_has_account() == False:
             print("can't search: no last.fm account details")

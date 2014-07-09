@@ -50,16 +50,17 @@ v1.1
  - removed Discogs since they now require oauth2 support
  - add Spotify as an coverart provider
  - fix bug to carry on search after binning poor MusicBrainz image download
+ - restructure rate-limits to ensure faster downloads whilst keeping to providers rate-limits
 
 Recommended order for Search Providers
 
  - embedded coverart
  - coverart in the track song folder
  - local cache search (~/.cache/rhythmbox/covers)
- - LastFM (use the LastFM plugin to login)
- - MusicBrainz
- - Spotify
  - Cover Art Archive
+ - MusicBrainz
+ - LastFM (use the LastFM plugin to login)
+ - Spotify
 
 *How to install - Rhythmbox 2.96 to 2.99.1:*
 
