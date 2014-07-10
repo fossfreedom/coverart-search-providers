@@ -246,7 +246,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         self.provider[self.SPOTIFY_SEARCH] = _("Spotify Internet Provider")
         self.provider[self.COVERARTARCHIVE_SEARCH] = _("Coverart Archive Internet Provider")
         self.provider[self.MUSICBRAINZ_SEARCH] = _("MusicBrainz Internet Provider")
-        #self.provider[self.DISCOGS_SEARCH] = _("Discogs Internet Provider")
+        keep_alive_translation = _("Discogs Internet Provider")
         
         
         current_providers = copy.deepcopy(self.provider)
