@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"POT-Creation-Date: 2014-07-10 19:47+0100\n"
 "PO-Revision-Date: 2013-11-07 11:53+0000\n"
 "Last-Translator: Kim Boram <boramism@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -30,58 +30,64 @@ msgstr "공급처"
 msgid "Search"
 msgstr "검색"
 
-#: coverart_album_search.py:311 coverart_album_search.py:312
+#: coverart_album_search.py:330 coverart_album_search.py:331
+#: coverart_album_search.py:460 coverart_album_search.py:461
 msgid "Unknown"
 msgstr "알 수 없음"
 
+#. define .plugin text strings used for translation
+#: coverart_search_providers_prefs.py:207 coverart_search_providers.py:92
+msgid "CoverArt Browser Search Providers"
+msgstr "앨범 표지 검색 공급처"
+
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_search_providers_prefs.py:199
+#: coverart_search_providers_prefs.py:238
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Kim Boram https://launchpad.net/~boramism"
 
-#: coverart_search_providers_prefs.py:203
+#: coverart_search_providers_prefs.py:242
 msgid "Embedded coverart"
 msgstr "파일에 넣은 앨범 표지"
 
-#: coverart_search_providers_prefs.py:204
+#: coverart_search_providers_prefs.py:243
 msgid "Local folder coverart"
 msgstr "로컬 폴더의 앨범 표지"
 
-#: coverart_search_providers_prefs.py:205
+#: coverart_search_providers_prefs.py:244
 msgid "Cached coverart"
 msgstr "미리 저장한 앨범 표지"
 
-#: coverart_search_providers_prefs.py:206
+#: coverart_search_providers_prefs.py:245
 msgid "LastFM Internet Provider"
 msgstr "LastFM 인터넷 공급자"
 
-#: coverart_search_providers_prefs.py:207
-msgid "MusicBrainz Internet Provider"
-msgstr "뮤직 브레인즈 인터넷 공급자"
+#: coverart_search_providers_prefs.py:246
+#, fuzzy
+msgid "Spotify Internet Provider"
+msgstr "LastFM 인터넷 공급자"
 
-#: coverart_search_providers_prefs.py:208
-msgid "Discogs Internet Provider"
-msgstr "Discogs 인터넷 공급처"
-
-#: coverart_search_providers_prefs.py:209
+#: coverart_search_providers_prefs.py:247
 msgid "Coverart Archive Internet Provider"
 msgstr "Coverart Archive 인터넷 공급처"
 
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:69
-msgid "CoverArt Browser Search Providers"
-msgstr "앨범 표지 검색 공급처"
+#: coverart_search_providers_prefs.py:248
+msgid "MusicBrainz Internet Provider"
+msgstr "뮤직 브레인즈 인터넷 공급자"
 
-#: coverart_search_providers.py:70
+#: coverart_search_providers_prefs.py:249
+msgid "Discogs Internet Provider"
+msgstr "Discogs 인터넷 공급처"
+
+#: coverart_search_providers.py:93
 msgid "Additional coverart search providers for Rhythmbox"
 msgstr "리듬박스에서 사용할 추가 앨범 표지 검색 공급처"
 
-#: coverart_search_providers.py:100
+#: coverart_search_providers.py:127
 msgid "Conflicting plugin found."
 msgstr "충돌하는 플러그인을 찾았습니다."
 
-#: coverart_search_providers.py:102
+#: coverart_search_providers.py:129
 msgid "The ArtSearch plugin has been deactivated"
 msgstr "표지 검색 플러그인을 사용하지 않습니다."

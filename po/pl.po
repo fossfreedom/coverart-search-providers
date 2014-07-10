@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"POT-Creation-Date: 2014-07-10 19:47+0100\n"
 "PO-Revision-Date: 2013-06-18 20:11+0000\n"
 "Last-Translator: Szymon Nieznański <s.nez@openmailbox.org>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -30,59 +30,65 @@ msgstr "Dostawca"
 msgid "Search"
 msgstr "Wyszukiwanie"
 
-#: coverart_album_search.py:311 coverart_album_search.py:312
+#: coverart_album_search.py:330 coverart_album_search.py:331
+#: coverart_album_search.py:460 coverart_album_search.py:461
 msgid "Unknown"
 msgstr "Nieznane"
 
+#. define .plugin text strings used for translation
+#: coverart_search_providers_prefs.py:207 coverart_search_providers.py:92
+msgid "CoverArt Browser Search Providers"
+msgstr "Dostawcy usług wyszukiwania dla CoverArt Browser"
+
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_search_providers_prefs.py:199
+#: coverart_search_providers_prefs.py:238
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Michał Rzepiński https://launchpad.net/~micou8\n"
 "  Szymon Nieznański https://launchpad.net/~isamu715"
 
-#: coverart_search_providers_prefs.py:203
+#: coverart_search_providers_prefs.py:242
 msgid "Embedded coverart"
 msgstr "Zagnieżdżona okładka"
 
-#: coverart_search_providers_prefs.py:204
+#: coverart_search_providers_prefs.py:243
 msgid "Local folder coverart"
 msgstr "Okładka folderu lokalnego"
 
-#: coverart_search_providers_prefs.py:205
+#: coverart_search_providers_prefs.py:244
 msgid "Cached coverart"
 msgstr "Zapamiętana okładka"
 
-#: coverart_search_providers_prefs.py:206
+#: coverart_search_providers_prefs.py:245
 msgid "LastFM Internet Provider"
 msgstr "Dostawca internetowy LastFM"
 
-#: coverart_search_providers_prefs.py:207
-msgid "MusicBrainz Internet Provider"
-msgstr "Dostawca internetowy MusicBrainz"
+#: coverart_search_providers_prefs.py:246
+#, fuzzy
+msgid "Spotify Internet Provider"
+msgstr "Dostawca internetowy LastFM"
 
-#: coverart_search_providers_prefs.py:208
-msgid "Discogs Internet Provider"
-msgstr "Dostawca internetowy Discogs"
-
-#: coverart_search_providers_prefs.py:209
+#: coverart_search_providers_prefs.py:247
 msgid "Coverart Archive Internet Provider"
 msgstr "Dostawca internetowy Coverart Archive"
 
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:69
-msgid "CoverArt Browser Search Providers"
-msgstr "Dostawcy usług wyszukiwania dla CoverArt Browser"
+#: coverart_search_providers_prefs.py:248
+msgid "MusicBrainz Internet Provider"
+msgstr "Dostawca internetowy MusicBrainz"
 
-#: coverart_search_providers.py:70
+#: coverart_search_providers_prefs.py:249
+msgid "Discogs Internet Provider"
+msgstr "Dostawca internetowy Discogs"
+
+#: coverart_search_providers.py:93
 msgid "Additional coverart search providers for Rhythmbox"
 msgstr "Dodatkowi dostawcy usług wyszukiwania okładek dla Rhythmboxa"
 
-#: coverart_search_providers.py:100
+#: coverart_search_providers.py:127
 msgid "Conflicting plugin found."
 msgstr "Wykryto konflikt wtyczek."
 
-#: coverart_search_providers.py:102
+#: coverart_search_providers.py:129
 msgid "The ArtSearch plugin has been deactivated"
 msgstr "Wtyczka ArtSearch zotała wyłączona"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"POT-Creation-Date: 2014-07-10 19:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,56 +29,61 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: coverart_album_search.py:311 coverart_album_search.py:312
+#: coverart_album_search.py:330 coverart_album_search.py:331
+#: coverart_album_search.py:460 coverart_album_search.py:461
 msgid "Unknown"
 msgstr ""
 
-#. . TRANSLATORS: Do not translate this string.
-#: coverart_search_providers_prefs.py:199
-msgid "translator-credits"
-msgstr ""
-
-#: coverart_search_providers_prefs.py:203
-msgid "Embedded coverart"
-msgstr ""
-
-#: coverart_search_providers_prefs.py:204
-msgid "Local folder coverart"
-msgstr ""
-
-#: coverart_search_providers_prefs.py:205
-msgid "Cached coverart"
-msgstr ""
-
-#: coverart_search_providers_prefs.py:206
-msgid "LastFM Internet Provider"
-msgstr ""
-
-#: coverart_search_providers_prefs.py:207
-msgid "MusicBrainz Internet Provider"
-msgstr ""
-
-#: coverart_search_providers_prefs.py:208
-msgid "Discogs Internet Provider"
-msgstr ""
-
-#: coverart_search_providers_prefs.py:209
-msgid "Coverart Archive Internet Provider"
-msgstr ""
-
 #. define .plugin text strings used for translation
-#: coverart_search_providers.py:69
+#: coverart_search_providers_prefs.py:207 coverart_search_providers.py:92
 msgid "CoverArt Browser Search Providers"
 msgstr ""
 
-#: coverart_search_providers.py:70
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:238
+msgid "translator-credits"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:242
+msgid "Embedded coverart"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:243
+msgid "Local folder coverart"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:244
+msgid "Cached coverart"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:245
+msgid "LastFM Internet Provider"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:246
+msgid "Spotify Internet Provider"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:247
+msgid "Coverart Archive Internet Provider"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:248
+msgid "MusicBrainz Internet Provider"
+msgstr ""
+
+#: coverart_search_providers_prefs.py:249
+msgid "Discogs Internet Provider"
+msgstr ""
+
+#: coverart_search_providers.py:93
 msgid "Additional coverart search providers for Rhythmbox"
 msgstr ""
 
-#: coverart_search_providers.py:100
+#: coverart_search_providers.py:127
 msgid "Conflicting plugin found."
 msgstr ""
 
-#: coverart_search_providers.py:102
+#: coverart_search_providers.py:129
 msgid "The ArtSearch plugin has been deactivated"
 msgstr ""

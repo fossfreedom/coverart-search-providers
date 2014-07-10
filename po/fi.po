@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 21:10+0100\n"
+"POT-Creation-Date: 2014-07-10 19:47+0100\n"
 "PO-Revision-Date: 2013-08-22 08:11+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -30,58 +30,64 @@ msgstr "Tuottaja"
 msgid "Search"
 msgstr "Hae"
 
-#: coverart_album_search.py:311 coverart_album_search.py:312
+#: coverart_album_search.py:330 coverart_album_search.py:331
+#: coverart_album_search.py:460 coverart_album_search.py:461
 msgid "Unknown"
 msgstr "Tuntematon"
 
+#. define .plugin text strings used for translation
+#: coverart_search_providers_prefs.py:207 coverart_search_providers.py:92
+msgid "CoverArt Browser Search Providers"
+msgstr "Kansikuvaselaimen haun tuottajat"
+
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_search_providers_prefs.py:199
+#: coverart_search_providers_prefs.py:238
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Jiri Grönroos https://launchpad.net/~jiri-gronroos"
 
-#: coverart_search_providers_prefs.py:203
+#: coverart_search_providers_prefs.py:242
 msgid "Embedded coverart"
 msgstr "Upotettu kansikuvitus"
 
-#: coverart_search_providers_prefs.py:204
+#: coverart_search_providers_prefs.py:243
 msgid "Local folder coverart"
 msgstr "Paikallisen kansion kansikuvitus"
 
-#: coverart_search_providers_prefs.py:205
+#: coverart_search_providers_prefs.py:244
 msgid "Cached coverart"
 msgstr "Välimuistissa oleva kansikuvitus"
 
-#: coverart_search_providers_prefs.py:206
+#: coverart_search_providers_prefs.py:245
 msgid "LastFM Internet Provider"
 msgstr "LastFM-internettuottaja"
 
-#: coverart_search_providers_prefs.py:207
-msgid "MusicBrainz Internet Provider"
-msgstr "MusicBrainz-internettuottaja"
+#: coverart_search_providers_prefs.py:246
+#, fuzzy
+msgid "Spotify Internet Provider"
+msgstr "LastFM-internettuottaja"
 
-#: coverart_search_providers_prefs.py:208
-msgid "Discogs Internet Provider"
-msgstr "Discogs-internettuottaja"
-
-#: coverart_search_providers_prefs.py:209
+#: coverart_search_providers_prefs.py:247
 msgid "Coverart Archive Internet Provider"
 msgstr "Coverart Archive -internettuottaja"
 
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:69
-msgid "CoverArt Browser Search Providers"
-msgstr "Kansikuvaselaimen haun tuottajat"
+#: coverart_search_providers_prefs.py:248
+msgid "MusicBrainz Internet Provider"
+msgstr "MusicBrainz-internettuottaja"
 
-#: coverart_search_providers.py:70
+#: coverart_search_providers_prefs.py:249
+msgid "Discogs Internet Provider"
+msgstr "Discogs-internettuottaja"
+
+#: coverart_search_providers.py:93
 msgid "Additional coverart search providers for Rhythmbox"
 msgstr ""
 
-#: coverart_search_providers.py:100
+#: coverart_search_providers.py:127
 msgid "Conflicting plugin found."
 msgstr "Löytyi ristiriidan aiheuttava liitännäinen."
 
-#: coverart_search_providers.py:102
+#: coverart_search_providers.py:129
 msgid "The ArtSearch plugin has been deactivated"
 msgstr ""
