@@ -4,12 +4,8 @@ lang=`echo $LANG | cut -d'.' -f 1`
 
 if [ ! -f $lang.po ]; then
    lang=`echo $lang | cut -d'_' -f 1`
-fi
 
-if [ ! -f $lang.po ]; then
-   lang="en_US"
+    echo "installing $lang"
+    install -d $1$lang/LC_MESSAGES
+    msgfmt -c $lang.po -o $1$lang/LC_MESSAGES/coverart_search_providers.mo
 fi
-
-echo "installing $lang"
-install -d $1$lang/LC_MESSAGES
-msgfmt -c $lang.po -o $1$lang/LC_MESSAGES/coverart_search_providers.mo
