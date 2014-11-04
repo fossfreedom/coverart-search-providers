@@ -72,13 +72,9 @@ for fedora and similar:
 
     sudo yum install git gettext python-mako python-mutagen python-requests
     
-what is fedora's equivalent to debian's python-gdbm & python-imaging packages?
-    
 for opensuse:
  
     sudo zypper in git gettext-runtime python-mako python-mutagen python-requests
-
-what is opensuse's equivalent to debian's python-gdbm & python-imaging packages ?
 
 Then install the plugin:
 
@@ -103,9 +99,7 @@ for fedora and similar:
 
     sudo yum install git gettext python3-mako python3-requests python3-pillow python3-lxml
 
-NOTE: unknown what the equivalent of python3-gdbm is on fedora but appears to be installed anyway by default with gnome-shell
-
-python3 based package instructions for OpenSuse not known - please let me know how to install on OpenSuse
+For other distro's please raise an issue and let me know what the installation instructions are.  Thanks.
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_search_providers
@@ -121,7 +115,7 @@ cd coverart-search-providers
 ./install.sh --uninstall
 </pre>
 
-*IMPORTANT NOTE FOR ALL DISTRO's - Please read Note 2 and the requirement for the installation of mutagenx*
+*IMPORTANT NOTE FOR ALL DISTRO's - Requirement for the installation of Mutagen or Mutagenx*
 
 *For Ubuntu 12.04 to 14.04:* 
 
@@ -156,21 +150,20 @@ sudo su
 
 *support for embedded coverart - rhythmbox 3.0 and later*
 
-Please read this issue for embedded artwork issues with python3
+The plugin requires either python3-mutagen (v1.25 or later) or mutagenx (v1.24 or later), both of which are available from PyPi
 
-- https://github.com/fossfreedom/coverart-search-providers/issues/2
-
-In summary - the plugin requires mutagenx which is available from PyPi (use a version later than Nov '13)
-
+ - https://pypi.python.org/pypi/mutagen
  - https://pypi.python.org/pypi/mutagenx
  
 Alternatively, from GitHub
 
  - https://github.com/LordSputnik/mutagen
  
-Or debian packaged from my PPA:
+Mutagenx is Debian packaged from my PPA:
 
  - https://launchpad.net/~fossfreedom/+archive/rhythmbox-plugins
+ 
+Some distro's such as Arch have python3-mutagen already packaged.  Debian Sid also contains a python3-mutagen debian installer.
 
 *Note 3:*
 
