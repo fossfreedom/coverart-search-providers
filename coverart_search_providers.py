@@ -18,20 +18,15 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 # define plugin
-import rb
-import locale
-import gettext
 
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
-from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
 from coverart_search_providers_prefs import GSetting
 from coverart_search_providers_prefs import CoverLocale
 from coverart_album_search import CoverAlbumSearch
-from coverart_album_search import DiscogsSearch
 from coverart_album_search import CoverSearch
 from coverart_album_search import CoverartArchiveSearch
 from coverart_artist_search import ArtistCoverSearch
@@ -46,12 +41,14 @@ from rb_musicbrainz import MusicBrainzSearch
 from coverart_search_providers_prefs import SearchPreferences
 import rb3compat
 
+
 def lastfm_connected():
     '''
     returns True/False if connected to lastfm
     '''
     return user_has_account()
-    
+
+
 def get_search_providers():
     '''
     returns an array of search providers
@@ -62,6 +59,7 @@ def get_search_providers():
 
     return current_providers.split(',')
 
+
 class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
     '''
     Main class of the plugin. Manages the activation and deactivation of the
@@ -69,15 +67,15 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
     '''
     __gtype_name = 'CoverArtAlbumSearchPlugin'
     object = GObject.property(type=GObject.Object)
-    
+
     def __init__(self):
         '''
         Initialises the plugin object.
         '''
         GObject.Object.__init__(self)
         if not rb3compat.compare_pygobject_version('3.9'):
-             GObject.threads_init()
-             
+            GObject.threads_init()
+
     def do_activate(self):
         '''
         Called by Rhythmbox when the plugin is activated. It creates the
@@ -87,8 +85,8 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        
-        #define .plugin text strings used for translation
+
+        # define .plugin text strings used for translation
         plugin = _('CoverArt Browser Search Providers')
         desc = _('Additional coverart search providers for Rhythmbox')
 
@@ -98,10 +96,9 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
 
         self.art_store = RB.ExtDB(name="album-art")
         self.req_id = self.art_store.connect("request", self.album_art_requested)
-        
+
         self.artist_store = CoverArtExtDB(name="artist-art")
         self.artist_req_id = self.artist_store.connect("request", self.artist_art_requested)
-        
 
         self.peas = Peas.Engine.get_default()
         loaded_plugins = self.peas.get_loaded_plugins()
@@ -110,7 +107,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
 
         if 'artsearch' in loaded_plugins:
             artsearch_info = self.peas.get_plugin_info('artsearch')
-            self._unload_artsearch( self.peas, artsearch_info )
+            self._unload_artsearch(self.peas, artsearch_info)
 
         self.csi_id = self.shell.connect("create_song_info", self.create_song_info)
 
@@ -123,14 +120,14 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
     def _unload_artsearch(self, engine, info):
         engine.unload_plugin(info)
         dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.WARNING,
-            Gtk.ButtonsType.OK,
-            _("Conflicting plugin found."))
+                                   Gtk.ButtonsType.OK,
+                                   _("Conflicting plugin found."))
         dialog.format_secondary_text(
-         _("The ArtSearch plugin has been deactivated"))
+            _("The ArtSearch plugin has been deactivated"))
         dialog.run()
         dialog.destroy()
 
-            
+
     def do_deactivate(self):
         '''
         Called by Rhythmbox when the plugin is deactivated. It makes sure to
@@ -150,7 +147,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         self.art_store = None
         self.artist_store = None
         self.peas = None
-        
+
         print("CoverArtBrowser DEBUG - end do_deactivate")
 
     def create_song_info(self, shell, song_info, is_multiple):
@@ -158,6 +155,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
             # following only valid for rhythmbox 3.2
             try:
                 import sys
+
                 artsearch_dir = self.peas.get_plugin_info('artsearch').get_module_dir()
                 sys.path.append(artsearch_dir)
                 from songinfo import AlbumArtPage
@@ -168,7 +166,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
 
     def album_art_requested(self, store, key, last_time):
         searches = []
-        
+
         current_list = get_search_providers()
 
         for provider in current_list:
@@ -184,28 +182,28 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
                 searches.append(MusicBrainzSearch())
             if provider == SearchPreferences.SPOTIFY_SEARCH:
                 searches.append(SpotifySearch())
-            #if provider == SearchPreferences.DISCOGS_SEARCH:
+            # if provider == SearchPreferences.DISCOGS_SEARCH:
             #    searches.append(DiscogsSearch())
             if provider == SearchPreferences.COVERARTARCHIVE_SEARCH:
                 searches.append(CoverartArchiveSearch())
-        
+
         s = CoverSearch(store, key, last_time, searches)
 
         return s.next_search(True)
 
     def artist_art_requested(self, store, key, last_time):
-        print ("artist_art_requested")
-        
-        print (store)
-        print (key)
-        print (last_time)
-        
+        print("artist_art_requested")
+
+        print(store)
+        print(key)
+        print(last_time)
+
         searches = []
-        
+
         searches.append(LastFMArtistSearch())
-        #searches.append(DiscogsSearch())
-        
+        # searches.append(DiscogsSearch())
+
         s = ArtistCoverSearch(store, key, last_time, searches)
 
-        print ("finished artist_art_requested")
+        print("finished artist_art_requested")
         return s.next_search(True)

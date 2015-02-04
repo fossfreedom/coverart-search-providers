@@ -28,24 +28,26 @@
 import os
 
 from gi.repository import RB
-from gi.repository import GObject, GLib, Gio
 
 IMAGE_NAMES = ["cover", "album", "albumart", "front", ".folder", "folder"]
 ITEMS_PER_NOTIFICATION = 10
 
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 
-def file_root (f_name):
-    return os.path.splitext (f_name)[0].lower ()
 
-def shared_prefix_length (a, b):
+def file_root(f_name):
+    return os.path.splitext(f_name)[0].lower()
+
+
+def shared_prefix_length(a, b):
     l = 0
     while a[l] == b[l]:
-        l = l+1
+        l = l + 1
     return l
 
+
 class LocalSearch:
-    def __init__ (self):
+    def __init__(self):
         pass
 
     def finished(self, results):
@@ -56,9 +58,9 @@ class LocalSearch:
         key.add_field("artist", self.artists[0])
 
         # Compare lower case, without file extension
-        for name in [file_root (self.file.get_basename())] + IMAGE_NAMES:
+        for name in [file_root(self.file.get_basename())] + IMAGE_NAMES:
             for f_name in results:
-                if file_root (f_name) == name:
+                if file_root(f_name) == name:
                     uri = parent.resolve_relative_path(f_name).get_uri()
                     self.store.store_uri(key, RB.ExtDBSourceType.USER, uri)
                     continue_search = False
@@ -68,12 +70,12 @@ class LocalSearch:
         album = self.album.lower()
         print(album)
         for f_name in results:
-            f_root = file_root (f_name).lower()
+            f_root = file_root(f_name).lower()
             print(f_root)
             for artist in self.artists:
                 testartist = artist.lower()
                 print(artist)
-                if f_root.find (testartist) != -1 and f_root.find (album) != -1:
+                if f_root.find(testartist) != -1 and f_root.find(album) != -1:
                     nkey = RB.ExtDBKey.create_storage("album", self.album)
                     nkey.add_field("artist", artist)
                     uri = parent.resolve_relative_path(f_name).get_uri()
@@ -120,6 +122,7 @@ class LocalSearch:
         except Exception as e:
             print("okay, probably done: %s" % e)
             import sys
+
             sys.excepthook(*sys.exc_info())
             self.finished(results)
 
@@ -131,11 +134,12 @@ class LocalSearch:
         except Exception as e:
             print("okay, probably done: %s" % e)
             import sys
+
             sys.excepthook(*sys.exc_info())
             self.callback(True)
 
 
-    def search (self, key, last_time, store, callback, args):
+    def search(self, key, last_time, store, callback, args):
         # ignore last_time
 
         location = key.get_info("location")
@@ -158,4 +162,5 @@ class LocalSearch:
 
         print('searching for local art for %s' % (self.file.get_uri()))
         parent = self.file.get_parent()
-        enumfiles = parent.enumerate_children_async("standard::content-type,access::can-read,standard::name", 0, 0, None, self._enum_children_cb, None)
+        enumfiles = parent.enumerate_children_async("standard::content-type,access::can-read,standard::name", 0, 0,
+                                                    None, self._enum_children_cb, None)

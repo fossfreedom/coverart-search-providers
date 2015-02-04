@@ -1,7 +1,7 @@
 # -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
 # Copyright (C) 2012 - fossfreedom
 # Copyright (C) 2012 - Agustin Carrasco
-## adapted from artsearch plugin - Copyright (C) 2012 Jonathan Matthew
+# # adapted from artsearch plugin - Copyright (C) 2012 Jonathan Matthew
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,22 +25,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from gi.repository import RB
-from gi.repository import GLib
-from gi.repository import Gdk
-from gi.repository import Gio
-
-import os, time,re
-import threading
+import os
 import json
-import rb
-import time
-import xml.dom.minidom as dom
-import re
-import rb3compat
+import gettext
+
+from gi.repository import RB
 import chardet
 
-import gettext
+import rb
+import rb3compat
+
+
 gettext.install('rhythmbox', RB.locale_dir())
 
 if rb3compat.PYVER >= 3:
@@ -52,13 +47,15 @@ ITEMS_PER_NOTIFICATION = 10
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 REPEAT_SEARCH_PERIOD = 86400 * 7
 
-def file_root (f_name):
-    return os.path.splitext (f_name)[0].lower ()
+
+def file_root(f_name):
+    return os.path.splitext(f_name)[0].lower()
 
 # this API key belongs to foss.freedom@gmail.com
 # and was generated specifically for this use
 API_KEY = '844353bce568b93accd9ca47674d6c3e'
 API_URL = 'http://ws.audioscrobbler.com/2.0/'
+
 
 def user_has_account():
     session_file = os.path.join(RB.user_data_dir(), "audioscrobbler", "sessions")
@@ -90,7 +87,7 @@ class ArtistCoverSearch(object):
         inputs - True means continue with searching
                - False means a search routine recommends no more searching
         '''
-        
+
         if len(self.searches) == 0 and continue_search:
             key = RB.ExtDBKey.create_storage("artist", self.key.get_field("artist"))
             self.store.store(key, RB.ExtDBSourceType.NONE, None)
@@ -107,12 +104,12 @@ class ArtistCoverSearch(object):
         self.next_search(args)
 
 
-class LastFMArtistSearch (object):
+class LastFMArtistSearch(object):
     def __init__(self):
         pass
 
-    def search_url (self, artist):
-        
+    def search_url(self, artist):
+
         print(("searching for (%s)" % (artist)))
         url = API_URL + "?method=artist.getinfo&"
         url = url + "artist=%s&" % (rb3compat.quote_plus(artist))
@@ -121,60 +118,59 @@ class LastFMArtistSearch (object):
         print(("last.fm query url = %s" % url))
         return url
 
-    def artist_info_cb (self, data):
+    def artist_info_cb(self, data):
         if data is None:
             print("last.fm query returned nothing")
-            self.callback (True)
+            self.callback(True)
             return
 
         encoding = chardet.detect(data)['encoding']
         encoded = data.decode(encoding)
         json_data = json.loads(encoded)
-        
+
         if 'artist' not in json_data:
-            print ("no artists found in data returned")
-            self.callback (True)
+            print("no artists found in data returned")
+            self.callback(True)
             return
-            
-        
+
         artist = json_data['artist']
-        
+
         # find image URLs
         image_urls = []
-        
+
         if 'image' not in artist:
-            print ("no images found for artist")
-            self.callback (True)
+            print("no images found for artist")
+            self.callback(True)
             return
-            
+
         for key in artist['image']:
             for url in list(key.values()):
                 url.strip()
                 if url.endswith('.png') or url.endswith('.jpg'):
                     image_urls.append(url)
-                    
+
         if len(image_urls) > 0:
             # images tags appear in order of increasing size, and we want the largest.  probably.
             url = image_urls.pop()
-            
+
             #last check - ensure the size is relatively large to hide false positives
             site = rb3compat.urlopen(url)
             meta = site.info()
-                
+
             if rb3compat.PYVER >= 3:
                 size = meta.get_all('Content-Length')[0]
             else:
                 size = meta.getheaders("Content-Length")[0]
-                
+
             if int(size) > 1000:
                 self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, str(url))
                 self.callback(False)
                 return
-                
-        self.callback (True)
-                
-    def search_next (self, artist):
-        print ("search_next")
+
+        self.callback(True)
+
+    def search_next(self, artist):
+        print("search_next")
         artist = str(artist)
         self.current_key = RB.ExtDBKey.create_storage("artist", artist)
 
@@ -191,7 +187,7 @@ class LastFMArtistSearch (object):
 
         if user_has_account() == False:
             print("can't search: no last.fm account details")
-            callback (True)
+            callback(True)
             return
 
         artist = key.get_field("artist")
@@ -199,7 +195,7 @@ class LastFMArtistSearch (object):
 
         if artist == None:
             print("can't search: no useful details")
-            callback (True)
+            callback(True)
             return
 
         self.store = store

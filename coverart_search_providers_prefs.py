@@ -16,6 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
+import copy
+import gettext
+import locale
+import webbrowser
+from collections import OrderedDict
+
 from gi.repository import Gio
 from gi.repository import GObject
 from gi.repository import Gtk
@@ -24,11 +30,7 @@ from gi.repository import RB
 from gi.repository import Peas
 
 import rb
-import copy
-import gettext
-import locale
-import webbrowser
-from collections import OrderedDict
+
 
 class CoverLocale:
     '''
@@ -91,6 +93,7 @@ class CoverLocale:
     def __setattr__(self, attr, value):
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
+
 
 class GSetting:
     '''
@@ -164,6 +167,7 @@ class GSetting:
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
 
+
 class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     '''
     Preferences for the CoverArt Browser Plugins. It holds the settings for
@@ -172,14 +176,14 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     __gtype_name__ = 'CoverArtSearchProvidersPreferences'
     object = GObject.property(type=GObject.Object)
 
-    EMBEDDED_SEARCH='embedded-search'
-    DISCOGS_SEARCH='discogs-search'
-    COVERARTARCHIVE_SEARCH='coverartarchive-search'
-    LOCAL_SEARCH='local-search'
-    CACHE_SEARCH='cache-search'
-    LASTFM_SEARCH='lastfm-search'
-    SPOTIFY_SEARCH='spotify-search'
-    MUSICBRAINZ_SEARCH='musicbrainz-search'
+    EMBEDDED_SEARCH = 'embedded-search'
+    DISCOGS_SEARCH = 'discogs-search'
+    COVERARTARCHIVE_SEARCH = 'coverartarchive-search'
+    LOCAL_SEARCH = 'local-search'
+    CACHE_SEARCH = 'cache-search'
+    LASTFM_SEARCH = 'lastfm-search'
+    SPOTIFY_SEARCH = 'spotify-search'
+    MUSICBRAINZ_SEARCH = 'musicbrainz-search'
 
     def __init__(self):
         '''
@@ -198,47 +202,47 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     def display_preferences_dialog(self, plugin):
         if self._first_run:
             self._first_run = False
-              
+
             cl = CoverLocale()
             cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-            
+
             self._dialog = Gtk.Dialog(modal=True, destroy_with_parent=True)
             self._dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
-            self._dialog.set_title(_('CoverArt Browser Search Providers')) 
-              
+            self._dialog.set_title(_('CoverArt Browser Search Providers'))
+
             content_area = self._dialog.get_content_area()
             content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
-            
+
             helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
             helpbutton.connect('clicked', self._display_help)
-            
+
         self._dialog.show_all()
-        
+
         while True:
             response = self._dialog.run()
-            
+
             if response != Gtk.ResponseType.HELP:
                 break
-        
+
         self._dialog.hide()
-        
+
     def _display_help(self, *args):
         peas = Peas.Engine.get_default()
         uri = peas.get_plugin_info('coverart_search_providers').get_help_uri()
-        
+
         webbrowser.open(uri)
-        
+
     def _create_display_contents(self, plugin):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         self.gs = GSetting()
         self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
 
-        #. TRANSLATORS: Do not translate this string.  
+        # . TRANSLATORS: Do not translate this string.
         translators = _("translator-credits")
-        
+
         self.provider = OrderedDict()
-        
+
         self.provider[self.EMBEDDED_SEARCH] = _("Embedded coverart")
         self.provider[self.LOCAL_SEARCH] = _("Local folder coverart")
         self.provider[self.CACHE_SEARCH] = _("Cached coverart")
@@ -247,13 +251,12 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         self.provider[self.COVERARTARCHIVE_SEARCH] = _("Coverart Archive Internet Provider")
         self.provider[self.MUSICBRAINZ_SEARCH] = _("MusicBrainz Internet Provider")
         keep_alive_translation = _("Discogs Internet Provider")
-        
-        
+
         current_providers = copy.deepcopy(self.provider)
 
         current = self.settings[self.gs.PluginKey.PROVIDERS]
         current_list = current.split(',')
-        
+
         # create the ui
         builder = Gtk.Builder()
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
@@ -266,7 +269,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
             self.launchpad_label.set_text(translators)
         else:
             self.launchpad_button.set_visible(False)
-        
+
         self.provider_liststore = builder.get_object('provider_liststore')
         self.search_liststore = builder.get_object('search_liststore')
         self.provider_list = builder.get_object('provider_list')
@@ -276,21 +279,21 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
             if key in current_providers:
                 del current_providers[key]
                 self.search_liststore.append([self.provider[key], key])
-            
+
         for key, value in list(current_providers.items()):
-            self.provider_liststore.append( [value, key] )
-            
+            self.provider_liststore.append([value, key])
+
         if len(self.provider_liststore) == 0:
-            self.provider_liststore.append( [self.provider[self.EMBEDDED_SEARCH], self.EMBEDDED_SEARCH] )
-        
+            self.provider_liststore.append([self.provider[self.EMBEDDED_SEARCH], self.EMBEDDED_SEARCH])
+
         # return the dialog
         return builder.get_object('maingrid')
 
     def back_clicked(self, *args):
 
         if len(self.search_liststore) == 1:
-            return   # keep at least one search provider
-            
+            return  # keep at least one search provider
+
         model, iterval = self.search_list.get_selection().get_selected()
 
         if iterval:
@@ -311,11 +314,11 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
             self._store_search_providers()
 
     def _store_search_providers(self):
-        item = self.search_liststore.get_iter_first ()
+        item = self.search_liststore.get_iter_first()
         current_providers = []
-        
+
         while ( item != None ):
-            current_providers.append (self.search_liststore.get_value (item, 1))
+            current_providers.append(self.search_liststore.get_value(item, 1))
             item = self.search_liststore.iter_next(item)
 
         self.settings[self.gs.PluginKey.PROVIDERS] = ','.join(current_providers)
@@ -328,7 +331,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
             if previous:
                 self.search_liststore.swap(sel[1], previous)
                 self._store_search_providers()
-                
+
 
     def on_down_button_clicked(self, *args):
         selection = self.search_list.get_selection()

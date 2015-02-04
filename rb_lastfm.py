@@ -26,21 +26,23 @@
 
 import xml.dom.minidom as dom
 import re
+
 import rb3compat
 from coverart_album_search import BaseSearch
+
 
 if rb3compat.PYVER >= 3:
     import configparser
 else:
     import ConfigParser as configparser
-    
+
 import os
-import time
 
 import rb
 from gi.repository import RB
 
 import gettext
+
 gettext.install('rhythmbox', RB.locale_dir())
 
 # allow repeat searches once a week
@@ -65,6 +67,7 @@ DISC_NUMBER_REGEXS = (
     " cd *[0-9]+$"
 )
 
+
 def user_has_account():
     session_file = os.path.join(RB.user_data_dir(), "audioscrobbler", "sessions")
 
@@ -78,16 +81,17 @@ def user_has_account():
     except:
         return False
 
-class LastFMSearch (BaseSearch):
+
+class LastFMSearch(BaseSearch):
     def __init__(self):
         super(LastFMSearch, self).__init__()
 
-    def search_url (self, artist, album, album_mbid):
+    def search_url(self, artist, album, album_mbid):
         # Remove variants of Disc/CD [1-9] from album title before search
         orig_album = album
         for exp in DISC_NUMBER_REGEXS:
-            p = re.compile (exp, re.IGNORECASE)
-            album = p.sub ('', album)
+            p = re.compile(exp, re.IGNORECASE)
+            album = p.sub('', album)
 
         album.strip()
 
@@ -105,7 +109,7 @@ class LastFMSearch (BaseSearch):
         return url
 
 
-    def album_info_cb (self, data):
+    def album_info_cb(self, data):
         if data is None:
             print("last.fm query returned nothing")
             self.search_next()
@@ -129,19 +133,19 @@ class LastFMSearch (BaseSearch):
         if len(image_urls) > 0:
             # images tags appear in order of increasing size, and we want the largest.  probably.
             url = image_urls.pop()
-            
-            #last check - ensure the size is relatively large to hide false positives
+
+            # last check - ensure the size is relatively large to hide false positives
             site = rb3compat.urlopen(url)
             meta = site.info()
-                
+
             if rb3compat.PYVER >= 3:
                 size = meta.get_all('Content-Length')[0]
             else:
                 size = meta.getheaders("Content-Length")[0]
-                
+
             if int(size) > 1000:
                 print(size)
-                    
+
                 self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
                 self.callback(False)
             else:
@@ -149,12 +153,12 @@ class LastFMSearch (BaseSearch):
         else:
             self.search_next()
 
-    def search_next (self):
+    def search_next(self):
         if len(self.searches) == 0:
             self.callback(True)
             return
-        print ("search_next")
-        print (self.searches)
+        print("search_next")
+        print(self.searches)
         (artist, album, album_mbid) = self.searches.pop(0)
         self.current_key = RB.ExtDBKey.create_storage("album", album)
         key_artist = self.key.get_field("artist")
@@ -166,14 +170,14 @@ class LastFMSearch (BaseSearch):
         url = self.search_url(artist, album, album_mbid)
 
         l = rb.Loader()
-        self.rate_limit( l.get_url, (url, self.album_info_cb), 5 )
+        self.rate_limit(l.get_url, (url, self.album_info_cb), 5)
 
 
     def search(self, key, last_time, store, callback, args):
 
         if user_has_account() == False:
             print("can't search: no last.fm account details")
-            callback (True)
+            callback(True)
             return
 
         album = key.get_field("album")
@@ -187,7 +191,7 @@ class LastFMSearch (BaseSearch):
 
         if album == None or len(artists) == 0:
             print("can't search: no useful details")
-            callback (True)
+            callback(True)
             return
 
         self.searches = []

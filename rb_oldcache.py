@@ -25,21 +25,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import os.path
-import rb3compat
-import rb
+import gettext
+
 from gi.repository import RB
 
-import gettext
+import rb3compat
+
+
 gettext.install('rhythmbox', RB.locale_dir())
 
 ART_FOLDER = os.path.expanduser(os.path.join(RB.user_cache_dir(), 'covers'))
 USEFUL = os.path.exists(ART_FOLDER)
 
+
 class OldCacheSearch(object):
     def __init__(self):
         pass
 
-    def filename (self, album, artist, extension):
+    def filename(self, album, artist, extension):
         artist = artist.replace('/', '-')
         album = album.replace('/', '-')
         return os.path.join(ART_FOLDER, '%s - %s.%s' % (artist, album, extension))
@@ -52,7 +55,7 @@ class OldCacheSearch(object):
         if not USEFUL:
             callback(True)
             return
-            
+
         album = key.get_field("album")
         artists = key.get_field_values("artist") or []
 

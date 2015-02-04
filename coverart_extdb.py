@@ -17,38 +17,41 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+import time
+
 from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 from gi.repository import Gio
-from gi.repository import GLib
-from gi.repository import Gdk
 
 import rb3compat
-import time
 
-if rb3compat.PYVER >=3:
+
+if rb3compat.PYVER >= 3:
     import dbm.gnu as gdbm
 else:
     import gdbm
-    
+
 import os
 import json
+
 
 class Queue:
     def __init__(self):
         self.items = []
+
     def isEmpty(self):
         return self.items == []
 
     def enqueue(self, item):
-        self.items.insert(0,item)
+        self.items.insert(0, item)
 
     def dequeue(self):
         return self.items.pop()
 
     def size(self):
         return len(self.items)
+
 
 class CoverArtExtDB:
     '''
@@ -65,152 +68,152 @@ class CoverArtExtDB:
 
     :param name: `str` name of the external database.
     '''
-    
+
     # storage for the instance references
     __instances = {}
     NEXT_FILE = 'next-file'
-    
+
     class _impl(GObject.Object):
         """ Implementation of the singleton interface """
         # properties
-        
+
         # signals
         __gsignals__ = {
             'added': (GObject.SIGNAL_RUN_LAST, None, (object, object, object)),
             'request': (GObject.SIGNAL_RUN_LAST, None, (object, object))
-            }
-        
-        #added (ExtDB self, ExtDBKey object, String path, Value pixbuf)    
+        }
+
+        # added (ExtDB self, ExtDBKey object, String path, Value pixbuf)
         #request (ExtDB self, ExtDBKey object, guint64 last_time)
-        
+
         _callback = {}
-        
+
         def __init__(self, name):
             super(CoverArtExtDB._impl, self).__init__()
             self.cachedir = RB.user_cache_dir() + "/" + name
             if not os.path.exists(self.cachedir):
                 os.makedirs(self.cachedir)
-            
+
             filename = self.cachedir + "/store.db"
             self.db = gdbm.open(filename, 'c')
             self.queue = Queue()
             self._store_request_in_progress = False
-        
+
         def _encode(self, param):
-            if rb3compat.PYVER >=3:
+            if rb3compat.PYVER >= 3:
                 return param.encode('utf-8')
             else:
                 return param
-                
+
         def _decode(self, param):
-            if rb3compat.PYVER >=3:
+            if rb3compat.PYVER >= 3:
                 return param.decode('utf-8')
             else:
                 return param
-            
+
         def _get_next_file(self):
             if self._encode(CoverArtExtDB.NEXT_FILE) not in self.db:
                 next_file = str(0).zfill(8)
             else:
                 next_file = self._decode(self.db[self._encode(CoverArtExtDB.NEXT_FILE)])
-                next_file = str(int(next_file)+1).zfill(8)
-            
+                next_file = str(int(next_file) + 1).zfill(8)
+
             self.db[self._encode(CoverArtExtDB.NEXT_FILE)] = next_file
             return next_file
-            
+
         def _get_field_key(self, key):
             return "/".join(key.get_field_names())
-            
+
         def _get_field_values(self, key):
             field_values = ""
             for field in key.get_field_names():
                 field_values += "#!~#".join(key.get_field_values(field))
             return field_values
-            
+
         def _construct_key(self, key):
             keyval = self._get_field_key(key) + 'values' + \
-                self._get_field_values(key)
-                
+                     self._get_field_values(key)
+
             keyval = self._encode(keyval)
-            return keyval    
-        
+            return keyval
+
         def store(self, key, source_type, data):
             '''
             :param key: `ExtDBKey`
             :param source_type: `ExtDBSourceType`
             :param data: `GdkPixbuf.Pixbuf`
             '''
-            print ("store")
-            
+            print("store")
+
             self.store_uri(key, source_type, data)
-            
+
         def do_store_request(self, *args):
             if self._store_request_in_progress:
                 return False
-                
-            print ("do_store_request")
+
+            print("do_store_request")
             self._store_request_in_progress = True
-            
+
             while not self.queue.isEmpty():
-                    
+
                 key, source_type, data = self.queue.dequeue()
                 storeval = {}
                 storeval['last-time'] = time.time()
                 filename = ''
-                
+
                 if data and source_type != RB.ExtDBSourceType.NONE:
                     filename = self._get_next_file()
                     storeval['filename'] = filename
-                    
+
                     filename = self.cachedir + "/" + filename
-                    
+
                     if isinstance(data, GdkPixbuf.Pixbuf):
                         data.savev(filename, 'png', [], [])
                     else:
                         gfile = Gio.File.new_for_uri(data)
-                
+
                         try:
                             found, contents, error = gfile.load_contents(None)
                             if not found:
-                                print ("not found")
+                                print("not found")
                                 continue
                         except:
-                            print ("failed to load uri %s", data)
+                            print("failed to load uri %s", data)
                             self._store_request_in_progress = False
                             return
-                            
+
                         new = Gio.File.new_for_path(filename)
                         new.replace_contents(contents, '', '', False, None)
-                        
+
                     self.emit('added', key, filename, data)
                 else:
-                    storeval['filename']=''
-                
+                    storeval['filename'] = ''
+
                 param = self._construct_key(key)
                 self.db[param] = json.dumps(storeval)
-                
+
                 if param in self._callback:
                     callback, user_data = self._callback[param]
                     callback(key, filename, data, user_data)
-            
+
             self._store_request_in_progress = False
-            print ("finish store request")        
+            print("finish store request")
             return False
-            
+
         def store_uri(self, key, source_type, data):
             '''
             :param key: `ExtDBKey`
             :param source_type: `ExtDBSourceType`
             :param data: `str` which is a uri
             '''
-            print ("store_uri")
-            
+            print("store_uri")
+
             self.queue.enqueue((key, source_type, data))
-            
+
             #Gio.io_scheduler_push_job(self.do_store_request, None, 
             #        GLib.PRIORITY_DEFAULT, None)
             self.do_store_request()
-                    
+
         def lookup(self, key):
             '''
             :param key: `ExtDBKey`
@@ -221,10 +224,10 @@ class CoverArtExtDB:
                 storeval = json.loads(self._decode(self.db[lookup]))
                 if storeval['filename'] != '':
                     filename = self.cachedir + "/" + storeval['filename']
-                
+
             return str(filename)
-            
-                
+
+
         def request(self, key, callback, user_data):
             '''
             :param key: `ExtDBKey`
@@ -234,9 +237,9 @@ class CoverArtExtDB:
             where callback is
             Function (ExtDBKey key, String filename, GdkPixbuf.Pixbuf data, void* user_data) boolean
             '''
-            
+
             lookup = self._construct_key(key)
-            
+
             filename = ''
             timeval = time.time()
             if lookup in self.db:
@@ -244,7 +247,7 @@ class CoverArtExtDB:
                 if storeval['filename'] != '':
                     filename = self.cachedir + "/" + storeval['filename']
                 timeval = storeval['last-time']
-                
+
             result = False
             if filename != '':
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
@@ -253,7 +256,7 @@ class CoverArtExtDB:
                 self._callback[lookup] = (callback, user_data)
                 self.emit('request', key, timeval)
                 result = True
-                
+
             return result
 
     def __init__(self, name):

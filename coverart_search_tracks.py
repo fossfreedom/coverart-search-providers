@@ -17,16 +17,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from gi.repository import RB
-from gi.repository import Gio
-
 import base64
 from mimetypes import MimeTypes
 import os
-import itertools
-from PIL import Image
 import tempfile
 import importlib
+
+from gi.repository import RB
+from gi.repository import Gio
+from PIL import Image
+
 
 def mutagen_library(module_name):
     module = None
@@ -36,21 +36,24 @@ def mutagen_library(module_name):
             return library
         else:
             return library + "." + module_name
-        
+
     try:
         module = importlib.import_module(lookfor('mutagen'))
     except ImportError:
         module = importlib.import_module(lookfor('mutagenx'))
-        
+
     return module
-  
+
+
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 
-def anyTrue(pred,seq):
+
+def anyTrue(pred, seq):
     '''Returns True if a True predicate is found, False
     otherwise. Quits as soon as the first True is found
     '''
-    return True in map(pred,seq)
+    return True in map(pred, seq)
+
 
 class CoverArtTracks(object):
     def __init__(self):
@@ -70,30 +73,30 @@ class CoverArtTracks(object):
         try:
             module = mutagen_library('oggvorbis')
             o = module.OggVorbis(search)
-            
+
             # lets get all tags into a dict
             # lets also remove the deprecated coverart tag and any
             # old pictures
-            
+
             tags = {}
             for orig, values in list(o.tags.items()):
                 if orig.lower() != 'coverart' and \
-                   orig.lower() != 'metadata_block_picture':
-                    tags[orig]=values
+                                orig.lower() != 'metadata_block_picture':
+                    tags[orig] = values
 
             module = mutagen_library('flac')
             image = module.Picture()
-            image.type = 3 # Cover image
+            image.type = 3  # Cover image
             image.data = open(art_location, "rb").read()
             image.mime = mimetypestr
             image.desc = 'cover description'
             tags.setdefault("METADATA_BLOCK_PICTURE",
                 []).append(base64.b64encode(image.write()))
-            
+
             o.tags.update(tags)
             o.save()
         except:
-           pass
+            pass
 
     def embed_flac(self, art_location, search, mimetypestr):
         '''
@@ -104,12 +107,12 @@ class CoverArtTracks(object):
         try:
             module = mutagen_library('')
             music = module.File(search)
-            
+
             # lets remove any old pictures
             music.clear_pictures()
             module = mutagen_library('flac')
             image = module.Picture()
-            image.type = 3 # Cover image
+            image.type = 3  # Cover image
             image.data = open(art_location, "rb").read()
             image.mime = mimetypestr
             image.desc = 'cover description'
@@ -128,9 +131,9 @@ class CoverArtTracks(object):
             module = mutagen_library('mp4')
             music = module.MP4(search)
 
-            covr = [] 
+            covr = []
             data = open(art_location, "rb").read()
-            
+
             if mimetypestr == "image/jpeg":
                 covr.append(module.MP4Cover(data, module.MP4Cover.FORMAT_JPEG))
             elif mimetypestr == "image/png":
@@ -153,10 +156,9 @@ class CoverArtTracks(object):
 
             # lets remove any old pictures
             music.delall('APIC')
-            
-            
+
             music.add(module.APIC(encoding=0, mime=mimetypestr, type=3,
-               desc='', data=open(art_location, "rb").read()))
+                                  desc='', data=open(art_location, "rb").read()))
 
             music.save()
         except:
@@ -173,32 +175,32 @@ class CoverArtTracks(object):
         returns True or False depending if the routine completed successfully
         '''
 
-        the=anyTrue # for readability
+        the = anyTrue  # for readability
 
         art_location = RB.ExtDB(name='album-art').lookup(key)
 
         if not art_location:
-            print ("not a valid key to a file containing art")
+            print("not a valid key to a file containing art")
             return False
-            
+
         image = Image.open(art_location)
         f, art_location = tempfile.mkstemp(suffix=".jpg")
-            
-        print ("resizing?")
-        print (resize)
+
+        print("resizing?")
+        print(resize)
         if resize > 0:
-            tosave = image.resize((resize,resize), Image.ANTIALIAS)
+            tosave = image.resize((resize, resize), Image.ANTIALIAS)
         else:
             tosave = image
-            
-        print (art_location)
+
+        print(art_location)
         tosave.save(art_location)
-        
+
         search = Gio.file_new_for_uri(track_uri)
         if search.get_uri_scheme() in IGNORED_SCHEMES:
             print('not a valid scheme %s' % (search.get_uri()))
             return False
- 
+
         if search.get_path().lower().endswith('.ogg'):
             self.embed_ogg(art_location, search.get_path(), 'image/jpeg')
 
@@ -207,10 +209,10 @@ class CoverArtTracks(object):
 
         if search.get_path().lower().endswith('.mp3'):
             self.embed_mp3(art_location, search.get_path(), 'image/jpeg')
-        
-        if the(search.get_path().lower().endswith,(".m4a", ".m4b", ".m4p", ".mp4")):
+
+        if the(search.get_path().lower().endswith, (".m4a", ".m4b", ".m4p", ".mp4")):
             self.embed_mp4(art_location, search.get_path(), 'image/jpeg')
 
         os.remove(art_location)
-        
+
         return True

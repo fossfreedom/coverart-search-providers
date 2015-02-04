@@ -25,13 +25,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import xml.dom.minidom as dom
+import time
+
+from gi.repository import RB
 
 import rb
 import rb3compat
-import os
-from gi.repository import RB
-import time
 from coverart_album_search import BaseSearch
+
 
 # musicbrainz URLs
 MUSICBRAINZ_RELEASE_URL = "http://musicbrainz.org/ws/2/release/%s?inc=artists"
@@ -47,12 +48,12 @@ MUSICBRAINZ_VARIOUS_ARTISTS = "89ad4ac3-39f7-470e-963a-56509c546377"
 # Amazon URL bits
 AMAZON_IMAGE_URL = "http://images.amazon.com/images/P/%s.01.LZZZZZZZ.jpg"
 
+
 class MusicBrainzSearch(BaseSearch):
-    
     def __init__(self):
         super(MusicBrainzSearch, self).__init__()
 
-    def get_release_cb (self, data, args):
+    def get_release_cb(self, data, args):
         (key, store, callback, cbargs) = args
         if data is None:
             print("musicbrainz release request returned nothing")
@@ -86,16 +87,16 @@ class MusicBrainzSearch(BaseSearch):
 
                 image_url = AMAZON_IMAGE_URL % asin
                 print("got url %s" % image_url)
-                
-                #now get file size before downloading
+
+                # now get file size before downloading
                 site = rb3compat.urlopen(image_url)
                 meta = site.info()
-                
+
                 if rb3compat.PYVER >= 3:
                     size = meta.get_all('Content-Length')[0]
                 else:
                     size = meta.getheaders("Content-Length")[0]
-                
+
                 if int(size) > 1000:
                     print(size)
                     store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
@@ -111,7 +112,7 @@ class MusicBrainzSearch(BaseSearch):
             print("exception parsing musicbrainz response: %s" % e)
             callback(True)
 
-    def try_search_artist_album (self, key, store, callback, *args):
+    def try_search_artist_album(self, key, store, callback, *args):
         album = key.get_field("album")
         artist = key.get_field("artist")
 
@@ -124,13 +125,13 @@ class MusicBrainzSearch(BaseSearch):
         url = MUSICBRAINZ_SEARCH_URL % (rb3compat.quote(query, safe=':'),)
 
         loader = rb.Loader()
-        self.rate_limit( loader.get_url, (url, self.get_release_cb, (key, store, callback, args)), 1)
+        self.rate_limit(loader.get_url, (url, self.get_release_cb, (key, store, callback, args)), 1)
 
     def search(self, key, last_time, store, callback, *args):
-        
+
         self.current_time = time.time()
-            
-        key = key.copy()    # ugh
+
+        key = key.copy()  # ugh
         album_id = key.get_info("musicbrainz-albumid")
         if album_id is None:
             print("no musicbrainz release ID for this track")
@@ -147,4 +148,4 @@ class MusicBrainzSearch(BaseSearch):
 
         url = MUSICBRAINZ_RELEASE_URL % (album_id)
         loader = rb.Loader()
-        self.rate_limit( loader.get_url, (url, self.get_release_cb, (key, store, callback, args)), 1)
+        self.rate_limit(loader.get_url, (url, self.get_release_cb, (key, store, callback, args)), 1)
