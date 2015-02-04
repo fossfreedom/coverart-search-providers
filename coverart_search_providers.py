@@ -103,17 +103,17 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         self.artist_req_id = self.artist_store.connect("request", self.artist_art_requested)
         
 
-        peas = Peas.Engine.get_default()
-        loaded_plugins = peas.get_loaded_plugins()
+        self.peas = Peas.Engine.get_default()
+        loaded_plugins = self.peas.get_loaded_plugins()
 
-        self.peas_id = peas.connect_after('load-plugin', self.deactivate_plugin)
+        self.peas_id = self.peas.connect_after('load-plugin', self.deactivate_plugin)
 
         if 'artsearch' in loaded_plugins:
-            artsearch_info = peas.get_plugin_info('artsearch')
-            self._unload_artsearch( peas, artsearch_info )
+            artsearch_info = self.peas.get_plugin_info('artsearch')
+            self._unload_artsearch( self.peas, artsearch_info )
 
-        self.peas = peas
-        
+        self.csi_id = self.shell.connect("create_song_info", self.create_song_info)
+
         print("CoverArtBrowser DEBUG - end do_activate")
 
     def deactivate_plugin(self, engine, info):
@@ -137,7 +137,9 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         free all the resources used by the plugin.
         '''
         print("CoverArtBrowser DEBUG - do_deactivate")
-        
+
+        self.shell.disconnect(self.csi_id)
+        self.csi_id = 0
         del self.shell
         del self.db
         self.art_store.disconnect(self.req_id)
@@ -150,6 +152,19 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         self.peas = None
         
         print("CoverArtBrowser DEBUG - end do_deactivate")
+
+    def create_song_info(self, shell, song_info, is_multiple):
+        if is_multiple is False:
+            # following only valid for rhythmbox 3.2
+            try:
+                import sys
+                artsearch_dir = self.peas.get_plugin_info('artsearch').get_module_dir()
+                sys.path.append(artsearch_dir)
+                from songinfo import AlbumArtPage
+
+                x = AlbumArtPage(shell, song_info)
+            except:
+                pass
 
     def album_art_requested(self, store, key, last_time):
         searches = []

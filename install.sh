@@ -77,9 +77,9 @@ mkdir -p $PLUGIN_PATH
 cp -r "${SCRIPT_PATH}"* "$PLUGIN_PATH"
 
 #install the plugin; the install path depends on the install mode
-if [[ $RB == false ]]
+if [[ $RB == true ]]
 then
-    mv "$PLUGIN_PATH"coverart_search_providers.plugin3 "$PLUGIN_PATH"coverart_search_providers.plugin
+    mv "$PLUGIN_PATH"coverart_search_providers.plugin2 "$PLUGIN_PATH"coverart_search_providers.plugin
 fi
 
 #remove the install script from the dir (not needed)

@@ -1,4 +1,4 @@
-coverart-search-providers v1.1
+coverart-search-providers v1.2
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
@@ -51,6 +51,9 @@ v1.1
  - add Spotify as an coverart provider
  - fix bug to carry on search after binning poor MusicBrainz image download
  - restructure rate-limits to ensure faster downloads whilst keeping to providers rate-limits
+
+v1.2
+ - support song-info dialog for Rhythmbox 3.2
 
 Recommended order for Search Providers
 
