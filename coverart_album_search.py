@@ -104,7 +104,11 @@ class CoverSearch(object):
         print(continue_search)
         if len(self.searches) == 0 and continue_search:
             print("no more searches")
-            key = RB.ExtDBKey.create_storage("album", self.key.get_field("album"))
+            album = self.key.get_field("album")
+            if not album:
+                return False
+                
+            key = RB.ExtDBKey.create_storage("album", album)
             key.add_field("artist", self.key.get_field("artist"))
             self.store.store(key, RB.ExtDBSourceType.NONE, None)
             print("end of next_search False")
@@ -214,6 +218,9 @@ class CoverAlbumSearch:
 
         imagefilename = tempfile.NamedTemporaryFile(delete=False)
 
+        if not self.album:
+            return False
+            
         key = RB.ExtDBKey.create_storage("album", self.album)
         key.add_field("artist", self.artists[0])
         parent = self.file.get_parent()
