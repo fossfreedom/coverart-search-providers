@@ -1,0 +1,95 @@
+# German translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-10 19:47+0100\n"
+"PO-Revision-Date: 2015-02-13 19:39+0000\n"
+"Last-Translator: jus <Unknown>\n"
+"Language-Team: German <de@li.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-02-13 20:28+0000\n"
+"X-Generator: Launchpad (build 17341)\n"
+
+#: tmp/coverart_search_providers_prefs.ui.h:1
+msgid "Choose Search Providers:"
+msgstr "Einen Suchanbieter wählen:"
+
+#: tmp/coverart_search_providers_prefs.ui.h:2
+msgid "Provider"
+msgstr "Anbieter"
+
+#: tmp/coverart_search_providers_prefs.ui.h:3
+msgid "Search"
+msgstr "Suche"
+
+#: coverart_album_search.py:330 coverart_album_search.py:331
+#: coverart_album_search.py:460 coverart_album_search.py:461
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#. define .plugin text strings used for translation
+#: coverart_search_providers_prefs.py:207 coverart_search_providers.py:92
+msgid "CoverArt Browser Search Providers"
+msgstr "CoverArt Browser Suchanbieter"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_search_providers_prefs.py:238
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Simon Schütte https://launchpad.net/~simonschuette\n"
+"  Spencer Young https://launchpad.net/~spenceryoung\n"
+"  Tobias Bannert https://launchpad.net/~toba\n"
+"  jus https://launchpad.net/~jus"
+
+#: coverart_search_providers_prefs.py:242
+msgid "Embedded coverart"
+msgstr "Eingebettete Coverart"
+
+#: coverart_search_providers_prefs.py:243
+msgid "Local folder coverart"
+msgstr "Coverart lokaler Ordner"
+
+#: coverart_search_providers_prefs.py:244
+msgid "Cached coverart"
+msgstr "Zwischengespeicherte Coverart"
+
+#: coverart_search_providers_prefs.py:245
+msgid "LastFM Internet Provider"
+msgstr "LastFM Internet Anbieter"
+
+#: coverart_search_providers_prefs.py:246
+msgid "Spotify Internet Provider"
+msgstr "Spotify Internetanbieter"
+
+#: coverart_search_providers_prefs.py:247
+msgid "Coverart Archive Internet Provider"
+msgstr "Coverart Archiv Internetanbieter"
+
+#: coverart_search_providers_prefs.py:248
+msgid "MusicBrainz Internet Provider"
+msgstr "MusicBrainz Internetanbieter"
+
+#: coverart_search_providers_prefs.py:249
+msgid "Discogs Internet Provider"
+msgstr "Discogs Internetanbieter"
+
+#: coverart_search_providers.py:93
+msgid "Additional coverart search providers for Rhythmbox"
+msgstr "Zusätzliche Coverart Suchanbieter für Rhythmbox"
+
+#: coverart_search_providers.py:127
+msgid "Conflicting plugin found."
+msgstr ""
+
+#: coverart_search_providers.py:129
+msgid "The ArtSearch plugin has been deactivated"
+msgstr "Das ArtSearch Plugin wurde deaktiviert"
