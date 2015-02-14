@@ -230,8 +230,8 @@ class CoverAlbumSearch:
             module = mutagen_library('mp4')
             mp = module.MP4(search)
 
-            if len(mp[b'covr']) >= 1:
-                imagefilename.write(mp[b'covr'][0])
+            if len(mp['covr']) >= 1:
+                imagefilename.write(mp['covr'][0])
                 uri = parent.resolve_relative_path(imagefilename.name).get_uri()
                 imagefilename.close()
                 self.store.store_uri(key, RB.ExtDBSourceType.USER, uri)

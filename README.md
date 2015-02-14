@@ -54,6 +54,7 @@ v1.1
 
 v1.2
  - support song-info dialog for Rhythmbox 3.2
+ - use RB's own embedded art search method as well as mutagen for wider embedded-art coverage
 
 Recommended order for Search Providers
 

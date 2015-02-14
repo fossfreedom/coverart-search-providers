@@ -38,6 +38,7 @@ from rb_oldcache import OldCacheSearch
 from rb_local import LocalSearch
 from rb_lastfm import LastFMSearch
 from rb_musicbrainz import MusicBrainzSearch
+from rb_embedded import EmbeddedSearch
 from coverart_search_providers_prefs import SearchPreferences
 import rb3compat
 
@@ -171,6 +172,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
 
         for provider in current_list:
             if provider == SearchPreferences.EMBEDDED_SEARCH:
+                searches.append(EmbeddedSearch())
                 searches.append(CoverAlbumSearch())
             if provider == SearchPreferences.LOCAL_SEARCH:
                 searches.append(LocalSearch())
