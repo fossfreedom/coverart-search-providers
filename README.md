@@ -119,7 +119,7 @@ cd coverart-search-providers
 ./install.sh --uninstall
 </pre>
 
-*IMPORTANT NOTE FOR ALL DISTRO's - Requirement for the installation of Mutagen or Mutagenx*
+*IMPORTANT NOTE FOR ALL DISTRO's - Requirement for the installation of Mutagen*
 
 *For Ubuntu 12.04 to 14.04:* 
 
@@ -154,16 +154,11 @@ sudo su
 
 *support for embedded coverart - rhythmbox 3.0 and later*
 
-The plugin requires either python3-mutagen (v1.25 or later) or mutagenx (v1.24 or later), both of which are available from PyPi
+The plugin requires python3-mutagen (v1.25 or later) which is available from PyPi
 
  - https://pypi.python.org/pypi/mutagen
- - https://pypi.python.org/pypi/mutagenx
  
-Alternatively, from GitHub
-
- - https://github.com/LordSputnik/mutagen
- 
-Mutagenx is Debian packaged from my PPA:
+python3-mutagen is Debian packaged from my PPA:
 
  - https://launchpad.net/~fossfreedom/+archive/rhythmbox-plugins
  
