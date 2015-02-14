@@ -28,6 +28,8 @@
 import os
 
 from gi.repository import RB
+from gi.repository import Gio
+from gi.repository import GLib
 
 IMAGE_NAMES = ["cover", "album", "albumart", "front", ".folder", "folder"]
 ITEMS_PER_NOTIFICATION = 10
@@ -155,6 +157,11 @@ class LocalSearch:
             return
 
         self.album = key.get_field("album")
+        if not self.album:
+            print ('no album name')
+            callback(args)
+            return
+            
         self.artists = key.get_field_values("artist")
         self.store = store
         self.callback = callback
