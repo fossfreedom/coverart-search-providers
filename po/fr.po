@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-10 19:47+0100\n"
-"PO-Revision-Date: 2014-07-10 19:52+0000\n"
-"Last-Translator: Jean Marc <Unknown>\n"
+"PO-Revision-Date: 2015-02-20 21:59+0000\n"
+"Last-Translator: Éfrit <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-11 19:20+0000\n"
-"X-Generator: Launchpad (build 17111)\n"
+"X-Launchpad-Export-Date: 2015-02-20 22:12+0000\n"
+"X-Generator: Launchpad (build 17355)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
@@ -46,7 +46,8 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Jean Marc https://launchpad.net/~m-balthazar\n"
-"  londumas https://launchpad.net/~helion331990"
+"  londumas https://launchpad.net/~helion331990\n"
+"  Éfrit https://launchpad.net/~efrit"
 
 #: coverart_search_providers_prefs.py:242
 msgid "Embedded coverart"
@@ -54,7 +55,7 @@ msgstr "Jaquette intégrée"
 
 #: coverart_search_providers_prefs.py:243
 msgid "Local folder coverart"
-msgstr "Jaquette du dossier locale"
+msgstr "Jaquette du dossier local"
 
 #: coverart_search_providers_prefs.py:244
 msgid "Cached coverart"
@@ -82,12 +83,12 @@ msgstr "Fournisseur internet Discogs"
 
 #: coverart_search_providers.py:93
 msgid "Additional coverart search providers for Rhythmbox"
-msgstr "Fournisseur additionnel de recherche de jaquette pour Rhythmbox"
+msgstr "Fournisseurs supplémentaires de recherche de jaquette pour Rhythmbox"
 
 #: coverart_search_providers.py:127
 msgid "Conflicting plugin found."
-msgstr "Des greffons sont en conflits"
+msgstr "Des greffons sont en conflits."
 
 #: coverart_search_providers.py:129
 msgid "The ArtSearch plugin has been deactivated"
-msgstr "Le greffon ArtSearch est désactivé"
+msgstr "Le greffon ArtSearch a été désactivé"
