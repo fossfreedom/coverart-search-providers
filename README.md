@@ -1,4 +1,4 @@
-coverart-search-providers v1.2 (beta 1)
+coverart-search-providers v1.2 (rc)
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
