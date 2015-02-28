@@ -179,6 +179,9 @@ class CoverArtTracks(object):
 
         art_location = RB.ExtDB(name='album-art').lookup(key)
 
+        if not isinstance(art_location, str):
+            art_location = art_location[0]
+            
         if not art_location:
             print("not a valid key to a file containing art")
             return False
