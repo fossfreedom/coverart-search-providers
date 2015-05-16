@@ -1,4 +1,4 @@
-coverart-search-providers v1.2
+coverart-search-providers v1.2.1
 =========================
 
 Drop in Rhythmbox replacement for the default CoverArt Search plugin to provide new and updated coverart search providers both local and by internet image hosts
@@ -55,6 +55,9 @@ v1.1
 v1.2
  - support song-info dialog for Rhythmbox 3.2
  - use RB's own embedded art search method as well as mutagen for wider embedded-art coverage
+ 
+v1.2.1
+ - bug fix - for locales not found, exit the language installer gracefully
 
 Recommended order for Search Providers
 
