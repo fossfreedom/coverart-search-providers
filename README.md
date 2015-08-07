@@ -77,7 +77,7 @@ for debian & debian-based distros such as Ubuntu & Mint (rhythmbox 2.96 - 2.99):
 
 for fedora and similar:
 
-    sudo yum install git gettext python-mako python-mutagen python-requests
+    sudo yum install git gettext python-mako python-mutagen python-requests python-pillow python-chardet
     
 for opensuse:
  
@@ -105,6 +105,12 @@ for debian and other debian derived distros (such as ubuntu 14.04 & Mint based o
 for fedora and similar:
 
     sudo yum install git gettext python3-mako python3-requests python3-pillow python3-lxml
+    
+for arch:
+
+    pacman -S python-pillow python-chardet python-mutagen python-lxml python-requests
+    
+Alternatively for arch use [this AUR](https://aur.archlinux.org/packages/rhythmbox-plugin-coverart-search-providers) 
 
 For other distro's please raise an issue and let me know what the installation instructions are.  Thanks.
 
