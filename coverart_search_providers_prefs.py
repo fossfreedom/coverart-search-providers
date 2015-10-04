@@ -33,9 +33,9 @@ import rb
 
 
 class CoverLocale:
-    '''
+    """
     This class manages the locale
-    '''
+    """
     # storage for the instance reference
     __instance = None
 
@@ -43,18 +43,18 @@ class CoverLocale:
         """ Implementation of the singleton interface """
         # below public variables and methods that can be called for CoverLocale
         def __init__(self):
-            '''
+            """
             Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
-            '''
+            """
             self.Locale = self._enum(
                 RB='rhythmbox',
                 LOCALE_DOMAIN='coverart_search_providers')
 
         def switch_locale(self, locale_type):
-            '''
+            """
             Change the locale
-            '''
+            """
             locale.setlocale(locale.LC_ALL, '')
             locale.bindtextdomain(locale_type, RB.locale_dir())
             locale.textdomain(locale_type)
@@ -63,17 +63,17 @@ class CoverLocale:
             gettext.install(locale_type)
 
         def get_locale(self):
-            '''
+            """
             return the string representation of the users locale
             for example
             en_US
-            '''
+            """
             return locale.getdefaultlocale()[0]
 
         def _enum(self, **enums):
-            '''
+            """
             Create an enumn.
-            '''
+            """
             return type('Enum', (), enums)
 
     def __init__(self):
@@ -96,10 +96,10 @@ class CoverLocale:
 
 
 class GSetting:
-    '''
+    """
     This class manages the differentes settings that the plugins haves to
     access to read or write.
-    '''
+    """
     # storage for the instance reference
     __instance = None
 
@@ -107,10 +107,10 @@ class GSetting:
         """ Implementation of the singleton interface """
         # below public variables and methods that can be called for GSetting
         def __init__(self):
-            '''
+            """
             Initializes the singleton interface, asigning all the constants
             used to access the plugin's settings.
-            '''
+            """
             self.Path = self._enum(
                 PLUGIN='org.gnome.rhythmbox.plugins.coverart_search_providers')
 
@@ -120,9 +120,9 @@ class GSetting:
             self.setting = {}
 
         def get_setting(self, path):
-            '''
+            """
             Return an instance of Gio.Settings pointing at the selected path.
-            '''
+            """
             try:
                 setting = self.setting[path]
             except:
@@ -132,21 +132,21 @@ class GSetting:
             return setting
 
         def get_value(self, path, key):
-            '''
+            """
             Return the value saved on key from the settings path.
-            '''
+            """
             return self.get_setting(path)[key]
 
         def set_value(self, path, key, value):
-            '''
+            """
             Set the passed value to key in the settings path.
-            '''
+            """
             self.get_setting(path)[key] = value
 
         def _enum(self, **enums):
-            '''
+            """
             Create an enumn.
-            '''
+            """
             return type('Enum', (), enums)
 
     def __init__(self):
@@ -169,10 +169,10 @@ class GSetting:
 
 
 class SearchPreferences(GObject.Object, PeasGtk.Configurable):
-    '''
+    """
     Preferences for the CoverArt Browser Plugins. It holds the settings for
     the plugin and also is the responsible of creating the preferences dialog.
-    '''
+    """
     __gtype_name__ = 'CoverArtSearchProvidersPreferences'
     object = GObject.property(type=GObject.Object)
 
@@ -186,17 +186,17 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     MUSICBRAINZ_SEARCH = 'musicbrainz-search'
 
     def __init__(self):
-        '''
+        """
         Initialises the preferences, getting an instance of the settings saved
         by Gio.
-        '''
+        """
         GObject.Object.__init__(self)
         self._first_run = True
 
     def do_create_configure_widget(self):
-        '''
+        """
         Creates the plugin's preferences dialog
-        '''
+        """
         return self._create_display_contents(self)
 
     def display_preferences_dialog(self, plugin):
@@ -255,7 +255,9 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         current_providers = copy.deepcopy(self.provider)
 
         current = self.settings[self.gs.PluginKey.PROVIDERS]
+        print (current)
         current_list = current.split(',')
+        print (current_list)
 
         # create the ui
         builder = Gtk.Builder()
@@ -283,8 +285,8 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         for key, value in list(current_providers.items()):
             self.provider_liststore.append([value, key])
 
-        if len(self.provider_liststore) == 0:
-            self.provider_liststore.append([self.provider[self.EMBEDDED_SEARCH], self.EMBEDDED_SEARCH])
+        #if len(self.provider_liststore) == 0:
+        #    self.provider_liststore.append([self.provider[self.EMBEDDED_SEARCH], self.EMBEDDED_SEARCH])
 
         # return the dialog
         return builder.get_object('maingrid')
@@ -317,7 +319,7 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
         item = self.search_liststore.get_iter_first()
         current_providers = []
 
-        while ( item != None ):
+        while (item is not None):
             current_providers.append(self.search_liststore.get_value(item, 1))
             item = self.search_liststore.iter_next(item)
 
@@ -326,17 +328,16 @@ class SearchPreferences(GObject.Object, PeasGtk.Configurable):
     def on_up_button_clicked(self, *args):
         selection = self.search_list.get_selection()
         sel = selection.get_selected()
-        if not sel[1] == None:
+        if not sel[1] is None:
             previous = self.search_liststore.iter_previous(sel[1])
             if previous:
                 self.search_liststore.swap(sel[1], previous)
                 self._store_search_providers()
 
-
     def on_down_button_clicked(self, *args):
         selection = self.search_list.get_selection()
         sel = selection.get_selected()
-        if not sel[1] == None:
+        if not sel[1] is None:
             next = self.search_liststore.iter_next(sel[1])
             if next:
                 self.search_liststore.swap(sel[1], next)

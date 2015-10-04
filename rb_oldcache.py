@@ -31,7 +31,6 @@ from gi.repository import RB
 
 import rb3compat
 
-
 gettext.install('rhythmbox', RB.locale_dir())
 
 ART_FOLDER = os.path.expanduser(os.path.join(RB.user_cache_dir(), 'covers'))

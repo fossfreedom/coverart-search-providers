@@ -49,9 +49,9 @@ IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 
 
 def anyTrue(pred, seq):
-    '''Returns True if a True predicate is found, False
+    """Returns True if a True predicate is found, False
     otherwise. Quits as soon as the first True is found
-    '''
+    """
     return True in map(pred, seq)
 
 
@@ -65,11 +65,11 @@ class CoverArtTracks(object):
         return mimetype[0]
 
     def embed_ogg(self, art_location, search, mimetypestr):
-        '''
+        """
         :art_location: file path to the picture to embed
         :search: file path to the music track file
         :mimetypestr: mimetype of the picture to embed
-        '''
+        """
         try:
             module = mutagen_library('oggvorbis')
             o = module.OggVorbis(search)
@@ -91,7 +91,7 @@ class CoverArtTracks(object):
             image.mime = mimetypestr
             image.desc = 'cover description'
             tags.setdefault("METADATA_BLOCK_PICTURE",
-                []).append(base64.b64encode(image.write()))
+                            []).append(base64.b64encode(image.write()))
 
             o.tags.update(tags)
             o.save()
@@ -99,11 +99,11 @@ class CoverArtTracks(object):
             pass
 
     def embed_flac(self, art_location, search, mimetypestr):
-        '''
+        """
         :art_location: file path to the picture to embed
         :search: file path to the music track file
         :mimetypestr: mimetype of the picture to embed
-        '''
+        """
         try:
             module = mutagen_library('')
             music = module.File(search)
@@ -122,11 +122,11 @@ class CoverArtTracks(object):
             pass
 
     def embed_mp4(self, art_location, search, mimetypestr):
-        '''
+        """
         :art_location: file path to the picture to embed
         :search: file path to the music track file
         :mimetypestr: mimetype of the picture to embed
-        '''
+        """
         try:
             module = mutagen_library('mp4')
             music = module.MP4(search)
@@ -145,11 +145,11 @@ class CoverArtTracks(object):
             pass
 
     def embed_mp3(self, art_location, search, mimetypestr):
-        '''
+        """
         :art_location: file path to the picture to embed
         :search: file path to the music track file
         :mimetypestr: mimetype of the picture to embed
-        '''
+        """
         try:
             module = mutagen_library('id3')
             music = module.ID3(search)
@@ -165,7 +165,7 @@ class CoverArtTracks(object):
             pass
 
     def embed(self, track_uri, key, resize=-1):
-        '''
+        """
         embed tracks with the coverart
 
         :track_uri: nominally RB.RhythmDBPropType.LOCATION
@@ -173,7 +173,7 @@ class CoverArtTracks(object):
         :resize: int this is the size of the embedded image to resize to
 
         returns True or False depending if the routine completed successfully
-        '''
+        """
 
         the = anyTrue  # for readability
 
@@ -181,7 +181,7 @@ class CoverArtTracks(object):
 
         if not isinstance(art_location, str):
             art_location = art_location[0]
-            
+
         if not art_location:
             print("not a valid key to a file containing art")
             return False

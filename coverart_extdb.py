@@ -18,23 +18,18 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import time
-
 from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 from gi.repository import Gio
-
+import os
+import json
 import rb3compat
-
 
 if rb3compat.PYVER >= 3:
     import dbm.gnu as gdbm
 else:
     import gdbm
-
-import os
-import json
-
 
 class Queue:
     def __init__(self):
@@ -54,7 +49,7 @@ class Queue:
 
 
 class CoverArtExtDB:
-    '''
+    """
     This is a simplified version of the RB.ExtDB capability.  This
     resolves the bugs in the extant capability, primarily around using
     signals for none "album-art" databases.
@@ -67,7 +62,7 @@ class CoverArtExtDB:
     ported to python3 - this uses the analagous gdbm format.
 
     :param name: `str` name of the external database.
-    '''
+    """
 
     # storage for the instance references
     __instances = {}
@@ -84,7 +79,7 @@ class CoverArtExtDB:
         }
 
         # added (ExtDB self, ExtDBKey object, String path, Value pixbuf)
-        #request (ExtDB self, ExtDBKey object, guint64 last_time)
+        # request (ExtDB self, ExtDBKey object, guint64 last_time)
 
         _callback = {}
 
@@ -138,11 +133,11 @@ class CoverArtExtDB:
             return keyval
 
         def store(self, key, source_type, data):
-            '''
+            """
             :param key: `ExtDBKey`
             :param source_type: `ExtDBSourceType`
             :param data: `GdkPixbuf.Pixbuf`
-            '''
+            """
             print("store")
 
             self.store_uri(key, source_type, data)
@@ -201,23 +196,23 @@ class CoverArtExtDB:
             return False
 
         def store_uri(self, key, source_type, data):
-            '''
+            """
             :param key: `ExtDBKey`
             :param source_type: `ExtDBSourceType`
             :param data: `str` which is a uri
-            '''
+            """
             print("store_uri")
 
             self.queue.enqueue((key, source_type, data))
 
-            #Gio.io_scheduler_push_job(self.do_store_request, None, 
+            # Gio.io_scheduler_push_job(self.do_store_request, None,
             #        GLib.PRIORITY_DEFAULT, None)
             self.do_store_request()
 
         def lookup(self, key):
-            '''
+            """
             :param key: `ExtDBKey`
-            '''
+            """
             lookup = self._construct_key(key)
             filename = ''
             if lookup in self.db:
@@ -227,16 +222,15 @@ class CoverArtExtDB:
 
             return str(filename)
 
-
         def request(self, key, callback, user_data):
-            '''
+            """
             :param key: `ExtDBKey`
             :param callback: `Function` callback
             :param user_data: `Value`
             
             where callback is
             Function (ExtDBKey key, String filename, GdkPixbuf.Pixbuf data, void* user_data) boolean
-            '''
+            """
 
             lookup = self._construct_key(key)
 
@@ -276,4 +270,3 @@ class CoverArtExtDB:
     def __setattr__(self, attr, value):
         """ Delegate access to implementation """
         return setattr(self.__dict__['_CoverArtExtDB__instance'], attr, value)
-        

@@ -35,7 +35,6 @@ import chardet
 import rb
 import rb3compat
 
-
 gettext.install('rhythmbox', RB.locale_dir())
 
 if rb3compat.PYVER >= 3:
@@ -50,6 +49,7 @@ REPEAT_SEARCH_PERIOD = 86400 * 7
 
 def file_root(f_name):
     return os.path.splitext(f_name)[0].lower()
+
 
 # this API key belongs to foss.freedom@gmail.com
 # and was generated specifically for this use
@@ -79,14 +79,14 @@ class ArtistCoverSearch(object):
         self.searches = searches
 
     def next_search(self, continue_search):
-        '''
+        """
         main routine that calls the search routine for each search provider
         unless one of the searches has found something
 
         outputs - return False means that nothing found
         inputs - True means continue with searching
                - False means a search routine recommends no more searching
-        '''
+        """
 
         if len(self.searches) == 0 and continue_search:
             key = RB.ExtDBKey.create_storage("artist", self.key.get_field("artist"))
@@ -110,7 +110,7 @@ class LastFMArtistSearch(object):
 
     def search_url(self, artist):
 
-        print(("searching for (%s)" % (artist)))
+        print("searching for (%s)" % (artist))
         url = API_URL + "?method=artist.getinfo&"
         url = url + "artist=%s&" % (rb3compat.quote_plus(artist))
         url = url + "format=json&"
@@ -153,7 +153,7 @@ class LastFMArtistSearch(object):
             # images tags appear in order of increasing size, and we want the largest.  probably.
             url = image_urls.pop()
 
-            #last check - ensure the size is relatively large to hide false positives
+            # last check - ensure the size is relatively large to hide false positives
             site = rb3compat.urlopen(url)
             meta = site.info()
 
@@ -180,12 +180,12 @@ class LastFMArtistSearch(object):
         l.get_url(url, self.artist_info_cb)
 
     def search(self, key, last_time, store, callback, args):
-        #if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
+        # if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
         #    print("we already tried this one")
         #    callback (True)
         #    return
 
-        if user_has_account() == False:
+        if not user_has_account():
             print("can't search: no last.fm account details")
             callback(True)
             return
@@ -193,7 +193,7 @@ class LastFMArtistSearch(object):
         artist = key.get_field("artist")
         self.key = key
 
-        if artist == None:
+        if artist is None:
             print("can't search: no useful details")
             callback(True)
             return

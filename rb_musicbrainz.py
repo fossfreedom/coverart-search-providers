@@ -34,6 +34,7 @@ import rb3compat
 from coverart_album_search import BaseSearch
 
 
+
 # musicbrainz URLs
 MUSICBRAINZ_RELEASE_URL = "http://musicbrainz.org/ws/2/release/%s?inc=artists"
 MUSICBRAINZ_RELEASE_PREFIX = "http://musicbrainz.org/release/"

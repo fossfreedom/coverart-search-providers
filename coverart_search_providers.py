@@ -44,16 +44,16 @@ import rb3compat
 
 
 def lastfm_connected():
-    '''
+    """
     returns True/False if connected to lastfm
-    '''
+    """
     return user_has_account()
 
 
 def get_search_providers():
-    '''
+    """
     returns an array of search providers
-    '''
+    """
     gs = GSetting()
     setting = gs.get_setting(gs.Path.PLUGIN)
     current_providers = setting[gs.PluginKey.PROVIDERS]
@@ -62,27 +62,27 @@ def get_search_providers():
 
 
 class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
-    '''
+    """
     Main class of the plugin. Manages the activation and deactivation of the
     plugin.
-    '''
+    """
     __gtype_name = 'CoverArtAlbumSearchPlugin'
     object = GObject.property(type=GObject.Object)
 
     def __init__(self):
-        '''
+        """
         Initialises the plugin object.
-        '''
+        """
         GObject.Object.__init__(self)
         if not rb3compat.compare_pygobject_version('3.9'):
             GObject.threads_init()
 
     def do_activate(self):
-        '''
+        """
         Called by Rhythmbox when the plugin is activated. It creates the
         plugin's source and connects signals to manage the plugin's
         preferences.
-        '''
+        """
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
@@ -128,12 +128,11 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         dialog.run()
         dialog.destroy()
 
-
     def do_deactivate(self):
-        '''
+        """
         Called by Rhythmbox when the plugin is deactivated. It makes sure to
         free all the resources used by the plugin.
-        '''
+        """
         print("CoverArtBrowser DEBUG - do_deactivate")
 
         self.shell.disconnect(self.csi_id)

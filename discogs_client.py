@@ -1,20 +1,22 @@
-__version_info__ = (1,1,1)
+__version_info__ = (1, 1, 1)
 __version__ = '1.1.1'
 
-import requests
 import json
-import rb3compat
-
 from collections import defaultdict
+
+import requests
+
+import rb3compat
 
 api_uri = 'http://api.discogs.com'
 user_agent = None
+
 
 class APIBase(object):
     def __init__(self):
         self._cached_response = None
         self._params = {}
-        self._headers = { 'accept-encoding': 'gzip, deflate' }
+        self._headers = {'accept-encoding': 'gzip, deflate'}
 
     def __str__(self):
         return '<%s "%s">' % (self.__class__.__name__, self._id)
@@ -36,20 +38,21 @@ class APIBase(object):
             if not self._check_user_agent():
                 raise DiscogsAPIError('Invalid or no User-Agent set')
             try:
-                #gs = GSetting()
-                #setting = gs.get_setting(gs.Path.PLUGIN)
-                #type_val = setting[gs.PluginKey.PROXY_TYPE]
-                #if type_val == 0:
+                # gs = GSetting()
+                # setting = gs.get_setting(gs.Path.PLUGIN)
+                # type_val = setting[gs.PluginKey.PROXY_TYPE]
+                # if type_val == 0:
                 #    type_name = 'http'
-                #elif type_val == 1:
+                # elif type_val == 1:
                 #    type_name = 'https'
-                #elif type_val == 2:
+                # elif type_val == 2:
                 #    type_name = 'ftp'
-                    
-                #proxy_name = setting[gs.PluginKey.PROXY_VALUE]
-                proxydict = {'http':''}
-                #proxydict[type_name] = proxy_name
-                self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers, proxies=proxydict)
+
+                # proxy_name = setting[gs.PluginKey.PROXY_VALUE]
+                proxydict = {'http': ''}
+                # proxydict[type_name] = proxy_name
+                self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers,
+                                                     proxies=proxydict)
             except:
                 raise DiscogsAPIError('bad response')
 
@@ -61,10 +64,9 @@ class APIBase(object):
 
     @property
     def _uri(self):
-        import urllib
         return '%s/%s/%s' % (api_uri, self._uri_name, rb3compat.quote(rb3compat.unicodeencode(self._id, 'utf-8')))
-        #return '%s/%s/%s' % (api_uri, self._uri_name, urllib.quote(unicode(self._id).encode('utf-8')))
-        
+        # return '%s/%s/%s' % (api_uri, self._uri_name, urllib.quote(unicode(self._id).encode('utf-8')))
+
     @property
     def data(self):
         if self._response.content and self._response.status_code == 200:
@@ -74,8 +76,10 @@ class APIBase(object):
             status_code = self._response.status_code
             raise DiscogsAPIError('%s %s' % (status_code, rb3compat.responses()[status_code]))
 
+
 class DiscogsAPIError(BaseException):
     pass
+
 
 def _parse_credits(extraartists):
     """
@@ -94,15 +98,17 @@ def _parse_credits(extraartists):
         _credits[role].append(artist_dict)
     return _credits
 
+
 def _class_from_string(api_string):
     class_map = {
-            'master': MasterRelease,
-            'release': Release,
-            'artist': Artist,
-            'label': Label
+        'master': MasterRelease,
+        'release': Release,
+        'artist': Artist,
+        'label': Label
     }
 
     return class_map[api_string]
+
 
 class Artist(APIBase):
     def __init__(self, name, anv=None):
@@ -134,7 +140,7 @@ class Artist(APIBase):
     @property
     def releases(self):
         # TODO: Implement fetch many release IDs
-        #return [Release(r.get('id') for r in self.data.get('releases')]
+        # return [Release(r.get('id') for r in self.data.get('releases')]
         if not self._releases:
             self._params.update({'releases': '1'})
             self._clear_cache()
@@ -142,6 +148,7 @@ class Artist(APIBase):
             for r in self.data.get('releases', []):
                 self._releases.append(_class_from_string(r['type'])(r['id']))
         return self._releases
+
 
 class Release(APIBase):
     def __init__(self, id):
@@ -168,7 +175,7 @@ class Release(APIBase):
     @property
     def labels(self):
         if not self._labels:
-            self._labels =  [Label(l['name']) for l in self.data.get('labels', [])]
+            self._labels = [Label(l['name']) for l in self.data.get('labels', [])]
         return self._labels
 
     @property
@@ -198,6 +205,7 @@ class Release(APIBase):
     @property
     def title(self):
         return self.data.get('title')
+
 
 class MasterRelease(APIBase):
     def __init__(self, id):
@@ -240,6 +248,7 @@ class MasterRelease(APIBase):
     def tracklist(self):
         return self.key_release.tracklist
 
+
 class Label(APIBase):
     def __init__(self, name):
         self._id = name
@@ -265,6 +274,7 @@ class Label(APIBase):
         self._params.update({'releases': '1'})
         self._clear_cache()
         return self.data.get('releases')
+
 
 class Search(APIBase):
     def __init__(self, query, page=1):

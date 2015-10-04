@@ -42,7 +42,6 @@ import discogs_client as discogs
 import rb
 from coverart_search_tracks import mutagen_library
 
-
 ITEMS_PER_NOTIFICATION = 10
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 REPEAT_SEARCH_PERIOD = 86400 * 7
@@ -73,7 +72,7 @@ class BaseSearch(object):
         print("rate_limit")
         diff = time.time() - self.current_time
         if diff < (1.0 / per_second_rate):
-            #Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 
+            # Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE,
             #    int((1.0 / per_second_rate) *100), delay, None)
             time.sleep((1.0 / per_second_rate) - diff)
             print("sleeping")
@@ -91,14 +90,14 @@ class CoverSearch(object):
         self.searches = searches
 
     def next_search(self, continue_search):
-        '''
+        """
         main routine that calls the search routine for each search provider
         unless one of the searches has found something
 
         outputs - return False means that nothing found
         inputs - True means continue with searching
                - False means a search routine recommends no more searching
-        '''
+        """
 
         print("next search")
         print(continue_search)
@@ -107,7 +106,7 @@ class CoverSearch(object):
             album = self.key.get_field("album")
             if not album:
                 return False
-                
+
             key = RB.ExtDBKey.create_storage("album", album)
             key.add_field("artist", self.key.get_field("artist"))
             self.store.store(key, RB.ExtDBSourceType.NONE, None)
@@ -151,7 +150,7 @@ class CoverAlbumSearch:
         try:
             files = fileenum.next_files_finish(result)
             if files is None or len(files) == 0:
-                #print "okay, done; got %d files" % len(results)
+                # print "okay, done; got %d files" % len(results)
                 self.finished(results)
                 return
 
@@ -163,7 +162,7 @@ class CoverAlbumSearch:
                     readable = f.get_attribute_boolean("access::can-read")
 
                 if ct is not None and ct.startswith("audio/") and readable:
-                    #print "_enum_dir_cb %s " % f.get_name()
+                    # print "_enum_dir_cb %s " % f.get_name()
                     results.append(f.get_name())
 
             fileenum.next_files_async(ITEMS_PER_NOTIFICATION, GLib.PRIORITY_DEFAULT, None, self._enum_dir_cb, results)
@@ -173,7 +172,6 @@ class CoverAlbumSearch:
 
             sys.excepthook(*sys.exc_info())
             self.finished(results)
-
 
     def _enum_children_cb(self, parent, result, data):
         try:
@@ -185,7 +183,6 @@ class CoverAlbumSearch:
 
             sys.excepthook(*sys.exc_info())
             self.callback(True)
-
 
     def search(self, key, last_time, store, callback, args):
         # ignore last_time
@@ -220,7 +217,7 @@ class CoverAlbumSearch:
 
         if not self.album:
             return False
-            
+
         key = RB.ExtDBKey.create_storage("album", self.album)
         key.add_field("artist", self.artists[0])
         parent = self.file.get_parent()
@@ -241,7 +238,7 @@ class CoverAlbumSearch:
 
         print("possible flac")
         try:
-            #flac 
+            # flac
             module = mutagen_library('')
             music = module.File(search)
             imagefilename.write(music.pictures[0].data)
@@ -344,7 +341,7 @@ class DiscogsSearch(object):
         if album in ("", _("Unknown")):
             album = None
 
-        if album == None or len(artists) == 0:
+        if album is None or len(artists) == 0:
             callback(True)
             return
 
@@ -406,7 +403,6 @@ class SpotifySearch(BaseSearch):
 
     def search_url(self, artist, album):
         # Remove variants of Disc/CD [1-9] from album title before search
-        orig_album = album
         for exp in DISC_NUMBER_REGEXS:
             p = re.compile(exp, re.IGNORECASE)
             album = p.sub('', album)
@@ -421,7 +417,6 @@ class SpotifySearch(BaseSearch):
         url = url + "&offset=0&limit=10&type=album"
         print("spotify query url = %s" % url)
         return url
-
 
     def album_info_cb(self, data, album_name):
         if data is None:
@@ -474,7 +469,7 @@ class SpotifySearch(BaseSearch):
         if album in ("", _("Unknown")):
             album = None
 
-        if album == None or len(artists) == 0:
+        if album is None or len(artists) == 0:
             print("can't search: no useful details")
             callback(True)
             return

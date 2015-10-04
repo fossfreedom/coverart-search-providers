@@ -128,7 +128,6 @@ class LocalSearch:
             sys.excepthook(*sys.exc_info())
             self.finished(results)
 
-
     def _enum_children_cb(self, parent, result, data):
         try:
             enumfiles = parent.enumerate_children_finish(result)
@@ -139,7 +138,6 @@ class LocalSearch:
 
             sys.excepthook(*sys.exc_info())
             self.callback(True)
-
 
     def search(self, key, last_time, store, callback, args):
         # ignore last_time
@@ -158,10 +156,10 @@ class LocalSearch:
 
         self.album = key.get_field("album")
         if not self.album:
-            print ('no album name')
+            print('no album name')
             callback(args)
             return
-            
+
         self.artists = key.get_field_values("artist")
         self.store = store
         self.callback = callback

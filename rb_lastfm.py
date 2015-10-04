@@ -30,7 +30,6 @@ import re
 import rb3compat
 from coverart_album_search import BaseSearch
 
-
 if rb3compat.PYVER >= 3:
     import configparser
 else:
@@ -108,7 +107,6 @@ class LastFMSearch(BaseSearch):
         print("last.fm query url = %s" % url)
         return url
 
-
     def album_info_cb(self, data):
         if data is None:
             print("last.fm query returned nothing")
@@ -171,7 +169,6 @@ class LastFMSearch(BaseSearch):
 
         l = rb.Loader()
         self.rate_limit(l.get_url, (url, self.album_info_cb), 5)
-
 
     def search(self, key, last_time, store, callback, args):
 

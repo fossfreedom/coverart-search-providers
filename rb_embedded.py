@@ -27,57 +27,56 @@
 from gi.repository import RB
 from gi.repository import Gst, GstPbutils
 
+
 class EmbeddedSearch(object):
+    def finished_cb(self, discoverer):
+        self.callback(True)
 
-	def finished_cb(self, discoverer):
-		self.callback(True)
+    def discovered_cb(self, discoverer, info, error):
+        tags = info.get_tags()
+        if tags is None:
+            return
 
-	def discovered_cb(self, discoverer, info, error):
-		tags = info.get_tags()
-		if tags is None:
-			return
+        for tagname in ('image', 'preview-image'):
+            (found, sample) = tags.get_sample(tagname)
+            if not found:
+                print("no %s" % tagname)
+                continue
 
-		for tagname in ('image', 'preview-image'):
-			(found, sample) = tags.get_sample(tagname)
-			if not found:
-				print("no %s" % tagname)
-				continue
+            pixbuf = RB.gst_process_embedded_image(tags, tagname)
+            if not pixbuf:
+                print("no pixbuf in %s" % tagname)
+                continue
 
-			pixbuf = RB.gst_process_embedded_image(tags, tagname)
-			if not pixbuf:
-				print("no pixbuf in %s" % tagname)
-				continue
+            print("trying to store pixbuf from %s" % tagname)
+            key = RB.ExtDBKey.create_storage("album", self.search_key.get_field("album"))
+            artists = self.search_key.get_field_values("artist")
+            key.add_field("artist", artists[0])
+            self.store.store(key, RB.ExtDBSourceType.EMBEDDED, pixbuf)
+            return
 
-			print("trying to store pixbuf from %s" % tagname)
-			key = RB.ExtDBKey.create_storage("album", self.search_key.get_field("album"))
-			artists = self.search_key.get_field_values("artist")
-			key.add_field("artist", artists[0])
-			self.store.store(key, RB.ExtDBSourceType.EMBEDDED, pixbuf)
-			return
+    def search(self, key, last_time, store, callback, args):
+        location = key.get_info("location")
+        if location is None:
+            print("not searching, we don't have a location")
+            callback(True)
+            return
 
+        if location.startswith("file://") is False:
+            print("not searching in non-local file %s" % location)
+            callback(True)
+            return
 
-	def search (self, key, last_time, store, callback, args):
-		location = key.get_info("location")
-		if location is None:
-			print("not searching, we don't have a location")
-			callback(True)
-			return
+        # should avoid checking the playing entry, since the player already handles that
 
-		if location.startswith("file://") is False:
-			print("not searching in non-local file %s" % location)
-			callback(True)
-			return
+        self.callback = callback
+        self.callback_args = args
+        self.store = store
+        self.search_key = key
 
-		# should avoid checking the playing entry, since the player already handles that
-
-		self.callback = callback
-		self.callback_args = args
-		self.store = store
-		self.search_key = key
-
-		print("discovering %s" % location)
-		self.discoverer = GstPbutils.Discoverer(timeout=Gst.SECOND*5)
-		self.discoverer.connect('finished', self.finished_cb)
-		self.discoverer.connect('discovered', self.discovered_cb)
-		self.discoverer.start()
-		self.discoverer.discover_uri_async(location)
+        print("discovering %s" % location)
+        self.discoverer = GstPbutils.Discoverer(timeout=Gst.SECOND * 5)
+        self.discoverer.connect('finished', self.finished_cb)
+        self.discoverer.connect('discovered', self.discovered_cb)
+        self.discoverer.start()
+        self.discoverer.discover_uri_async(location)
