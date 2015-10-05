@@ -201,6 +201,11 @@ class CoverAlbumSearch:
 
         self.album = key.get_field("album")
         self.artists = key.get_field_values("artist")
+
+        if self.album is None:
+            callback(True)
+            return
+
         self.store = store
         self.callback = callback
 
