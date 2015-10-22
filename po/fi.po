@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-10 19:47+0100\n"
-"PO-Revision-Date: 2013-08-22 08:11+0000\n"
+"PO-Revision-Date: 2015-10-22 06:45+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-11 19:20+0000\n"
-"X-Generator: Launchpad (build 17111)\n"
+"X-Launchpad-Export-Date: 2015-10-22 19:28+0000\n"
+"X-Generator: Launchpad (build 17812)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
@@ -65,7 +65,7 @@ msgstr "LastFM-internettuottaja"
 
 #: coverart_search_providers_prefs.py:246
 msgid "Spotify Internet Provider"
-msgstr ""
+msgstr "Spotify-internettuottaja"
 
 #: coverart_search_providers_prefs.py:247
 msgid "Coverart Archive Internet Provider"
@@ -81,7 +81,7 @@ msgstr "Discogs-internettuottaja"
 
 #: coverart_search_providers.py:93
 msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""
+msgstr "Kansikuvien lisähakuvalikoimat Rytmilaatikolle"
 
 #: coverart_search_providers.py:127
 msgid "Conflicting plugin found."
@@ -89,4 +89,4 @@ msgstr "Löytyi ristiriidan aiheuttava liitännäinen."
 
 #: coverart_search_providers.py:129
 msgid "The ArtSearch plugin has been deactivated"
-msgstr ""
+msgstr "Kansikuvien hakuliitännäinen on poistettu käytöstä"
