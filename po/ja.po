@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-10 19:47+0100\n"
-"PO-Revision-Date: 2013-04-19 16:55+0000\n"
-"Last-Translator: epii <public.epii@gmail.com>\n"
+"PO-Revision-Date: 2015-11-07 19:23+0000\n"
+"Last-Translator: Shushi Kurose <md81bird@hitaki.net>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-11 19:20+0000\n"
-"X-Generator: Launchpad (build 17111)\n"
+"X-Launchpad-Export-Date: 2015-11-08 11:28+0000\n"
+"X-Generator: Launchpad (build 17838)\n"
 
 #: tmp/coverart_search_providers_prefs.ui.h:1
 msgid "Choose Search Providers:"
@@ -45,6 +45,7 @@ msgstr "カバーアートブラウザの検索プロバイダ"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Shushi Kurose https://launchpad.net/~kuromabo\n"
 "  epii https://launchpad.net/~epii"
 
 #: coverart_search_providers_prefs.py:242
@@ -65,7 +66,7 @@ msgstr "LastFM インターネットプロバイダ"
 
 #: coverart_search_providers_prefs.py:246
 msgid "Spotify Internet Provider"
-msgstr ""
+msgstr "Spotifyインターネットプロバイダー"
 
 #: coverart_search_providers_prefs.py:247
 msgid "Coverart Archive Internet Provider"
